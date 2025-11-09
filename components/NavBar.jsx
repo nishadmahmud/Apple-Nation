@@ -14,16 +14,13 @@ const navigationLinks = [
 
 export default function NavBar() {
   return (
-    <header className="sticky top-0 z-50 border-b border-white/20 bg-white/80 backdrop-blur dark:border-zinc-800/60 dark:bg-zinc-950/80">
+    <header className="sticky top-0 z-50 border-b border-slate-200/30 bg-slate-100/95 backdrop-blur-xl backdrop-saturate-150 dark:border-zinc-800/30 dark:bg-zinc-950/95">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-3 px-6 py-4 sm:px-10 lg:px-16 lg:flex-row lg:items-center lg:justify-between">
         <div className="flex items-center justify-between gap-6">
           <Link href="/" className="flex items-center gap-3">
             <div className="flex flex-col">
               <span className="text-lg font-bold text-slate-900 dark:text-zinc-100">
                 Apple Nation BD
-              </span>
-              <span className="text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-zinc-400">
-                Gadget Store
               </span>
             </div>
           </Link>
