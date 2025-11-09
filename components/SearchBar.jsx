@@ -88,7 +88,7 @@ export default function SearchBar({ initialQuery = "" }) {
             }
           }}
           placeholder="Search products..."
-          className="block w-full rounded-lg border border-slate-300 bg-white px-10 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500/20 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:placeholder:text-zinc-500 dark:focus:border-sky-500"
+          className="block w-full rounded-lg border border-slate-300 bg-white px-10 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500/20 dark:border-zinc-600 dark:bg-zinc-700/70 dark:text-zinc-100 dark:placeholder:text-zinc-500 dark:focus:border-sky-500"
         />
         {searchQuery && (
           <button

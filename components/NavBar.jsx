@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import ThemeToggle from "./ThemeToggle";
 
@@ -14,13 +15,26 @@ const navigationLinks = [
 
 export default function NavBar() {
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200/30 bg-slate-100/95 backdrop-blur-xl backdrop-saturate-150 dark:border-zinc-800/30 dark:bg-zinc-950/95">
+    <header className="sticky top-0 z-50 border-b border-slate-200/30 bg-slate-100/95 backdrop-blur-xl backdrop-saturate-150 dark:border-zinc-700/30 dark:bg-zinc-900/95">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-3 px-6 py-4 sm:px-10 lg:px-16 lg:flex-row lg:items-center lg:justify-between">
         <div className="flex items-center justify-between gap-6">
           <Link href="/" className="flex items-center gap-3">
-            <div className="flex flex-col">
+            <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-white sm:h-12 sm:w-12">
+              <Image
+                src="/logo.png"
+                alt="Apple Nation BD"
+                fill
+                className="object-contain p-1"
+                sizes="(max-width: 640px) 40px, 48px"
+                priority
+              />
+            </div>
+            <div className="hidden flex-col sm:flex">
               <span className="text-lg font-bold text-slate-900 dark:text-zinc-100">
                 Apple Nation BD
+              </span>
+              <span className="text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-zinc-400">
+                Gadget Store
               </span>
             </div>
           </Link>

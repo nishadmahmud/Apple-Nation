@@ -77,7 +77,7 @@ export default function ProductFilters() {
               className={`w-full rounded-lg px-4 py-2 text-left text-sm font-medium transition-colors duration-200 ${
                 currentCategory === "all"
                   ? "bg-sky-600 text-white dark:bg-sky-500"
-                  : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700"
+                  : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-zinc-700/70 dark:text-zinc-200 dark:hover:bg-zinc-600/80"
               }`}
             >
               All Products
@@ -91,7 +91,7 @@ export default function ProductFilters() {
                   className={`w-full rounded-lg px-4 py-2 text-left text-sm font-medium transition-colors duration-200 ${
                     currentCategory === categoryIdStr
                       ? "bg-sky-600 text-white dark:bg-sky-500"
-                      : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700"
+                      : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-zinc-700/70 dark:text-zinc-200 dark:hover:bg-zinc-600/80"
                   }`}
                 >
                   {category.name}
@@ -132,7 +132,7 @@ export default function ProductFilters() {
                   className={`w-full rounded-lg px-4 py-2 text-left text-sm font-medium transition-colors duration-200 ${
                     currentPriceRange === rangeValue
                       ? "bg-sky-600 text-white dark:bg-sky-500"
-                      : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700"
+                      : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-zinc-700/70 dark:text-zinc-200 dark:hover:bg-zinc-600/80"
                   }`}
                 >
                   {range.label}
@@ -151,7 +151,7 @@ export default function ProductFilters() {
         <select
           value={currentSort}
           onChange={(e) => updateFilter("sort", e.target.value)}
-          className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-900 focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500/20 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:focus:border-sky-500"
+          className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-900 focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500/20 dark:border-zinc-600 dark:bg-zinc-700/70 dark:text-zinc-100 dark:focus:border-sky-500"
         >
           {SORT_OPTIONS.map((option) => (
             <option key={option.value} value={option.value}>

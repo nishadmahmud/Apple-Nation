@@ -23,9 +23,9 @@ export default function ProductCard({ product }) {
   return (
     <Link
       href={`/products/${product.id}`}
-      className="group flex flex-col gap-4 overflow-hidden rounded-2xl border border-slate-200 bg-white/95 p-5 shadow-lg shadow-slate-900/5 transition-transform duration-300 hover:-translate-y-1 hover:border-sky-500 hover:shadow-xl dark:border-zinc-800 dark:bg-zinc-900/60 dark:hover:border-sky-500/60"
+      className="group flex flex-col gap-4 overflow-hidden rounded-2xl border border-slate-200 bg-white/95 p-5 shadow-lg shadow-slate-900/5 transition-transform duration-300 hover:-translate-y-1 hover:border-sky-500 hover:shadow-xl dark:border-zinc-700 dark:bg-zinc-800/90 dark:hover:border-sky-500/60"
     >
-      <div className="relative h-44 w-full overflow-hidden rounded-xl bg-slate-100 dark:bg-zinc-800">
+      <div className="relative h-44 w-full overflow-hidden rounded-xl bg-slate-100 dark:bg-zinc-700/50">
         <Image
           src={imageSrc}
           alt={product.name}

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const footerMenus = [
@@ -32,14 +33,21 @@ const footerMenus = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-slate-200 bg-white/90 text-slate-700 dark:border-zinc-800 dark:bg-zinc-950/80 dark:text-zinc-400">
+    <footer className="border-t border-slate-200 bg-white/90 text-slate-700 dark:border-zinc-700 dark:bg-zinc-900/80 dark:text-zinc-400">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-6 py-12 sm:px-10 lg:px-16">
         <div className="grid gap-10 md:grid-cols-[1.2fr_1fr_1fr_1fr]">
           <div className="flex flex-col gap-4">
             <Link href="/" className="flex items-center gap-3">
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-slate-900 text-sm font-semibold text-white shadow-lg shadow-slate-900/20 dark:bg-slate-100 dark:text-slate-900">
-                AN
-              </span>
+              <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full bg-white">
+                <Image
+                  src="/logo.png"
+                  alt="Apple Nation BD"
+                  fill
+                  className="object-contain p-1"
+                  sizes="48px"
+                  priority
+                />
+              </div>
               <div className="flex flex-col">
                 <span className="text-lg font-bold text-slate-900 dark:text-zinc-100">
                   Apple Nation BD

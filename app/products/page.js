@@ -299,7 +299,7 @@ async function ProductsContent({ searchParams }) {
   );
 
   return (
-    <div className="min-h-screen bg-slate-100 text-slate-900 transition-colors duration-300 dark:bg-zinc-950 dark:text-zinc-100">
+    <div className="min-h-screen bg-slate-100 text-slate-900 transition-colors duration-300 dark:bg-zinc-900 dark:text-zinc-100">
       <div className="mx-auto w-full max-w-7xl px-6 py-8 sm:px-10 lg:px-16">
         {/* Header */}
         <div className="mb-8">
@@ -319,7 +319,7 @@ async function ProductsContent({ searchParams }) {
         <div className="flex flex-col gap-8 lg:flex-row">
           {/* Filters Sidebar */}
           <aside className="w-full shrink-0 lg:w-64">
-            <div className="sticky top-8 rounded-2xl border border-slate-200 bg-white/95 p-6 shadow-lg shadow-slate-900/5 dark:border-zinc-800 dark:bg-zinc-900/60">
+            <div className="sticky top-8 rounded-2xl border border-slate-200 bg-white/95 p-6 shadow-lg shadow-slate-900/5 dark:border-zinc-700 dark:bg-zinc-800/90">
               <FiltersWrapper />
             </div>
           </aside>
@@ -347,7 +347,7 @@ async function ProductsContent({ searchParams }) {
                 )}
               </>
             ) : (
-              <div className="flex flex-col items-center justify-center rounded-2xl border border-slate-200 bg-white/95 p-12 text-center dark:border-zinc-800 dark:bg-zinc-900/60">
+              <div className="flex flex-col items-center justify-center rounded-2xl border border-slate-200 bg-white/95 p-12 text-center dark:border-zinc-700 dark:bg-zinc-800/90">
                 <p className="text-lg font-semibold text-slate-900 dark:text-zinc-100">
                   No products found
                 </p>
@@ -370,7 +370,7 @@ export default async function ProductsPage({ searchParams }) {
   return (
     <Suspense
       fallback={
-        <div className="flex min-h-screen items-center justify-center bg-slate-100 text-slate-900 dark:bg-zinc-950 dark:text-zinc-100">
+        <div className="flex min-h-screen items-center justify-center bg-slate-100 text-slate-900 dark:bg-zinc-900 dark:text-zinc-100">
           <div className="flex flex-col items-center gap-4">
             <LoadingSpinner size="lg" />
             <p className="text-lg font-semibold text-slate-700 dark:text-zinc-300">
