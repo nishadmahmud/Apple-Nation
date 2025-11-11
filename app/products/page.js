@@ -1,8 +1,5 @@
 import { Suspense } from "react";
-import ProductCard from "../../components/ProductCard";
-import ProductFilters from "../../components/ProductFilters";
-import SearchBar from "../../components/SearchBar";
-import Pagination from "../../components/Pagination";
+import ProductsPageClient from "../../components/ProductsPageClient";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import {
   fetchAllProducts,
@@ -10,30 +7,6 @@ import {
   getAllCategories,
 } from "../../lib/api";
 
-function FiltersWrapper() {
-  return (
-    <Suspense
-      fallback={
-        <div className="flex items-center justify-center py-4">
-          <LoadingSpinner size="sm" />
-          <span className="ml-2 text-sm text-slate-600 dark:text-zinc-400">
-            Loading filters...
-          </span>
-        </div>
-      }
-    >
-      <ProductFilters />
-    </Suspense>
-  );
-}
-
-function SearchBarWrapper({ initialQuery }) {
-  return (
-    <Suspense fallback={<div className="h-10 w-full sm:min-w-[300px] rounded-lg border border-slate-300 bg-slate-100 dark:border-zinc-700 dark:bg-zinc-800 animate-pulse" />}>
-      <SearchBar initialQuery={initialQuery} />
-    </Suspense>
-  );
-}
 
 export const revalidate = 600; // Revalidate every 10 minutes
 
@@ -299,67 +272,16 @@ async function ProductsContent({ searchParams }) {
   );
 
   return (
-    <div className="min-h-screen bg-slate-100 text-slate-900 transition-colors duration-300 dark:bg-zinc-900 dark:text-zinc-100">
-      <div className="mx-auto w-full max-w-7xl px-6 py-8 sm:px-10 lg:px-16">
-        {/* Header */}
-        <div className="mb-8">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
-            <div>
-              <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl dark:text-zinc-100">
-                {selectedCategory ? selectedCategory.name : "All Products"}
-              </h1>
-              <p className="mt-2 text-base text-slate-600 dark:text-zinc-400">
-                {filteredProducts.length} product{filteredProducts.length !== 1 ? "s" : ""} found
-              </p>
-            </div>
-            <SearchBarWrapper initialQuery={searchQuery} />
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-8 lg:flex-row">
-          {/* Filters Sidebar */}
-          <aside className="w-full shrink-0 lg:w-64">
-            <div className="sticky top-8 rounded-2xl border border-slate-200 bg-white/95 p-6 shadow-lg shadow-slate-900/5 dark:border-zinc-700 dark:bg-zinc-800/90">
-              <FiltersWrapper />
-            </div>
-          </aside>
-
-          {/* Products Grid */}
-          <main className="flex-1">
-            {paginatedProducts.length > 0 ? (
-              <>
-                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                  {paginatedProducts.map((product) => (
-                    <ProductCard key={product.id} product={product} />
-                  ))}
-                </div>
-                {totalPages > 1 && (
-                  <div className="mt-8">
-                    <Suspense fallback={<div className="h-12" />}>
-                      <Pagination
-                        currentPage={currentPage}
-                        totalPages={totalPages}
-                        totalItems={totalItems}
-                        itemsPerPage={itemsPerPage}
-                      />
-                    </Suspense>
-                  </div>
-                )}
-              </>
-            ) : (
-              <div className="flex flex-col items-center justify-center rounded-2xl border border-slate-200 bg-white/95 p-12 text-center dark:border-zinc-700 dark:bg-zinc-800/90">
-                <p className="text-lg font-semibold text-slate-900 dark:text-zinc-100">
-                  No products found
-                </p>
-                <p className="mt-2 text-sm text-slate-600 dark:text-zinc-400">
-                  Try adjusting your filters to see more results.
-                </p>
-              </div>
-            )}
-          </main>
-        </div>
-      </div>
-    </div>
+    <ProductsPageClient
+      initialProducts={paginatedProducts}
+      totalPages={totalPages}
+      currentPage={currentPage}
+      totalItems={totalItems}
+      itemsPerPage={itemsPerPage}
+      selectedCategory={selectedCategory}
+      searchQuery={searchQuery}
+      filteredCount={filteredProducts.length}
+    />
   );
 }
 

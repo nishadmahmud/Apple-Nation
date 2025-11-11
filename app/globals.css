@@ -65,3 +65,30 @@ html {
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+/* Mobile Menu Animation */
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.mobile-menu-backdrop {
+  animation: fadeIn 0.2s ease-out;
+}
+
+.mobile-menu-drawer {
+  animation: slideInLeft 0.3s ease-out;
+}
