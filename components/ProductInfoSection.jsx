@@ -23,7 +23,7 @@ const calculateDiscountedPrice = (price, discount, discountType) => {
 };
 
 export default function ProductInfoSection({ product, onStockStatusChange }) {
-  const { addItem } = useCart();
+  const { addItem, items } = useCart();
   const hasVariants = product.have_variant === 1 && 
                      product.imeis && 
                      Array.isArray(product.imeis) && 
@@ -133,6 +133,7 @@ export default function ProductInfoSection({ product, onStockStatusChange }) {
             </span>
           )}
         </div>
+        {/* Add / In Cart */}
         <button
           disabled={!isInStock}
           className={`inline-flex items-center justify-center gap-2 rounded-full px-6 py-4 text-base font-semibold text-white shadow-lg transition-all ${
@@ -142,6 +143,15 @@ export default function ProductInfoSection({ product, onStockStatusChange }) {
           }`}
           onClick={() => {
             if (!isInStock) return;
+            const already =
+              items?.some((it) =>
+                String(it.id) === String(product.id) &&
+                (selectedVariant ? String(it.variantId) === String(selectedVariant?.id) : true)
+              ) || false;
+            if (already) {
+              window.location.href = "/cart";
+              return;
+            }
             const image =
               (product.images && product.images[0]) ||
               product.image_path ||
@@ -174,7 +184,14 @@ export default function ProductInfoSection({ product, onStockStatusChange }) {
           }}
         >
           <MdShoppingCart className="h-5 w-5" />
-          {isInStock ? "Add to Cart" : "Out of Stock"}
+          {isInStock
+            ? (items?.some((it) =>
+                String(it.id) === String(product.id) &&
+                (selectedVariant ? String(it.variantId) === String(selectedVariant?.id) : true)
+              )
+                ? "In Cart - View"
+                : "Add to Cart")
+            : "Out of Stock"}
         </button>
       </div>
 

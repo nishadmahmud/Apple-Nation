@@ -75,10 +75,10 @@ export default function TrustBanner() {
             Browse catalog
           </Link>
           <Link
-            href="/support"
+            href="/contact"
             className="inline-flex items-center justify-center rounded-full border border-white/40 px-6 py-3 text-sm font-semibold text-white transition-transform duration-300 hover:-translate-y-0.5 hover:border-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
           >
-            Talk to expert
+            Contact us
           </Link>
         </div>
       </div>

@@ -103,7 +103,7 @@ export default function ContactPage() {
                   </div>
                   <div className="flex flex-wrap gap-3">
                     <Link
-                      href="https://maps.app.goo.gl/A9HhubtVnUZoz9sz8"
+                      href="https://maps.app.goo.gl/91L2mHTZWar7MzRr7"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-600 transition-colors hover:border-slate-400 hover:text-slate-900 dark:border-zinc-600 dark:text-zinc-200 dark:hover:border-zinc-500 dark:hover:text-white"

@@ -1,3 +1,5 @@
+ "use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { MdShoppingCart } from "react-icons/md";
@@ -10,7 +12,7 @@ const formatCurrency = (value) => {
 };
 
 export default function ProductCard({ product }) {
-  const { addItem } = useCart();
+  const { addItem, items } = useCart();
   const imageSrc =
     product.image_path || product.image_url || product.thumbnail || "/globe.svg";
   const statusLabel = product.status || "Available";
@@ -72,6 +74,14 @@ export default function ProductCard({ product }) {
         >
           View details →
         </Link>
+        {items.some((it) => String(it.id) === String(product.id)) ? (
+          <Link
+            href="/cart"
+            className="inline-flex items-center gap-2 rounded-full border border-emerald-400 px-3 py-2 text-xs font-semibold text-emerald-600 transition-colors hover:bg-emerald-50 dark:border-emerald-600/40 dark:hover:bg-emerald-900/20"
+          >
+            In Cart
+          </Link>
+        ) : (
         <button
           type="button"
           onClick={() =>
@@ -87,6 +97,7 @@ export default function ProductCard({ product }) {
           <MdShoppingCart className="h-4 w-4" />
           Add
         </button>
+        )}
       </div>
     </div>
   );
