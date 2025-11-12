@@ -101,7 +101,7 @@ export default function CategoryBanner() {
         ))}
 
         {/* Dark Overlay for Text Readability */}
-        <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/40 to-black/60" />
+        <div className="absolute inset-0 bg-gradient-to-br from-black/30 via-black/20 to-black/30" />
 
         {/* Content - All at bottom */}
         <div className="absolute bottom-0 left-0 right-0 z-10 space-y-1 p-2 md:space-y-3 md:p-6 lg:space-y-4 lg:p-8">
@@ -164,7 +164,7 @@ export default function CategoryBanner() {
           />
 
           {/* Overlay for Text Readability */}
-          <div className="absolute inset-0 bg-gradient-to-br from-black/50 via-black/30 to-black/50" />
+          <div className="absolute inset-0 bg-gradient-to-br from-black/30 via-black/20 to-black/30" />
 
           {/* Content - All at bottom */}
           <div className="absolute bottom-0 left-0 right-0 z-10 space-y-1 p-3 md:space-y-2 md:p-6">
@@ -198,7 +198,7 @@ export default function CategoryBanner() {
           />
 
           {/* Overlay for Text Readability */}
-          <div className="absolute inset-0 bg-gradient-to-br from-black/50 via-black/30 to-black/50" />
+          <div className="absolute inset-0 bg-gradient-to-br from-black/30 via-black/20 to-black/30" />
 
           {/* Content - All at bottom */}
           <div className="absolute bottom-0 left-0 right-0 z-10 space-y-1 p-3 md:space-y-2 md:p-6">
