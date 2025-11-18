@@ -8,6 +8,65 @@ import { MdArrowBack } from "react-icons/md";
 // Optimize for faster loading with short cache
 export const revalidate = 30; // Revalidate every 30 seconds for balance
 
+export async function generateMetadata({ params }) {
+  const { id } = await params;
+  const fallbackTitle = "Apple Product Details | Apple Nation BD";
+  const canonical = `https://www.applenationbd.com/products/${id}`;
+
+  try {
+    const response = await fetchProductDetail(id);
+    const product = response?.data;
+
+    if (!product) {
+      return {
+        title: fallbackTitle,
+        description: "Discover authentic Apple devices and accessories from Apple Nation BD.",
+        alternates: { canonical },
+      };
+    }
+
+    const title = `${product.name ?? "Apple Product"} Price in Bangladesh | Apple Nation BD`;
+    const description =
+      product.short_description ||
+      product.meta_description ||
+      `Buy ${product.name ?? "this Apple product"} with official warranty, installments, and nationwide delivery from Apple Nation BD.`;
+    const image =
+      (Array.isArray(product.images) && product.images[0]) ||
+      (Array.isArray(product.image_paths) && product.image_paths[0]) ||
+      "/opengraph-image.png";
+
+    return {
+      title,
+      description,
+      alternates: { canonical },
+      openGraph: {
+        title,
+        description,
+        url: canonical,
+        type: "website",
+        images: [
+          {
+            url: image,
+          },
+        ],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title,
+        description,
+        images: [image],
+      },
+    };
+  } catch (error) {
+    console.error("Metadata generation failed for product", id, error);
+    return {
+      title: fallbackTitle,
+      description: "Discover authentic Apple devices and accessories from Apple Nation BD.",
+      alternates: { canonical },
+    };
+  }
+}
+
 // Helper function to format currency
 const formatCurrency = (value) => {
   const amount = Number(value);

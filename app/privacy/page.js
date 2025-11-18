@@ -3,7 +3,24 @@ import { MdArrowBack } from "react-icons/md";
 
 export const metadata = {
   title: "Privacy Policy | Apple Nation BD",
-  description: "Privacy policy explaining how Apple Nation BD collects, uses, and protects your personal information.",
+  description:
+    "Understand how Apple Nation BD collects, uses, stores, and protects your personal information when you shop online or in-store.",
+  alternates: {
+    canonical: "https://www.applenationbd.com/privacy",
+  },
+  openGraph: {
+    title: "Apple Nation BD Privacy Policy",
+    description:
+      "Our commitment to safeguarding your personal data, purchase history, and communications.",
+    url: "https://www.applenationbd.com/privacy",
+    type: "article",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Apple Nation BD Privacy Policy",
+    description:
+      "Learn how we keep your Apple Nation BD shopping data and communications secure.",
+  },
 };
 
 export default function PrivacyPage() {

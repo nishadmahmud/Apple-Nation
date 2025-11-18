@@ -5,6 +5,28 @@ import { fetchBlogs } from "../../lib/api";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import { MdArrowBack, MdCalendarToday } from "react-icons/md";
 
+export const metadata = {
+  title: "Apple Nation Blog | Guides, Tips & Tech Stories",
+  description:
+    "Read buying guides, tips, and news about Apple devices, wearables, and premium accessories from the Apple Nation BD team.",
+  alternates: {
+    canonical: "https://www.applenationbd.com/blogs",
+  },
+  openGraph: {
+    title: "Apple Nation Blog",
+    description:
+      "Insights, buying guides, and stories to help you get more from your Apple gear.",
+    url: "https://www.applenationbd.com/blogs",
+    type: "article",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Apple Nation Blog",
+    description:
+      "Guides and stories about iPhone, Mac, Apple Watch, and more from Apple Nation BD.",
+  },
+};
+
 export const revalidate = 600; // Revalidate every 10 minutes
 
 const formatDate = (dateString) => {

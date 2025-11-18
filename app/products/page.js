@@ -7,6 +7,27 @@ import {
   fetchCategories,
 } from "../../lib/api";
 
+export const metadata = {
+  title: "All Products | Apple Nation BD",
+  description:
+    "Browse every Apple device, accessory, and lifestyle gadget available at Apple Nation BD. Filter by category, price, or search instantly.",
+  alternates: {
+    canonical: "https://www.applenationbd.com/products",
+  },
+  openGraph: {
+    title: "Shop Apple Products & Accessories | Apple Nation BD",
+    description:
+      "Explore the complete catalog of Apple Nation BD. Compare iPhone, iPad, Mac, Watch, audio gear, and premium accessories in one place.",
+    url: "https://www.applenationbd.com/products",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Shop Apple Products & Accessories | Apple Nation BD",
+    description:
+      "Explore the full Apple Nation BD collection with smart filters, search, and instant availability.",
+  },
+};
 
 export const revalidate = 600; // Revalidate every 10 minutes
 

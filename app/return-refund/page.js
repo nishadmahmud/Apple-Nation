@@ -2,8 +2,25 @@ import Link from "next/link";
 import { MdArrowBack } from "react-icons/md";
 
 export const metadata = {
-  title: "Return and Refund Policy | Apple Nation BD",
-  description: "Learn about our return and refund policy for products purchased from Apple Nation BD.",
+  title: "Return & Refund Policy | Apple Nation BD",
+  description:
+    "Review Apple Nation BD's 7-day return window, eligibility requirements, and refund timelines for Apple devices and accessories.",
+  alternates: {
+    canonical: "https://www.applenationbd.com/return-refund",
+  },
+  openGraph: {
+    title: "Apple Nation BD Return & Refund Policy",
+    description:
+      "Everything you need to know about returns, exchanges, and refunds for purchases from Apple Nation BD.",
+    url: "https://www.applenationbd.com/return-refund",
+    type: "article",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Apple Nation BD Return & Refund Policy",
+    description:
+      "Understand eligibility, timelines, and how to start a return with Apple Nation BD.",
+  },
 };
 
 export default function ReturnRefundPage() {

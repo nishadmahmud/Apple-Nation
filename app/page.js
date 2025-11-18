@@ -16,6 +16,15 @@ import {
 
 export const revalidate = 600;
 
+export const metadata = {
+  title: "Apple Nation BD | Premium Apple & Lifestyle Tech",
+  description:
+    "Discover curated Apple devices, wearables, and lifestyle tech deals at Apple Nation BD. Explore best sellers, new arrivals, and brand-wise collections.",
+  alternates: {
+    canonical: "https://www.applenationbd.com/",
+  },
+};
+
 const getHomeContent = async () => {
   const [categoriesResult, bestDealsResult, newArrivalsResult, blogsResult] = await Promise.allSettled([
     fetchCategories(),

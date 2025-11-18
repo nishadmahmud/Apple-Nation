@@ -2,8 +2,25 @@ import Link from "next/link";
 import { MdArrowBack, MdEmail, MdPhone, MdLocationOn, MdWhatsapp, MdAccessTime, MdPublic, MdChat } from "react-icons/md";
 
 export const metadata = {
-  title: "Contact Apple Nation BD",
-  description: "Get in touch with Apple Nation BD for product inquiries, support, and store information.",
+  title: "Contact Apple Nation BD | Store, Support & WhatsApp",
+  description:
+    "Message Apple Nation BD on WhatsApp, call us, or visit our Jamuna Future Park showroom. Get fast support for orders, warranty, and product advice.",
+  alternates: {
+    canonical: "https://www.applenationbd.com/contact",
+  },
+  openGraph: {
+    title: "Contact Apple Nation BD",
+    description:
+      "Reach our Jamuna Future Park showroom or chat with our team on WhatsApp, Messenger, and email for instant Apple product support.",
+    url: "https://www.applenationbd.com/contact",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact Apple Nation BD",
+    description:
+      "Need Apple product support? Chat on WhatsApp or visit our Jamuna Future Park store.",
+  },
 };
 
 const contactMethods = [

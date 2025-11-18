@@ -3,7 +3,24 @@ import { MdArrowBack } from "react-icons/md";
 
 export const metadata = {
   title: "Warranty Policy | Apple Nation BD",
-  description: "Warranty policy and terms for products purchased from Apple Nation BD.",
+  description:
+    "Get clarity on Apple Nation BD warranty coverage, service process, and documentation required for Apple devices and accessories.",
+  alternates: {
+    canonical: "https://www.applenationbd.com/warranty",
+  },
+  openGraph: {
+    title: "Apple Nation BD Warranty Policy",
+    description:
+      "Learn what’s covered, what isn’t, and how to file a warranty claim for your Apple Nation BD purchase.",
+    url: "https://www.applenationbd.com/warranty",
+    type: "article",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Apple Nation BD Warranty Policy",
+    description:
+      "Warranty coverage details and claim steps for Apple Nation BD customers.",
+  },
 };
 
 export default function WarrantyPage() {

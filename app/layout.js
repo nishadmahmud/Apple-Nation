@@ -15,9 +15,49 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Apple Nation BD",
+  // metadataBase: new URL("https://www.applenationbd.com"),
+  title: {
+    default: "Apple Nation BD",
+    template: "%s | Apple Nation BD",
+  },
   description:
     "Shop premium Apple devices, accessories, and curated tech essentials across Bangladesh.",
+  keywords: [
+    "Apple Bangladesh",
+    "iPhone shop",
+    "Apple Nation",
+    "MacBook",
+    "Apple accessories",
+  ],
+  authors: [{ name: "Apple Nation BD" }],
+  openGraph: {
+    type: "website",
+    url: "https://www.applenationbd.com",
+    title: "Apple Nation BD",
+    description:
+      "Your trusted destination for Apple products, wearables, and curated tech essentials across Bangladesh.",
+    siteName: "Apple Nation BD",
+    images: [
+      {
+        url: "/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Apple Nation BD preview",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Apple Nation BD",
+    description:
+      "Shop premium Apple devices, accessories, and curated tech essentials across Bangladesh.",
+    images: ["/opengraph-image.png"],
+  },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({ children }) {
