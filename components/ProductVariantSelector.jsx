@@ -145,15 +145,12 @@ export default function ProductVariantSelector({
   const hasMultipleStorages = availableOptions.storages.length > 1;
   const hasMultipleRegions = availableOptions.regions.length > 1;
 
-  if (!hasMultipleColors && !hasMultipleStorages && !hasMultipleRegions) {
-    // Only one variant, show it but don't show selectors
-    return null;
-  }
+  // Even if there's only one option, still show the selector UI (just non-interactive)
 
   return (
     <div className="space-y-4">
       {/* Color Selector */}
-      {hasMultipleColors && (
+      {availableOptions.colors.length > 0 && (
         <div>
           <label className="mb-2 block text-sm font-semibold text-slate-900 dark:text-zinc-100">
             Color: <span className="font-normal text-slate-600 dark:text-zinc-400">{selectedColor || 'Select'}</span>
@@ -209,7 +206,7 @@ export default function ProductVariantSelector({
       )}
 
       {/* Storage Selector */}
-      {hasMultipleStorages && (
+      {availableOptions.storages.length > 0 && (
         <div>
           <label className="mb-2 block text-sm font-semibold text-slate-900 dark:text-zinc-100">
             Storage: <span className="font-normal text-slate-600 dark:text-zinc-400">{selectedStorage || 'Select'}</span>
@@ -265,7 +262,7 @@ export default function ProductVariantSelector({
       )}
 
       {/* Region Selector */}
-      {hasMultipleRegions && (
+      {availableOptions.regions.length > 0 && (
         <div>
           <label className="mb-2 block text-sm font-semibold text-slate-900 dark:text-zinc-100">
             Region: <span className="font-normal text-slate-600 dark:text-zinc-400">{selectedRegion || 'Select'}</span>

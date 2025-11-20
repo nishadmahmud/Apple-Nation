@@ -39,12 +39,12 @@ export default function NewArrivalsGrid({ items = [] }) {
               href={`/products/${item.id}`}
               className="group flex flex-col gap-4 overflow-hidden rounded-2xl border border-slate-200 bg-white/95 p-5 shadow-lg shadow-slate-900/5 transition-transform duration-300 hover:-translate-y-1 hover:border-sky-500 hover:shadow-xl dark:border-zinc-800 dark:bg-zinc-900/60 dark:hover:border-sky-500/60"
             >
-              <div className="relative h-44 w-full overflow-hidden rounded-xl bg-slate-100">
+              <div className="relative h-44 w-full overflow-hidden rounded-xl bg-slate-100 dark:bg-zinc-800">
                 <Image
                   src={imageSrc}
                   alt={item.name}
                   fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="object-contain p-2 transition-transform duration-500 group-hover:scale-105"
                   sizes="(max-width: 768px) 50vw, 20vw"
                 />
                 <span className="absolute left-3 top-3 rounded-full bg-sky-500/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-sky-600 dark:bg-sky-400/20 dark:text-sky-200">
