@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  // metadataBase: new URL("https://www.applenationbd.com"),
+  metadataBase: new URL("https://www.applenationbd.com"),
   title: {
     default: "Apple Nation BD",
     template: "%s | Apple Nation BD",
@@ -39,7 +39,7 @@ export const metadata = {
     siteName: "Apple Nation BD",
     images: [
       {
-        url: "/opengraph-image.png",
+        url: "/logo.png",
         width: 1200,
         height: 630,
         alt: "Apple Nation BD preview",
@@ -51,7 +51,7 @@ export const metadata = {
     title: "Apple Nation BD",
     description:
       "Shop premium Apple devices, accessories, and curated tech essentials across Bangladesh.",
-    images: ["/opengraph-image.png"],
+    images: ["/logo.png"],
   },
   icons: {
     icon: "/favicon.ico",
