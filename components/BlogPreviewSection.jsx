@@ -20,7 +20,7 @@ export default function BlogPreviewSection({ posts = [] }) {
   const highlightedPosts = posts.slice(0, 3);
 
   return (
-    <section className="space-y-10">
+    <section className="space-y-10 mt-16">
       <div className="flex flex-col gap-3 text-center lg:text-left">
         <div className="inline-flex items-center justify-center gap-2 self-center rounded-full bg-amber-500/10 px-5 py-2 text-sm font-semibold uppercase tracking-wide text-amber-700 dark:bg-amber-400/10 dark:text-amber-300 lg:self-start">
           Insights & Stories

@@ -9,6 +9,7 @@ import dynamic from "next/dynamic";
 import { createPortal } from "react-dom";
 import { MdClose, MdShoppingCart, MdMenu } from "react-icons/md";
 import NavBarSearch from "./NavBarSearch";
+import { ShoppingCart } from "lucide-react";
 
 const CartDrawer = dynamic(() => import("./CartDrawer"), { ssr: false });
 
@@ -41,29 +42,24 @@ export default function NavBar() {
       document.body.style.overflow = previousOverflow;
     };
   }, [mobileMenuOpen]);
+
+
   return (
         <header className="sticky top-0 z-50 border-b border-slate-200/50 bg-white/90 backdrop-blur-xl backdrop-saturate-150 dark:border-zinc-700/30 dark:bg-zinc-900/95">
-          <div className="mx-auto flex w-full max-w-7xl flex-col gap-2 px-4 py-2 sm:px-8 lg:px-12 lg:flex-row lg:items-center lg:justify-between">
+          <div className="mx-auto flex w-full max-w-10/12 flex-col gap-2 py-2  lg:flex-row lg:items-center lg:justify-between">
             <div className="flex items-center justify-between gap-6">
               <Link href="/" className="flex items-center gap-3" onClick={() => setMobileMenuOpen(false)}>
-            <div className="relative h-8 w-8 shrink-0 overflow-hidden rounded-full bg-white sm:h-9 sm:w-9">
+            <div className="relative h-8 w-8 md:w-12 md:h-12 shrink-0 overflow-hidden rounded-full">
               <Image
-                src="/logo.png"
+                src="https://www.outletexpense.xyz/uploads/260-Biplob-Hossen/1764051566_69254a6e812ce.png"
                 alt="Apple Nation BD"
                 fill
-                className="object-contain p-0.5"
-                sizes="(max-width: 640px) 32px, 36px"
+                className="object-contain"
+                sizes="(max-width: 640px) 32px, 40px"
                 priority
               />
             </div>
-            <div className="flex flex-col">
-              <span className="text-sm font-bold leading-tight text-slate-900 dark:text-zinc-100 sm:text-base">
-                Apple Nation BD
-              </span>
-              <span className="text-[9px] font-medium uppercase tracking-wide text-slate-500 dark:text-zinc-400 sm:text-[10px]">
-                Gadget Store
-              </span>
-            </div>
+            
           </Link>
           <div className="flex items-center gap-2 lg:hidden">
                 <button
@@ -88,34 +84,45 @@ export default function NavBar() {
               <MdMenu className="h-6 w-6" />
             </button>
           </div>
-        </div>
-            <nav className="hidden items-center gap-4 text-xs font-semibold text-slate-700 dark:text-zinc-300 lg:flex">
+
+           <nav className="hidden items-center gap-4 text-xs font-semibold text-slate-700 dark:text-zinc-300 lg:flex">
           {navigationLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="rounded-full px-3 py-1.5 transition-colors hover:bg-slate-900/5 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:hover:bg-zinc-800/70 dark:hover:text-white dark:focus-visible:ring-offset-zinc-900"
+              className="rounded-full px-2 transition-colors hover:text-orange-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white  dark:hover:text-white dark:focus-visible:ring-offset-zinc-900 font-urbanist text-sm"
             >
               {link.label}
             </Link>
           ))}
         </nav>
-        <div className="hidden items-center gap-3 lg:flex">
+        </div>
+           
+       <div className="flex items-center gap-2">
+         <div className="hidden items-center gap-3 lg:flex">
           <NavBarSearch />
         </div>
         <div className="hidden items-center gap-2 lg:flex">
           <ThemeToggle />
-          <button
-            type="button"
-            onClick={() => setMiniOpen(true)}
-            className="relative inline-flex items-center justify-center rounded-full bg-slate-900 px-3.5 py-1.5 text-xs font-semibold text-white shadow-lg shadow-slate-900/10 transition-transform hover:-translate-y-0.5 hover:bg-sky-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-sky-400 dark:hover:text-white dark:focus-visible:ring-offset-zinc-900"
-          >
-            View Cart
-            <span className="ml-2 inline-flex min-w-5 items-center justify-center rounded-full bg-sky-600 px-1.5 text-[10px] font-bold text-white dark:bg-sky-500">
-              {count}
-            </span>
-          </button>
+         <button
+  type="button"
+  onClick={() => setMiniOpen(true)}
+  className="relative inline-flex font-urbanist items-center justify-center rounded-full gap-2 bg-[#fb6913] px-3.5 py-1.5 text-xs font-semibold cursor-pointer text-white shadow-lg shadow-slate-900/10 transition-transform hover:-translate-y-0.5 hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-200 focus-visible:ring-offset-2 hover:text-black focus-visible:ring-offset-white dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-gray-50 dark:hover:text-black dark:focus-visible:ring-offset-zinc-900"
+>
+  <span className="relative">
+    <ShoppingCart size={20} />
+
+    {/* Badge positioned on top of icon */}
+    <span className="absolute top-0 -right-1 inline-flex h-3 min-w-3 items-center justify-center rounded-full bg-gray-100 text-[8px] font-semibold text-[#fb6913] px-1 dark:bg-gray-900 dark:text-white">
+      {count}
+    </span>
+  </span>
+
+  Cart
+</button>
+
         </div>
+       </div>
       </div>
       
       <CartDrawer open={miniOpen} onClose={() => setMiniOpen(false)} />

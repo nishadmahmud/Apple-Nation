@@ -29,7 +29,7 @@ const trustHighlights = [
 
 export default function TrustBanner() {
   return (
-    <section className="space-y-8 rounded-3xl bg-white p-6 shadow-xl shadow-slate-900/5 backdrop-blur-sm dark:bg-zinc-900/70 sm:space-y-10 sm:p-8 lg:space-y-12 lg:p-10">
+    <section className="space-y-8 mt-16 rounded-3xl bg-white p-6 shadow-xl shadow-slate-900/5 backdrop-blur-sm dark:bg-zinc-900/70 sm:space-y-10 sm:p-8 lg:space-y-12 lg:p-10">
       <div className="flex flex-col gap-3 text-center lg:text-left">
         <h2 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl lg:text-4xl dark:text-zinc-100">
           Why shoppers trust Apple Nation BD

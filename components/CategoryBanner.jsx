@@ -134,7 +134,7 @@ export default function CategoryBanner() {
   };
 
   return (
-    <div className="grid grid-cols-2 gap-3 lg:grid-cols-[2fr_1fr]">
+    <div className="grid grid-cols-2 gap-3 lg:grid-cols-[2fr_1fr] mt-2">
       {/* Large Phone Section */}
       <Link
         href={officialPhoneId ? `/products?category=${officialPhoneId}` : "/products"}
@@ -161,31 +161,16 @@ export default function CategoryBanner() {
         ))}
 
         {/* Dark Overlay for Text Readability */}
-        <div className="absolute inset-0 bg-gradient-to-br from-black/30 via-black/20 to-black/30" />
+       
 
         {/* Content - All at bottom */}
-        <div className="absolute bottom-0 left-0 right-0 z-10 space-y-1 p-2 md:space-y-3 md:p-6 lg:space-y-4 lg:p-8">
-          <div className="inline-flex items-center gap-1 rounded-full bg-white/20 px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-white backdrop-blur-sm md:gap-2 md:px-3 md:py-1.5 md:text-xs lg:px-4 lg:py-2 lg:text-sm">
-            Official Phones
-          </div>
-          <h2 className="text-sm font-bold text-white sm:text-xl md:text-2xl lg:text-5xl">
-            Latest iPhone Series
-          </h2>
-          <p className="hidden max-w-md text-sm text-slate-200 md:block lg:text-base">
-            Discover the newest iPhone models with cutting-edge technology and premium design.
-          </p>
+        <div className="absolute bottom-0 left-0 right-0 z-10 space-y-1 p-2 md:space-y-3 md:p-3 lg:space-y-4 ">
+          
 
 
-          {/* CTA Button */}
-          <div>
-            <span className="inline-flex items-center gap-1 rounded-full bg-red-600 px-3 py-1.5 text-[10px] font-semibold text-white transition-transform duration-300 group-hover:scale-105 md:gap-2 md:px-5 md:py-2.5 md:text-xs lg:px-6 lg:py-3 lg:text-sm">
-              SHOP NOW
-              <MdArrowForward className="h-2 w-2 md:h-3 md:w-3 lg:h-4 lg:w-4" />
-            </span>
-          </div>
           
           {/* Slider Indicators */}
-          <div className="flex items-center gap-1.5 py-1 md:gap-2 md:py-2">
+          <div className="flex items-center justify-center gap-1.5 py-1 md:gap-2 md:py-2">
             {phoneImages.map((_, index) => (
               <button
                 key={index}
@@ -226,24 +211,10 @@ export default function CategoryBanner() {
             />
           )}
 
-          {/* Overlay for Text Readability */}
-          <div className="absolute inset-0 bg-gradient-to-br from-black/30 via-black/20 to-black/30" />
+        
 
-          {/* Content - All at bottom */}
-          <div className="absolute bottom-0 left-0 right-0 z-10 space-y-1 p-3 md:space-y-2 md:p-6">
-            <h3 className="text-sm font-bold text-white md:text-xl lg:text-2xl">
-              Smart Watches
-            </h3>
-            <p className="hidden text-[10px] text-slate-200 md:block md:text-sm">
-              Track your fitness, stay connected
-            </p>
-            <div className="pt-1 md:pt-2">
-              <span className="inline-flex items-center gap-1 rounded-full bg-red-600 px-3 py-1.5 text-[10px] font-semibold text-white transition-transform duration-300 group-hover:scale-105 md:gap-2 md:px-4 md:py-2 md:text-xs">
-                SHOP NOW
-                <MdArrowForward className="h-2 w-2 md:h-3 md:w-3" />
-              </span>
-            </div>
-          </div>
+          
+          
         </Link>
 
         {/* Earbuds Section */}
@@ -263,24 +234,7 @@ export default function CategoryBanner() {
             />
           )}
 
-          {/* Overlay for Text Readability */}
-          <div className="absolute inset-0 bg-gradient-to-br from-black/30 via-black/20 to-black/30" />
-
-          {/* Content - All at bottom */}
-          <div className="absolute bottom-0 left-0 right-0 z-10 space-y-1 p-3 md:space-y-2 md:p-6">
-            <h3 className="text-sm font-bold text-white md:text-xl lg:text-2xl">
-              Earbuds
-            </h3>
-            <p className="hidden text-[10px] text-slate-200 md:block md:text-sm">
-              Premium sound quality
-            </p>
-            <div className="pt-1 md:pt-2">
-              <span className="inline-flex items-center gap-1 rounded-full bg-red-600 px-3 py-1.5 text-[10px] font-semibold text-white transition-transform duration-300 group-hover:scale-105 md:gap-2 md:px-4 md:py-2 md:text-xs">
-                SHOP NOW
-                <MdArrowForward className="h-2 w-2 md:h-3 md:w-3" />
-              </span>
-            </div>
-          </div>
+         
         </Link>
       </div>
     </div>

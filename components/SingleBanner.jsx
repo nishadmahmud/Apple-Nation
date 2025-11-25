@@ -53,18 +53,19 @@ export default function SingleBanner() {
   }
 
   return (
-    <section className="w-full">
+    <section className="w-full mt-16">
       <Link
         href={bannerLink}
-        className="group relative block overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg transition-transform hover:-translate-y-1 hover:shadow-xl dark:border-zinc-700 dark:bg-zinc-800"
+        className="group relative block overflow-hidden rounded-xl border border-slate-200 bg-white shadow-lg hover:shadow-xl dark:border-zinc-700 dark:bg-zinc-800"
       >
-        <div className="relative h-64 w-full sm:h-80 lg:h-96">
+        <div className="relative h-64 w-full lg:h-96">
           <Image
             src={bannerImage}
             alt="Banner"
-            fill
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-            sizes="100vw"
+            width={1500}
+            height={1000}
+            className="object-contain"
+         
             priority={false}
             unoptimized
           />

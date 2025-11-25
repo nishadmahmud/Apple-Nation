@@ -13,7 +13,7 @@ export default function BestDealsCarousel({ deals = [] }) {
   }
 
   return (
-    <section className="space-y-8">
+    <section className="space-y-8 mt-16">
       <div className="flex flex-col gap-3 text-center lg:text-left">
         <div className="inline-flex items-center justify-center gap-2 self-center rounded-full bg-emerald-500/10 px-5 py-2 text-sm font-semibold uppercase tracking-wide text-emerald-700 dark:bg-emerald-400/10 dark:text-emerald-300 lg:self-start">
           Best Deals

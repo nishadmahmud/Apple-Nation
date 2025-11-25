@@ -105,13 +105,13 @@ export default function ThemeToggle() {
       type="button"
       onClick={handleToggle}
       style={{ pointerEvents: "auto", cursor: "pointer", position: "relative", zIndex: 1000 }}
-      className="relative z-[100] inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-300 bg-white/80 text-slate-600 transition-all hover:border-slate-400 hover:bg-slate-100 hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 dark:border-zinc-700 dark:bg-zinc-900/80 dark:text-zinc-300 dark:hover:border-zinc-500 dark:hover:bg-zinc-800"
+      className="relative z-100 inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-300 bg-white/80 text-slate-600 transition-all hover:border-slate-400 hover:bg-slate-100 hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 dark:border-zinc-700 dark:bg-zinc-900/80 dark:text-zinc-300 dark:hover:border-zinc-500 dark:hover:bg-zinc-800"
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
     >
       {isDark ? (
         <MdLightMode className="h-5 w-5 pointer-events-none" />
       ) : (
-        <MdDarkMode className="h-5 w-5 pointer-events-none" />
+        <MdDarkMode color="#fb6913"  className="h-5 w-5 pointer-events-none" />
       )}
     </button>
   );

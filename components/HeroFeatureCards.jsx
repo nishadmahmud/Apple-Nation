@@ -13,7 +13,7 @@ const features = [
     id: 1,
     icon: MdLocalShipping,
     title: "Fast Delivery",
-    description: "Next-day delivery in Dhaka, nationwide shipping",
+    description: "Fast delivery in Dhaka, nationwide shipping",
     color: "sky",
     link: "/products",
   },
@@ -21,7 +21,7 @@ const features = [
     id: 2,
     icon: MdSecurity,
     title: "Genuine Warranty",
-    description: "100% authentic products with official warranty",
+    description: "Authentic products with official warranty",
     color: "emerald",
     link: "/products",
   },
@@ -79,12 +79,12 @@ export default function HeroFeatureCards() {
           <Link
             key={feature.id}
             href={feature.link}
-            className="group relative overflow-hidden rounded-2xl border bg-white/95 p-3 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-slate-300 hover:shadow-lg sm:p-6 dark:border-zinc-800 dark:bg-zinc-900/60 dark:hover:border-zinc-700"
+            className="group font-urbanist relative overflow-hidden rounded-lg border hover:border-[#fb6913] bg-white/95 p-3 shadow-sm transition duration-500 ease-in-out hover:-translate-y-1 border-slate-300 hover:shadow-lg sm:p-6 dark:border-zinc-800 dark:bg-zinc-900/60 dark:hover:border-zinc-700"
           >
             <div className={`mb-2 inline-flex rounded-xl border p-2 sm:mb-4 sm:p-3 ${colorClass}`}>
               <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
             </div>
-            <h3 className="text-xs font-semibold text-slate-900 sm:mb-2 sm:text-base dark:text-zinc-100">
+            <h3 className="text-xs font-semibold text-slate-900 sm:mb-1 sm:text-base dark:text-zinc-100">
               {feature.title}
             </h3>
             <p className="hidden text-sm leading-relaxed text-slate-700 sm:block dark:text-zinc-400">
@@ -92,7 +92,7 @@ export default function HeroFeatureCards() {
             </p>
             
             {/* Hover Effect Gradient */}
-            <div className={`absolute inset-0 -z-10 bg-gradient-to-br ${colorClass.split(' ')[0]} opacity-0 transition-opacity duration-300 group-hover:opacity-5`} />
+            <div className={`absolute inset-0 -z-10 bg-linear-to-br ${colorClass.split(' ')[0]} opacity-0 transition-opacity duration-300 group-hover:opacity-5`} />
           </Link>
         );
       })}

@@ -372,11 +372,11 @@ export default function NavBarSearch() {
   }, [selectedIndex]);
 
   return (
-    <div ref={containerRef} className="relative w-full max-w-md">
+    <div ref={containerRef} className="relative w-full max-w-2xl">
       {/* Search Input */}
       <div className="relative">
-        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-          <MdSearch className="h-5 w-5 text-slate-400 dark:text-zinc-500" />
+        <div className="pointer-events-none absolute inset-y-0 left-0 top-1 flex items-center pl-3.5">
+          <MdSearch className="h-6 w-6 text-slate-400 dark:text-zinc-500" />
         </div>
         <input
           ref={inputRef}
@@ -391,13 +391,13 @@ export default function NavBarSearch() {
             setIsExpanded(true);
           }}
           placeholder="Search products..."
-          className="block w-full rounded-lg border border-slate-300 bg-white px-10 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500/20 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-100 dark:placeholder:text-zinc-500 dark:focus:border-sky-500"
+          className="block w-full rounded-full border border-slate-300 bg-white px-10 md:pr-32 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-slate-300 focus:outline-none focus:ring-1 focus:ring-slate-500/20 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-100 dark:placeholder:text-zinc-700 dark:focus:border-slate-500 font-urbanist"
         />
         {query && (
           <button
             type="button"
             onClick={handleClear}
-            className="absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400 hover:text-slate-600 dark:text-zinc-500 dark:hover:text-zinc-300"
+            className="absolute inset-y-0 right-0 flex items-center pr-2 text-slate-400 hover:text-slate-600 dark:text-zinc-500 dark:hover:text-zinc-300"
             aria-label="Clear search"
           >
             <MdClose className="h-5 w-5" />
