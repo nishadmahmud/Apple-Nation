@@ -25,7 +25,7 @@ const poppins = Poppins({
   subsets: ["latin"],
 });
 
-export const metadata = {
+const metadata = {
   metadataBase: new URL("https://www.applenationbd.com"),
   title: {
     default: "Apple Nation BD",
@@ -70,6 +70,9 @@ export const metadata = {
     apple: "/favicon.ico",
   },
 };
+
+export const noImage = 'https://www.outletexpense.xyz/uploads/260-Biplob-Hossen/1764148676_6926c5c4d0fa2.jpg'
+
 
 export default function RootLayout({ children }) {
   return (

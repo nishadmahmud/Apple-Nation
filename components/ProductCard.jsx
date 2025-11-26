@@ -1,105 +1,101 @@
- "use client";
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
 import { MdShoppingCart } from "react-icons/md";
-import { useCart } from "./CartContext";
 
-const formatCurrency = (value) => {
-  const amount = Number(value);
-  if (Number.isNaN(amount)) return "৳—";
-  return `৳${amount.toLocaleString("en-US", { maximumFractionDigits: 0 })}`;
-};
-
-export default function ProductCard({ product }) {
-  const { addItem, items } = useCart();
-  const imageSrc =
-    product.image_path || product.image_url || product.thumbnail || "/globe.svg";
-  const statusLabel = product.status || "Available";
-  const price = product.discounted_price ?? product.retails_price;
-  const original = product.retails_price;
-  const hasDiscount = price !== original && original;
+export default function ProductCard({ product, handleAddToCart, inCart, imageSrc, price, original, stockOut, hasDiscount }) {
   
-  // Only show tag if out of stock
-  const isOutOfStock = statusLabel?.toLowerCase().includes("out") || 
-                       statusLabel?.toLowerCase().includes("stock out") ||
-                       statusLabel?.toLowerCase() === "stock out";
+  
+  const formatCurrency = (value) =>
+    `৳${Number(value).toLocaleString("en-US")}`;
 
   return (
-    <div className="group flex flex-col gap-4 overflow-hidden rounded-2xl border border-slate-200 bg-white/95 p-5 shadow-lg shadow-slate-900/5 transition-transform duration-300 hover:-translate-y-1 hover:border-sky-500 hover:shadow-xl dark:border-zinc-700 dark:bg-zinc-800/90 dark:hover:border-sky-500/60">
-      <div className="relative h-44 w-full overflow-hidden rounded-xl bg-slate-100 dark:bg-zinc-700/50">
+    <article
+      className="group relative flex md:w-60 w-48 shrink-0 snap-start flex-col gap-4 overflow-hidden rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-orange-500 hover:shadow-lg dark:border-zinc-700 dark:bg-zinc-800/90 dark:hover:border-orange-400/60"
+    >
+      {/* Product Image */}
+      <div className="relative h-44 w-full overflow-hidden rounded-xl bg-slate-100 dark:bg-zinc-700/60">
         <Link href={`/products/${product.id}`}>
           <Image
             src={imageSrc}
             alt={product.name}
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-105"
-            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+            sizes="(max-width: 768px) 16rem, 18rem"
+            unoptimized
           />
         </Link>
-        {product.discount ? (
-          <span className="absolute left-3 top-3 z-10 inline-flex items-center rounded-full bg-emerald-500 px-3 py-1 text-xs font-semibold text-white shadow-lg">
+
+        {/* Discount Badge */}
+        {product.discount && (
+          <span className="absolute left-3 top-3 z-10 inline-flex items-center rounded-full bg-emerald-600 px-3 py-1 text-[10px] font-semibold text-white shadow-md tracking-wide">
             {product.discount_type === "Percentage"
               ? `${product.discount}% OFF`
               : `৳${Number(product.discount || 0).toLocaleString("en-US")}`}
           </span>
-        ) : null}
-        {isOutOfStock && (
-          <span className="absolute right-3 top-3 z-10 inline-flex items-center rounded-full bg-red-500 px-3 py-1.5 text-xs font-semibold text-white shadow-lg">
-            Out of Stock
+        )}
+
+        {/* Stock Out */}
+        {stockOut && (
+          <span className="absolute right-3 top-3 z-10 inline-flex items-center rounded-full bg-red-600 px-3 py-1.5 text-[10px] font-semibold text-white shadow-md tracking-wide">
+            Stock Out
           </span>
         )}
       </div>
-      <div className="space-y-2">
+
+      {/* Product Info */}
+      <div className="space-y-1.5">
         <Link href={`/products/${product.id}`} className="block">
-          <h3 className="text-lg font-semibold text-slate-900 transition-colors duration-300 group-hover:text-sky-600 dark:text-zinc-100 dark:group-hover:text-sky-400 line-clamp-2">
+          <h3 className="text-sm font-medium text-slate-900 line-clamp-2 transition-colors duration-300 group-hover:text-orange-600 dark:text-zinc-100 dark:group-hover:text-orange-400">
             {product.name}
           </h3>
         </Link>
-        <div className="flex items-center gap-2">
+
+        <div className="flex items-center gap-2 font-poppins">
           <span className="text-xl font-semibold text-slate-900 dark:text-zinc-100">
             {formatCurrency(price)}
           </span>
-          {hasDiscount ? (
+
+          {hasDiscount && (
             <span className="text-sm text-slate-500 line-through dark:text-zinc-500">
               {formatCurrency(original)}
             </span>
-          ) : null}
+          )}
         </div>
       </div>
-      <div className="flex items-center justify-between">
+
+      {/* Action Buttons */}
+      <div className="mt-auto flex items-center gap-2 font-urbanist md:flex-row flex-col">
         <Link
           href={`/products/${product.id}`}
-          className="text-xs font-semibold uppercase tracking-wide text-slate-500 hover:text-slate-900 dark:text-zinc-500"
+          className="flex-1 rounded-full bg-[#fb6913] px-2 py-1.5 text-center text-xs font-medium text-white transition-colors hover:bg-orange-600 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-orange-400 w-full"
         >
-          View details →
+          Buy Now
         </Link>
-        {items.some((it) => String(it.id) === String(product.id)) ? (
+
+        {inCart ? (
           <Link
             href="/cart"
-            className="inline-flex items-center gap-2 rounded-full border border-emerald-400 px-3 py-2 text-xs font-semibold text-emerald-600 transition-colors hover:bg-emerald-50 dark:border-emerald-600/40 dark:hover:bg-emerald-900/20"
+            className="inline-flex items-center gap-2 rounded-full border border-slate-900 bg-white px-4 py-2.5 text-sm font-semibold text-slate-900 transition-colors hover:bg-slate-50 dark:border-zinc-200 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700 w-full"
           >
+            <MdShoppingCart className="h-4 w-4" />
             In Cart
           </Link>
         ) : (
-        <button
-          type="button"
-          onClick={() =>
-            addItem({
-              id: product.id,
-              name: product.name,
-              price: price || 0,
-              image: imageSrc,
-            })
-          }
-          className="inline-flex items-center gap-2 rounded-full bg-sky-600 px-3 py-2 text-xs font-semibold text-white transition-colors hover:bg-sky-700 dark:bg-sky-500 dark:hover:bg-sky-600"
-        >
-          <MdShoppingCart className="h-4 w-4" />
-          Add
-        </button>
+          <button
+            type="button"
+            onClick={() => handleAddToCart(product)}
+            disabled={stockOut}
+            className={`inline-flex md:w-fit w-full text-center justify-center items-center gap-0.5 rounded-full border border-slate-900 bg-white px-3 py-1.5 text-xs font-medium text-slate-900 transition-colors hover:bg-slate-50 dark:border-zinc-200 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700 ${
+              stockOut ? "cursor-not-allowed opacity-40" : ""
+            }`}
+          >
+            <MdShoppingCart className="h-3.5 w-3.5" />
+            Add to Cart
+          </button>
         )}
       </div>
-    </div>
+    </article>
   );
 }
-

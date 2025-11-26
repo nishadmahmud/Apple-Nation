@@ -138,8 +138,8 @@ async function ProductDetailsContent({ productId }) {
     const description = sanitizeHTML(product.description || "");
 
     return (
-      <div className="min-h-screen bg-slate-100 text-slate-900 transition-colors duration-300 dark:bg-zinc-900 dark:text-zinc-100">
-        <div className="mx-auto w-full max-w-7xl px-6 py-8 sm:px-10 lg:px-16">
+      <div className="min-h-screen pt-5 bg-slate-100 text-slate-900 transition-colors duration-300 dark:bg-zinc-900 dark:text-zinc-100">
+        <div className="mx-auto w-full md:max-w-10/12 max-w-11/12">
           {/* Back Button */}
           <Link
             href="/products"

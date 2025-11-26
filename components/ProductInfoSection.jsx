@@ -24,6 +24,8 @@ const calculateDiscountedPrice = (price, discount, discountType) => {
 
 export default function ProductInfoSection({ product, onStockStatusChange }) {
   const { addItem, items } = useCart();
+  console.log(product);
+  
   const hasVariants = product.have_variant === 1 && 
                      product.imeis && 
                      Array.isArray(product.imeis) && 
@@ -80,11 +82,11 @@ export default function ProductInfoSection({ product, onStockStatusChange }) {
   }, [isInStock, onStockStatusChange]);
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-3">
       {/* Brand */}
       {product.brand_name && (
         <div className="flex items-center gap-3">
-          {product.brand_image && (
+          {product.brand_image ? (
             <div className="relative h-12 w-12 overflow-hidden rounded-lg border border-slate-200 bg-white dark:border-zinc-700 dark:bg-zinc-800/90">
               <Image
                 src={product.brand_image}
@@ -94,17 +96,30 @@ export default function ProductInfoSection({ product, onStockStatusChange }) {
                 sizes="48px"
               />
             </div>
-          )}
-          <span className="text-sm font-medium text-slate-600 dark:text-zinc-400">
+          ): ( <span className="text-sm font-medium text-slate-600 dark:text-zinc-400 font-poppins">
             {product.brand_name}
-          </span>
+          </span>)}
+         
         </div>
       )}
 
       {/* Product Name */}
-      <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl dark:text-zinc-100">
+      <h1 className="text-3xl font-bold tracking-tight text-slate-900 font-urbanist dark:text-zinc-100">
         {product.name}
       </h1>
+
+      <div className="flex items-baseline gap-3">
+          <span className="text-2xl font-bold text-slate-900 dark:text-zinc-100">
+            {formatCurrency(hasVariants && selectedVariant 
+              ? calculateDiscountedPrice(selectedVariant.sale_price || product.retails_price, discount, discountType)
+              : discountedPrice)}
+          </span>
+          {hasDiscount && (
+            <span className="text-xl text-slate-500 line-through dark:text-zinc-500">
+              {formatCurrency(originalPrice)}
+            </span>
+          )}
+        </div>
 
       {/* Variant Selector */}
       {hasVariants && (
@@ -121,18 +136,7 @@ export default function ProductInfoSection({ product, onStockStatusChange }) {
 
       {/* Price and Add to Cart */}
       <div className="flex items-center gap-4 flex-wrap">
-        <div className="flex items-baseline gap-3">
-          <span className="text-4xl font-bold text-slate-900 dark:text-zinc-100">
-            {formatCurrency(hasVariants && selectedVariant 
-              ? calculateDiscountedPrice(selectedVariant.sale_price || product.retails_price, discount, discountType)
-              : discountedPrice)}
-          </span>
-          {hasDiscount && (
-            <span className="text-xl text-slate-500 line-through dark:text-zinc-500">
-              {formatCurrency(originalPrice)}
-            </span>
-          )}
-        </div>
+        
         {/* Add / In Cart */}
         <button
           disabled={!isInStock}

@@ -53,18 +53,18 @@ export default function SingleBanner() {
   }
 
   return (
-    <section className="w-full mt-16">
+    <section className="w-full md:mt-16 mt-10">
       <Link
         href={bannerLink}
         className="group relative block overflow-hidden rounded-xl border border-slate-200 bg-white shadow-lg hover:shadow-xl dark:border-zinc-700 dark:bg-zinc-800"
       >
-        <div className="relative h-64 w-full lg:h-96">
+        <div className="relative h-36 w-full lg:h-96">
           <Image
             src={bannerImage}
             alt="Banner"
             width={1500}
             height={1000}
-            className="object-contain"
+            className="object-cover"
          
             priority={false}
             unoptimized

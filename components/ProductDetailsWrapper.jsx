@@ -12,7 +12,7 @@ export default function ProductDetailsWrapper({ product, images, hasDiscount, di
   };
 
   return (
-    <div className="grid gap-8 lg:grid-cols-2">
+    <div className="flex gap-10">
       {/* Image Gallery */}
       <ProductImageGallery
         images={images}

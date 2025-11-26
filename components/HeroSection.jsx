@@ -3,7 +3,7 @@ import HeroFeatureCards from "./HeroFeatureCards";
 
 export default function HeroSection() {
   return (
-    <section className="space-y-8">
+    <section className="space-y-4">
       {/* Category Banner - Three Sections */}
       <CategoryBanner />
       

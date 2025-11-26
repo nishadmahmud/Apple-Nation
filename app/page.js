@@ -81,7 +81,7 @@ export default async function Home() {
 
   return (
     <div className="min-h-screen bg-slate-100 text-slate-900 transition-colors duration-300 dark:bg-zinc-900 dark:text-zinc-100">
-      <main className="mx-auto flex w-full max-w-10/12 flex-col pb-24 pt-2 lg:pb-32">
+      <main className="mx-auto flex w-full md:max-w-10/12 max-w-11/12 flex-col pb-24 pt-2 lg:pb-32">
         <HeroSection />
         <CategoryShowcase categories={categories} />
         

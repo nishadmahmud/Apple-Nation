@@ -44,10 +44,10 @@ export default function CategoryBannerRow() {
       >
         {/* LEFT SIDE TEXT */}
         <div className="space-y-4">
-          <h2 className="text-3xl md:text-4xl font-urbanist font-bold">
+          <h2 className="text-2xl md:text-4xl font-urbanist font-bold">
             Samsung Galaxy Phone Collection
           </h2>
-          <p className="text-slate-600 dark:text-slate-300 font-poppins w-4/5">
+          <p className="text-slate-600 dark:text-slate-300 font-poppins md:w-4/5 md:text-base text-sm">
             Discover the latest samsung galaxy series phone with advanced health tracking,
             longer battery life, and modern style.
           </p>

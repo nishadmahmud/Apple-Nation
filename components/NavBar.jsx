@@ -46,10 +46,10 @@ export default function NavBar() {
 
   return (
         <header className="sticky top-0 z-50 border-b border-slate-200/50 bg-white/90 backdrop-blur-xl backdrop-saturate-150 dark:border-zinc-700/30 dark:bg-zinc-900/95">
-          <div className="mx-auto flex w-full max-w-10/12 flex-col gap-2 py-2  lg:flex-row lg:items-center lg:justify-between">
+          <div className="mx-auto flex w-full md:max-w-10/12 max-w-11/12 pl-1 flex-col gap-2 py-2 lg:flex-row lg:items-center lg:justify-between">
             <div className="flex items-center justify-between gap-6">
               <Link href="/" className="flex items-center gap-3" onClick={() => setMobileMenuOpen(false)}>
-            <div className="relative h-8 w-8 md:w-12 md:h-12 shrink-0 overflow-hidden rounded-full">
+            <div className="relative h-12 w-12 md:w-12 md:h-12 shrink-0 overflow-hidden rounded-full">
               <Image
                 src="https://www.outletexpense.xyz/uploads/260-Biplob-Hossen/1764051566_69254a6e812ce.png"
                 alt="Apple Nation BD"
