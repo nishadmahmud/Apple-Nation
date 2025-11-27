@@ -393,7 +393,7 @@ export default function NavBarSearch() {
             setIsExpanded(true);
           }}
           placeholder="Search products..."
-          className="block w-full rounded-full border border-slate-300 bg-white px-10 md:pr-32 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-slate-300 focus:outline-none focus:ring-1 focus:ring-slate-500/20 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-100 dark:placeholder:text-zinc-700 dark:focus:border-slate-500 font-urbanist"
+          className="block w-full text-[16px] rounded-full border border-slate-300 bg-white px-10 md:pr-32 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-slate-300 focus:outline-none focus:ring-1 focus:ring-slate-500/20 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-100 dark:placeholder:text-zinc-700 dark:focus:border-slate-500 font-urbanist"
         />
         {query && (
           <button
