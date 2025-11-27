@@ -31,7 +31,7 @@ export default function CartDrawer({ open, onClose }) {
             Cart ({count})
           </div>
           <button
-            className="rounded-full p-2 hover:bg-slate-100 dark:hover:bg-zinc-800"
+            className="rounded-full p-2 cursor-pointer hover:bg-slate-100 dark:hover:bg-zinc-800"
             aria-label="Close"
             onClick={onClose}
           >
@@ -109,7 +109,7 @@ export default function CartDrawer({ open, onClose }) {
             <Link
               href="/checkout"
               onClick={onClose}
-              className="inline-flex flex-1 items-center justify-center rounded-full bg-sky-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-sky-700 dark:bg-sky-500 dark:hover:bg-sky-600"
+              className="inline-flex flex-1 items-center justify-center rounded-full bg-orange-500 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-orange-700 dark:bg-orange-500 dark:hover:bg-orange-600"
             >
               Checkout
             </Link>

@@ -22,21 +22,21 @@ export default function ProductsPageClient({
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-zinc-900 dark:text-zinc-100">
-      <div className="mx-auto w-full max-w-7xl px-4 py-4 sm:px-10 lg:px-16 lg:py-8">
+      <div className="mx-auto w-full md:max-w-10/12 max-w-11/12 px-4 py-4 lg:py-8">
         {/* Mobile Header with Search */}
         <div className="mb-4 lg:mb-8">
-          <div className="flex flex-col gap-3">
+          <div className="flex justify-between gap-3">
             <div className="hidden sm:block">
-              <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl dark:text-zinc-100">
+              <h1 className="text-3xl font-urbanist font-bold tracking-tight text-slate-900 sm:text-4xl dark:text-zinc-100">
                 {selectedCategory ? selectedCategory.name : "All Products"}
               </h1>
-              <p className="mt-2 text-base text-slate-700 dark:text-zinc-400">
+              <p className="mt-2 text-base text-slate-700 font-poppins dark:text-zinc-400">
                 {filteredCount} product{filteredCount !== 1 ? "s" : ""} found
               </p>
             </div>
             
             {/* Search Bar */}
-            <div className="w-full">
+            <div className="w-[30vw]">
               <SearchBar initialQuery={searchQuery} />
             </div>
           </div>
@@ -57,7 +57,7 @@ export default function ProductsPageClient({
               onClick={() => setViewMode("grid")}
               className={`rounded-md p-2 transition-colors ${
                 viewMode === "grid"
-                  ? "bg-sky-500 text-white"
+                  ? "bg-orange-500 text-white"
                   : "text-slate-600 hover:bg-slate-100 dark:text-zinc-400 dark:hover:bg-zinc-700"
               }`}
               aria-label="Grid view"
@@ -68,7 +68,7 @@ export default function ProductsPageClient({
               onClick={() => setViewMode("list")}
               className={`rounded-md p-2 transition-colors ${
                 viewMode === "list"
-                  ? "bg-sky-500 text-white"
+                  ? "bg-orange-500 text-white"
                   : "text-slate-600 hover:bg-slate-100 dark:text-zinc-400 dark:hover:bg-zinc-700"
               }`}
               aria-label="List view"
@@ -85,7 +85,7 @@ export default function ProductsPageClient({
 
         {/* Mobile Filters Sheet */}
         {showFilters && (
-          <div className="fixed inset-0 z-[9999] lg:hidden" style={{ zIndex: 999999 }}>
+          <div className="fixed inset-0 z-9999 lg:hidden" style={{ zIndex: 999999 }}>
             {/* Backdrop */}
             <div
               className="absolute inset-0 bg-black/50"
@@ -101,7 +101,7 @@ export default function ProductsPageClient({
                 </h2>
                 <button
                   onClick={() => setShowFilters(false)}
-                  className="text-sm font-semibold text-sky-600 hover:text-sky-700 dark:text-sky-400"
+                  className="text-sm font-semibold text-orange-600 hover:text-orange-700 dark:text-orange-400"
                 >
                   Done
                 </button>
@@ -111,7 +111,7 @@ export default function ProductsPageClient({
           </div>
         )}
 
-        <div className="flex flex-col gap-6 lg:flex-row lg:gap-8">
+        <div className="flex flex-col gap-4 lg:flex-row lg:gap-3">
           {/* Desktop Filters Sidebar */}
           <aside className="hidden w-full shrink-0 lg:block lg:w-64">
             <div className="sticky top-20 rounded-2xl border border-slate-200 bg-white/95 p-6 shadow-lg shadow-slate-900/5 dark:border-zinc-700 dark:bg-zinc-800/90">
@@ -126,7 +126,7 @@ export default function ProductsPageClient({
                 <div
                   className={
                     viewMode === "grid"
-                      ? "grid gap-4 grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+                      ? "grid gap-x-6 gap-y-2 grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
                       : "flex flex-col gap-4"
                   }
                 >

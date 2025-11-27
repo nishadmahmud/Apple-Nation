@@ -64,9 +64,9 @@ export default function BrandWiseProducts() {
   }, [selectedBrand]);
 
   const calculatePrice = (product) => {
-    const retailPrice = product.retails_price || 0;
-    if (product.discount && product.discount_type === "Percentage") {
-      return retailPrice - (retailPrice * product.discount) / 100;
+    const retailPrice = product?.retails_price || 0;
+    if (product?.discount && product.discount_type === "Percentage") {
+      return retailPrice - (retailPrice * product?.discount) / 100;
     } else if (product.discount && product.discount_type !== "Percentage") {
       return retailPrice - product.discount;
     }

@@ -89,13 +89,33 @@ export default function ProductFilters() {
 
   return (
     <div className="space-y-6">
+
+      {/* Sort Options */}
+      <div>
+        <h3 className="mb-4 text-base font-semibold text-slate-900 dark:text-zinc-100 font-poppins">
+          Sort By
+        </h3>
+        <select
+          value={currentSort}
+          onChange={(e) => updateFilter("sort", e.target.value)}
+          className="w-full cursor-pointer rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20 dark:border-zinc-600 dark:bg-zinc-700/70 dark:text-zinc-100 dark:focus:border-orange-500"
+        >
+          {SORT_OPTIONS.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+      </div>
+
+
       {/* Category Filter */}
       <div>
         <button
           onClick={() => setIsCategoryOpen(!isCategoryOpen)}
-          className="mb-4 flex w-full items-center justify-between text-left"
+          className="mb-4 flex w-full items-center justify-between text-left cursor-pointer"
         >
-          <h3 className="text-lg font-semibold text-slate-900 dark:text-zinc-100">
+          <h3 className="text-base font-semibold text-slate-900 font-poppins dark:text-zinc-100">
             Category
           </h3>
           {isCategoryOpen ? (
@@ -112,9 +132,9 @@ export default function ProductFilters() {
           <div className="space-y-2">
             <button
               onClick={() => updateFilter("category", "all")}
-              className={`w-full rounded-lg px-4 py-2 text-left text-sm font-medium transition-colors duration-200 ${
+              className={`w-full rounded-full cursor-pointer font-urbanist px-4 py-2 text-left text-sm font-medium transition-colors duration-200 ${
                 currentCategory === "all"
-                  ? "bg-sky-600 text-white dark:bg-sky-500"
+                  ? "bg-orange-500 text-white dark:bg-orange-400"
                   : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-zinc-700/70 dark:text-zinc-200 dark:hover:bg-zinc-600/80"
               }`}
             >
@@ -126,9 +146,9 @@ export default function ProductFilters() {
                 <button
                   key={category.id}
                   onClick={() => updateFilter("category", categoryIdStr)}
-                  className={`w-full rounded-lg px-4 py-2 text-left text-sm font-medium transition-colors duration-200 ${
+                  className={`w-full rounded-full font-urbanist cursor-pointer px-4 py-2 text-left text-sm font-medium transition-colors duration-200 ${
                     currentCategory === categoryIdStr
-                      ? "bg-sky-600 text-white dark:bg-sky-500"
+                      ? "bg-orange-500 text-white dark:bg-orange-500"
                       : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-zinc-700/70 dark:text-zinc-200 dark:hover:bg-zinc-600/80"
                   }`}
                 >
@@ -144,9 +164,9 @@ export default function ProductFilters() {
       <div>
         <button
           onClick={() => setIsPriceOpen(!isPriceOpen)}
-          className="mb-4 flex w-full items-center justify-between text-left"
+          className="mb-4 flex w-full items-center justify-between text-left cursor-pointer"
         >
-          <h3 className="text-lg font-semibold text-slate-900 dark:text-zinc-100">
+          <h3 className="text-base font-semibold text-slate-900 font-poppins dark:text-zinc-100">
             Price Range
           </h3>
           {isPriceOpen ? (
@@ -167,9 +187,9 @@ export default function ProductFilters() {
                 <button
                   key={index}
                   onClick={() => updateFilter("price", rangeValue)}
-                  className={`w-full rounded-lg px-4 py-2 text-left text-sm font-medium transition-colors duration-200 ${
+                  className={`w-full rounded-full px-4 py-2 text-left text-sm font-medium transition-colors duration-200 ${
                     currentPriceRange === rangeValue
-                      ? "bg-sky-600 text-white dark:bg-sky-500"
+                      ? "bg-orange-500 text-white dark:bg-orange-500"
                       : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-zinc-700/70 dark:text-zinc-200 dark:hover:bg-zinc-600/80"
                   }`}
                 >
@@ -181,23 +201,7 @@ export default function ProductFilters() {
         </div>
       </div>
 
-      {/* Sort Options */}
-      <div>
-        <h3 className="mb-4 text-lg font-semibold text-slate-900 dark:text-zinc-100">
-          Sort By
-        </h3>
-        <select
-          value={currentSort}
-          onChange={(e) => updateFilter("sort", e.target.value)}
-          className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-900 focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500/20 dark:border-zinc-600 dark:bg-zinc-700/70 dark:text-zinc-100 dark:focus:border-sky-500"
-        >
-          {SORT_OPTIONS.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-      </div>
+      
     </div>
   );
 }

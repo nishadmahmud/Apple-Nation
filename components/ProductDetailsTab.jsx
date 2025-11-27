@@ -43,7 +43,9 @@ const ProductDetailsTab = ({ product }) => {
     <div className="py-5">
 
       {/* ---------- Tabs ---------- */}
-      <div className="sticky top-0 mb-2 z-20 rounded-full
+
+      {
+        description && specifications ? ( <div className="sticky top-0 mb-2 z-20 rounded-full
        bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border-b border-slate-200 dark:border-zinc-700">
         <div className="flex gap-6 px-10 py-3 font-medium">
 
@@ -72,7 +74,9 @@ const ProductDetailsTab = ({ product }) => {
           </Link>
 
         </div>
-      </div>
+      </div>): ""
+      }
+     
 
       {/* ---------- Description Section ---------- */}
       {description && (

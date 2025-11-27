@@ -57,7 +57,7 @@ export default function Pagination({ currentPage, totalPages, totalItems, itemsP
 
   return (
     <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
-      <p className="text-sm text-slate-600 dark:text-zinc-400">
+      <p className="text-sm font-poppins text-slate-600 dark:text-zinc-400">
         Showing <span className="font-semibold text-slate-900 dark:text-zinc-100">{startItem}</span> to{" "}
         <span className="font-semibold text-slate-900 dark:text-zinc-100">{endItem}</span> of{" "}
         <span className="font-semibold text-slate-900 dark:text-zinc-100">{totalItems}</span> products
@@ -67,7 +67,7 @@ export default function Pagination({ currentPage, totalPages, totalItems, itemsP
         <button
           onClick={() => updatePage(currentPage - 1)}
           disabled={currentPage === 1}
-          className="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white dark:border-zinc-600 dark:bg-zinc-700/70 dark:text-zinc-300 dark:hover:bg-zinc-600/80 dark:disabled:hover:bg-zinc-700/70"
+          className="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white dark:border-zinc-600 dark:bg-zinc-700/70 dark:text-zinc-300 dark:hover:bg-zinc-600/80 dark:disabled:hover:bg-zinc-700/70"
           aria-label="Previous page"
         >
           <MdChevronLeft className="h-5 w-5" />
@@ -78,9 +78,9 @@ export default function Pagination({ currentPage, totalPages, totalItems, itemsP
             <button
               key={pageNum}
               onClick={() => updatePage(pageNum)}
-              className={`inline-flex items-center justify-center rounded-lg border px-3 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 ${
+              className={`inline-flex items-center justify-center rounded-lg border px-3 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 ${
                 pageNum === currentPage
-                  ? "border-sky-500 bg-sky-600 text-white dark:bg-sky-500"
+                  ? "border-orange-500 bg-orange-500 text-white dark:bg-orange-500"
                   : "border-slate-300 bg-white text-slate-700 hover:bg-slate-50 dark:border-zinc-600 dark:bg-zinc-700/70 dark:text-zinc-300 dark:hover:bg-zinc-600/80"
               }`}
               aria-label={`Go to page ${pageNum}`}
@@ -94,7 +94,7 @@ export default function Pagination({ currentPage, totalPages, totalItems, itemsP
         <button
           onClick={() => updatePage(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white dark:border-zinc-600 dark:bg-zinc-700/70 dark:text-zinc-300 dark:hover:bg-zinc-600/80 dark:disabled:hover:bg-zinc-700/70"
+          className="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white dark:border-zinc-600 dark:bg-zinc-700/70 dark:text-zinc-300 dark:hover:bg-zinc-600/80 dark:disabled:hover:bg-zinc-700/70"
           aria-label="Next page"
         >
           <MdChevronRight className="h-5 w-5" />

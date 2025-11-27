@@ -6,7 +6,6 @@ import { MdShoppingCart } from "react-icons/md";
 
 export default function ProductCard({ product, handleAddToCart, inCart, imageSrc, price, original, stockOut, hasDiscount }) {
   
-  
   const formatCurrency = (value) =>
     `৳${Number(value).toLocaleString("en-US")}`;
 
@@ -18,7 +17,7 @@ export default function ProductCard({ product, handleAddToCart, inCart, imageSrc
       <div className="relative h-44 w-full overflow-hidden rounded-xl bg-slate-100 dark:bg-zinc-700/60">
         <Link href={`/products/${product.id}`}>
           <Image
-            src={imageSrc}
+            src={imageSrc || product.image_path}
             alt={product.name}
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -47,19 +46,19 @@ export default function ProductCard({ product, handleAddToCart, inCart, imageSrc
       {/* Product Info */}
       <div className="space-y-1.5">
         <Link href={`/products/${product.id}`} className="block">
-          <h3 className="text-sm font-medium text-slate-900 line-clamp-2 transition-colors duration-300 group-hover:text-orange-600 dark:text-zinc-100 dark:group-hover:text-orange-400">
+          <h3 className="text-sm font-medium text-slate-900 line-clamp-2 transition-colors font-poppins duration-300 group-hover:text-orange-600 dark:text-zinc-100 dark:group-hover:text-orange-400">
             {product.name}
           </h3>
         </Link>
 
         <div className="flex items-center gap-2 font-poppins">
           <span className="text-xl font-semibold text-slate-900 dark:text-zinc-100">
-            {formatCurrency(price)}
+            {formatCurrency(price ? price : product?.discount ? product?.discounted_price : product?.retails_price)}
           </span>
 
           {hasDiscount && (
             <span className="text-sm text-slate-500 line-through dark:text-zinc-500">
-              {formatCurrency(original)}
+              {formatCurrency(original || product.retails_price)}
             </span>
           )}
         </div>

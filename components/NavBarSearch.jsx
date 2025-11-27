@@ -371,6 +371,8 @@ export default function NavBarSearch() {
     }
   }, [selectedIndex]);
 
+  console.log(results);
+
   return (
     <div ref={containerRef} className="relative w-full max-w-2xl">
       {/* Search Input */}
@@ -409,7 +411,7 @@ export default function NavBarSearch() {
       {showResults && (
         <div
           ref={resultsRef}
-          className="absolute top-full z-50 mt-2 w-full max-h-96 overflow-y-auto rounded-lg border border-slate-200 bg-white shadow-xl dark:border-zinc-700 dark:bg-zinc-800"
+          className="absolute top-full z-50 mt-2 md:w-full w-3xs max-h-96 overflow-y-auto rounded-lg border border-slate-200 bg-white shadow-xl dark:border-zinc-700 dark:bg-zinc-800"
         >
           {loading ? (
             <div className="flex items-center justify-center py-8">

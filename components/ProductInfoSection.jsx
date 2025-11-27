@@ -152,7 +152,7 @@ export default function ProductInfoSection({ product, onStockStatusChange }) {
           disabled={!isInStock}
           className={`inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-full px-6 py-2 text-base font-medium font-poppins text-white shadow-lg transition-all ${
             isInStock
-              ? "bg-orange-600 hover:bg-orange-700 hover:-translate-y-0.5 hover:shadow-xl dark:bg-orange-500 dark:hover:bg-orange-600"
+              ? "bg-orange-500 hover:bg-orange-600 hover:-translate-y-0.5 hover:shadow-xl dark:bg-orange-500 dark:hover:bg-orange-600"
               : "cursor-not-allowed bg-slate-400 opacity-50 dark:bg-zinc-600"
           }`}
           onClick={() => {
@@ -208,7 +208,7 @@ export default function ProductInfoSection({ product, onStockStatusChange }) {
             : "Out of Stock"}
         </button>
 
-        <button className="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-full px-6 py-2 text-base font-medium font-poppins bg-white text-orange-500 border border-orange-600 shadow-lg transition-all hover:-translate-y-0.5 hover:bg-orange-100">Buy it now</button>
+        <Link href={`/products/${product.id}`} className="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-full px-6 py-2 text-base font-medium font-poppins bg-white text-orange-500 border border-orange-600 shadow-lg transition-all hover:-translate-y-0.5 hover:bg-orange-100">Buy it now</Link>
 
 
       </div>
