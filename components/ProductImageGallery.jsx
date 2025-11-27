@@ -2,11 +2,19 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import ReactImageMagnify from "react-image-magnify";
 import { noImage } from "@/app/layout";
 
-export default function ProductImageGallery({ images, productName, hasDiscount, discount, discountType, isInStock }) {
+export default function ProductImageGallery({
+  images,
+  productName,
+  hasDiscount,
+  discount,
+  discountType,
+  isInStock
+}) {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
-  
+
   if (!images || images.length === 0) {
     images = ["/globe.svg"];
   }
@@ -15,17 +23,28 @@ export default function ProductImageGallery({ images, productName, hasDiscount, 
 
   return (
     <div className="space-y-4">
-      {/* Main Image */}
-      <div className="relative aspect-square w-120 overflow-hidden rounded-xl border border-slate-200 bg-white dark:border-zinc-700 dark:bg-zinc-800/90">
-        <Image
-          src={selectedImage || noImage}
-          alt={productName}
-          width={1000}
-          height={500}
-          className="object-contain p-4 transition-opacity duration-300"
-          
-          priority={selectedImageIndex === 0}
+      {/* Main Zoom Image */}
+      <div className="relative aspect-square w-120 z-50 md:overflow-visible rounded-xl border border-slate-200 bg-white dark:border-zinc-700 dark:bg-zinc-800/90 p-4">
+        <ReactImageMagnify
+          {...{
+            smallImage: {
+              alt: productName,
+              isFluidWidth: true,
+              src: selectedImage || noImage,
+            },
+            largeImage: {
+              src: selectedImage || noImage,
+              width: 1600,
+              height: 1600
+            },
+            enlargedImageContainerDimensions: {
+              width: "120%",
+              height: "100%"
+            },
+            enlargedImagePosition: "beside",
+          }}
         />
+
         {hasDiscount && (
           <span className="absolute left-4 top-4 z-10 inline-flex items-center rounded-full bg-emerald-500 px-4 py-2 text-sm font-semibold text-white shadow-lg">
             {discountType === "Percentage"
@@ -33,6 +52,7 @@ export default function ProductImageGallery({ images, productName, hasDiscount, 
               : `৳${Number(discount).toLocaleString("en-US")} OFF`}
           </span>
         )}
+
         {!isInStock && (
           <span className="absolute right-4 top-4 z-10 inline-flex items-center rounded-full bg-red-500 px-4 py-2 text-sm font-semibold text-white shadow-lg">
             Out of Stock
@@ -62,7 +82,6 @@ export default function ProductImageGallery({ images, productName, hasDiscount, 
                 className={`object-contain p-2 transition-opacity w-28 ${
                   selectedImageIndex === index ? "opacity-100" : "opacity-70 hover:opacity-100"
                 }`}
-               
               />
             </button>
           ))}
@@ -71,4 +90,3 @@ export default function ProductImageGallery({ images, productName, hasDiscount, 
     </div>
   );
 }
-

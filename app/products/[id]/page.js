@@ -4,6 +4,7 @@ import { fetchProductDetail } from "../../../lib/api";
 import LoadingSpinner from "../../../components/LoadingSpinner";
 import ProductDetailsWrapper from "../../../components/ProductDetailsWrapper";
 import { MdArrowBack } from "react-icons/md";
+import ProductDetailsTab from "@/components/ProductDetailsTab";
 
 // Optimize for faster loading with short cache
 export const revalidate = 30; // Revalidate every 30 seconds for balance
@@ -85,17 +86,7 @@ const calculateDiscountedPrice = (price, discount, discountType) => {
   }
 };
 
-// Helper function to sanitize HTML (basic)
-const sanitizeHTML = (html) => {
-  if (!html) return "";
-  // Remove HTML entities encoding
-  return html
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&amp;/g, "&")
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'");
-};
+
 
 async function ProductDetailsContent({ productId }) {
   try {
@@ -113,11 +104,11 @@ async function ProductDetailsContent({ productId }) {
               The product you&apos;re looking for doesn&apos;t exist.
             </p>
             <Link
-              href="/products"
+              href="/"
               className="mt-4 inline-flex items-center gap-2 rounded-full bg-sky-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-sky-700 dark:bg-sky-500 dark:hover:bg-sky-600"
             >
               <MdArrowBack className="h-5 w-5" />
-              Back to Products
+              Back
             </Link>
           </div>
         </div>
@@ -134,19 +125,17 @@ async function ProductDetailsContent({ productId }) {
     const discount = product.discount || 0;
     const discountType = product.discount_type;
     const hasDiscount = discount > 0;
-    
-    const description = sanitizeHTML(product.description || "");
-
+   
     return (
       <div className="min-h-screen pt-5 bg-slate-100 text-slate-900 transition-colors duration-300 dark:bg-zinc-900 dark:text-zinc-100">
         <div className="mx-auto w-full md:max-w-10/12 max-w-11/12">
           {/* Back Button */}
           <Link
-            href="/products"
+            href="/"
             className="mb-6 inline-flex items-center gap-2 text-sm font-medium text-slate-600 transition-colors hover:text-slate-900 dark:text-zinc-400 dark:hover:text-zinc-100"
           >
             <MdArrowBack className="h-5 w-5" />
-            Back to Products
+            Back
           </Link>
 
           <ProductDetailsWrapper
@@ -156,19 +145,12 @@ async function ProductDetailsContent({ productId }) {
             discount={discount}
             discountType={discountType}
           />
+          
+          <ProductDetailsTab product={product}></ProductDetailsTab>
 
-          {/* Description */}
-          {description && (
-            <div className="mt-12 rounded-xl border border-slate-200 bg-white/95 p-8 dark:border-zinc-700 dark:bg-zinc-800/90">
-              <h2 className="mb-6 text-2xl font-semibold text-slate-900 dark:text-zinc-100">
-                Product Description
-              </h2>
-              <div
-                className="space-y-4 text-slate-700 dark:text-zinc-300 [&_h1]:mb-4 [&_h1]:text-2xl [&_h1]:font-bold [&_h1]:text-slate-900 [&_h1]:dark:text-zinc-100 [&_h2]:mb-3 [&_h2]:mt-6 [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:text-slate-900 [&_h2]:dark:text-zinc-100 [&_h3]:mb-2 [&_h3]:mt-4 [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:text-slate-900 [&_h3]:dark:text-zinc-100 [&_p]:mb-3 [&_p]:leading-relaxed [&_ul]:mb-4 [&_ul]:ml-6 [&_ul]:list-disc [&_ul]:space-y-2 [&_li]:mb-1 [&_strong]:font-semibold [&_strong]:text-slate-900 [&_strong]:dark:text-zinc-100"
-                dangerouslySetInnerHTML={{ __html: description }}
-              />
-            </div>
-          )}
+
+
+          
         </div>
       </div>
     );
@@ -184,11 +166,11 @@ async function ProductDetailsContent({ productId }) {
             Something went wrong while loading the product details.
           </p>
           <Link
-            href="/products"
+            href="/"
             className="mt-4 inline-flex items-center gap-2 rounded-full bg-sky-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-sky-700 dark:bg-sky-500 dark:hover:bg-sky-600"
           >
             <MdArrowBack className="h-5 w-5" />
-            Back to Products
+            Back
           </Link>
         </div>
       </div>

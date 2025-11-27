@@ -5,6 +5,8 @@ import Image from "next/image";
 import ProductVariantSelector from "./ProductVariantSelector";
 import { MdShoppingCart, MdCheckCircle, MdCancel } from "react-icons/md";
 import { useCart } from "./CartContext";
+import { FaWhatsapp } from "react-icons/fa6";
+import Link from "next/link";
 
 const formatCurrency = (value) => {
   const amount = Number(value);
@@ -123,7 +125,7 @@ export default function ProductInfoSection({ product, onStockStatusChange }) {
 
       {/* Variant Selector */}
       {hasVariants && (
-        <div className="rounded-xl border border-slate-200 bg-white/95 p-6 dark:border-zinc-700 dark:bg-zinc-800/90">
+        <div>
           <ProductVariantSelector
             variants={product.imeis}
             colors={product.color}
@@ -134,15 +136,23 @@ export default function ProductInfoSection({ product, onStockStatusChange }) {
         </div>
       )}
 
+      {/* whatsapp */}
+
+      <Link href='https://wa.me/+8801675323706' className="bg-[linear-gradient(90deg,#32e07a,#1aa87b)]
+ rounded-full px-6 gap-1.5 py-2 text-base font-medium text-white flex justify-center items-center">
+        <FaWhatsapp size={20}></FaWhatsapp>
+        WhatsApp
+      </Link>
+
       {/* Price and Add to Cart */}
-      <div className="flex items-center gap-4 flex-wrap">
+      <div className="flex items-center gap-4">
         
         {/* Add / In Cart */}
         <button
           disabled={!isInStock}
-          className={`inline-flex items-center justify-center gap-2 rounded-full px-6 py-4 text-base font-semibold text-white shadow-lg transition-all ${
+          className={`inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-full px-6 py-2 text-base font-medium font-poppins text-white shadow-lg transition-all ${
             isInStock
-              ? "bg-sky-600 hover:bg-sky-700 hover:-translate-y-0.5 hover:shadow-xl dark:bg-sky-500 dark:hover:bg-sky-600"
+              ? "bg-orange-600 hover:bg-orange-700 hover:-translate-y-0.5 hover:shadow-xl dark:bg-orange-500 dark:hover:bg-orange-600"
               : "cursor-not-allowed bg-slate-400 opacity-50 dark:bg-zinc-600"
           }`}
           onClick={() => {
@@ -197,10 +207,14 @@ export default function ProductInfoSection({ product, onStockStatusChange }) {
                 : "Add to Cart")
             : "Out of Stock"}
         </button>
+
+        <button className="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-full px-6 py-2 text-base font-medium font-poppins bg-white text-orange-500 border border-orange-600 shadow-lg transition-all hover:-translate-y-0.5 hover:bg-orange-100">Buy it now</button>
+
+
       </div>
 
       {/* Stock Status */}
-      <div className="flex items-center gap-2">
+      {/* <div className="flex items-center gap-2">
         {isInStock ? (
           <>
             <MdCheckCircle className="h-5 w-5 text-emerald-500" />
@@ -231,28 +245,10 @@ export default function ProductInfoSection({ product, onStockStatusChange }) {
             </span>
           </>
         )}
-      </div>
+      </div> */}
 
-      {/* Specifications */}
-      {product.specifications && Array.isArray(product.specifications) && product.specifications.length > 0 && (
-        <div className="rounded-xl border border-slate-200 bg-white/95 p-6 dark:border-zinc-700 dark:bg-zinc-800/90">
-          <h2 className="mb-4 text-xl font-semibold text-slate-900 dark:text-zinc-100">
-            Specifications
-          </h2>
-          <dl className="space-y-3">
-            {product.specifications.map((spec, index) => (
-              <div key={index} className="flex flex-col gap-1 sm:flex-row sm:gap-4">
-                <dt className="min-w-[120px] text-sm font-medium text-slate-600 dark:text-zinc-400">
-                  {spec.name}:
-                </dt>
-                <dd className="flex-1 text-sm text-slate-900 dark:text-zinc-100">
-                  {spec.description}
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-      )}
+     
+      
     </div>
   );
 }
