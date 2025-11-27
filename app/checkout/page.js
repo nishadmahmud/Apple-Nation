@@ -399,6 +399,21 @@ export default function CheckoutPage() {
   </div>
 </section>
 
+
+ <div className="sm:col-span-2">
+                <button
+                  onClick={handlePlaceOrder}
+                  disabled={!canSubmit || loading}
+                  className={`inline-flex w-full items-center justify-center rounded-full px-6 py-3 text-sm font-semibold text-white transition-colors ${
+                    canSubmit && !loading
+                      ? "bg-sky-600 hover:bg-sky-700 dark:bg-sky-500 dark:hover:bg-sky-600"
+                      : "cursor-not-allowed bg-slate-400 dark:bg-zinc-600"
+                  }`}
+                >
+                  {loading ? "Placing Order..." : "Place Order"}
+                </button>
+              </div>
+
           </div>
 
           <aside className="sticky top-10 space-y-4 rounded-2xl border border-slate-200 bg-white/95 p-6 dark:border-zinc-700 dark:bg-zinc-800/90">

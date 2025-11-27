@@ -24,7 +24,7 @@ export default function CartDrawer({ open, onClose }) {
         onClick={onClose}
       />
       {/* Compact dropdown near top-right */}
-      <div className="absolute md:right-6 left-2 md:left-0 top-16 z-[1001] w-[380px] max-h-[70vh] overflow-hidden rounded-2xl border border-slate-200 bg-white text-slate-900 shadow-2xl dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100">
+      <div className="absolute lg:right-6  top-16 z-[1001] w-[380px] max-h-[70vh] overflow-hidden rounded-2xl border border-slate-200 bg-white text-slate-900 shadow-2xl dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100">
         <div className="flex items-center justify-between border-b border-slate-200 px-5 py-4 dark:border-zinc-700">
           <div className="inline-flex items-center gap-2 text-sm font-semibold text-slate-800 dark:text-zinc-100">
             <MdShoppingCart className="h-5 w-5" />
