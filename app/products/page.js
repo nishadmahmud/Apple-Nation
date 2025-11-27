@@ -361,8 +361,10 @@
 
 
 
+import LoadingSpinner from "@/components/LoadingSpinner"
 import ProductsPageClient from "../../components/ProductsPageClient"
 import { fetchCategoryProducts, fetchCategories } from "../../lib/api"
+import { Suspense } from "react"
 
 export const metadata = {
   title: "All Products | Apple Nation BD",
@@ -666,5 +668,18 @@ async function ProductsContent({ searchParams }) {
 export default async function ProductsPage({ searchParams }) {
   const params = await searchParams
 
-  return <ProductsContent searchParams={params} />
+  return  <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center bg-slate-100 text-slate-900 dark:bg-zinc-900 dark:text-zinc-100">
+          <div className="flex flex-col items-center gap-4">
+            <LoadingSpinner size="lg" />
+            <p className="text-lg font-semibold text-slate-700 dark:text-zinc-300">
+              Loading products...
+            </p>
+          </div>
+        </div>
+      }
+    >
+      <ProductsContent searchParams={params} />
+    </Suspense>
 }

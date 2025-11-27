@@ -14,7 +14,7 @@ export default function ProductCard({ product, handleAddToCart, inCart, imageSrc
       className="group relative flex md:w-60 w-42 shrink-0 snap-start flex-col gap-4 overflow-hidden rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-orange-500 hover:shadow-lg dark:border-zinc-700 dark:bg-zinc-800/90 dark:hover:border-orange-400/60"
     >
       {/* Product Image */}
-      <div className="relative h-44 w-full overflow-hidden rounded-xl bg-slate-100 dark:bg-zinc-700/60">
+      <div className="relative h-44 w-full overflow-hidden rounded-md bg-slate-100 dark:bg-zinc-700/60">
         <Link href={`/products/${product.id}`}>
           <Image
             src={imageSrc || product.image_path}
@@ -27,17 +27,17 @@ export default function ProductCard({ product, handleAddToCart, inCart, imageSrc
         </Link>
 
         {/* Discount Badge */}
-        {product.discount && (
-          <span className="absolute left-3 top-3 z-10 inline-flex items-center rounded-full bg-emerald-600 px-3 py-1 text-[10px] font-semibold text-white shadow-md tracking-wide">
+        {product.discount ? (
+          <span className="absolute left-3 top-3 z-50 inline-flex items-center rounded-full bg-emerald-600 px-3 py-1 text-[10px] font-semibold text-white shadow-md tracking-wide">
             {product.discount_type === "Percentage"
               ? `${product.discount}% OFF`
               : `৳${Number(product.discount || 0).toLocaleString("en-US")}`}
           </span>
-        )}
+        ):""}
 
         {/* Stock Out */}
         {stockOut && (
-          <span className="absolute right-3 top-3 z-10 inline-flex items-center rounded-full bg-red-600 px-3 py-1.5 text-[10px] font-semibold text-white shadow-md tracking-wide">
+          <span className="absolute right-3 top-3 z-100 inline-flex items-center rounded-full bg-red-600 px-3 py-1.5 text-[10px] font-semibold text-white shadow-md tracking-wide">
             Stock Out
           </span>
         )}

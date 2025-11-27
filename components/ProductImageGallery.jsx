@@ -32,9 +32,9 @@ export default function ProductImageGallery({
         sm:max-w-sm 
         md:max-w-md 
         lg:max-w-lg 
-        xl:max-w-xl 
+        xl:max-w-3xl 
         mx-auto
-        z-50 
+        z-10 
         md:overflow-visible 
         rounded-xl 
         border border-slate-200 
@@ -83,8 +83,7 @@ export default function ProductImageGallery({
         <div className="
           grid 
           grid-cols-4 
-          sm:grid-cols-5 
-          md:grid-cols-6 
+          md:grid-cols-4 
           gap-2 sm:gap-3 
           justify-center 
           items-center 
@@ -105,7 +104,7 @@ export default function ProductImageGallery({
                 transition-all
                 ${
                   selectedImageIndex === index
-                    ? "border-sky-500 ring-2 ring-sky-500/20 dark:border-sky-400 dark:ring-sky-400/20"
+                    ? "border-orange-500 ring-2 ring-orange-500/20 dark:border-orange-400 dark:ring-orange-400/20"
                     : "border-slate-200 hover:border-slate-300 dark:border-zinc-700 dark:hover:border-zinc-600"
                 }
               `}

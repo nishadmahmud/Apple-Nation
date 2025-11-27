@@ -84,7 +84,7 @@ export default function ProductInfoSection({ product, onStockStatusChange }) {
   }, [isInStock, onStockStatusChange]);
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3 w-full">
       {/* Brand */}
       {product.brand_name && (
         <div className="flex items-center gap-3">
@@ -203,7 +203,7 @@ export default function ProductInfoSection({ product, onStockStatusChange }) {
                 String(it.id) === String(product.id) &&
                 (selectedVariant ? String(it.variantId) === String(selectedVariant?.id) : true)
               )
-                ? "In Cart - View"
+                ? "In Cart"
                 : "Add to Cart")
             : "Stock Out"}
         </button>
