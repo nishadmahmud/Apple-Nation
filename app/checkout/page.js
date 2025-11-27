@@ -333,7 +333,7 @@ export default function CheckoutPage() {
           <p className="text-sm text-slate-500">Delivery within 1–2 business days</p>
         </div>
       </div>
-      <span className="font-semibold">৳70</span>
+      <span className="font-semibold">৳80</span>
     </label>
 
     {/* Outside Dhaka */}
@@ -352,7 +352,7 @@ export default function CheckoutPage() {
           <p className="text-sm text-slate-500">Delivery within 3–5 business days</p>
         </div>
       </div>
-      <span className="font-semibold">৳130</span>
+      <span className="font-semibold">৳120</span>
     </label>
   </div>
 </section>
