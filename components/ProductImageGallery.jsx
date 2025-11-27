@@ -24,7 +24,25 @@ export default function ProductImageGallery({
   return (
     <div className="space-y-4">
       {/* Main Zoom Image */}
-      <div className="relative aspect-square w-120 z-50 md:overflow-visible rounded-xl border border-slate-200 bg-white dark:border-zinc-700 dark:bg-zinc-800/90 p-4">
+      <div className="
+        relative 
+        aspect-square 
+        w-full 
+        max-w-full
+        sm:max-w-sm 
+        md:max-w-md 
+        lg:max-w-lg 
+        xl:max-w-xl 
+        mx-auto
+        z-50 
+        md:overflow-visible 
+        rounded-xl 
+        border border-slate-200 
+        bg-white 
+        dark:border-zinc-700 
+        dark:bg-zinc-800/90 
+        p-2 sm:p-3 md:p-4
+      ">
         <ReactImageMagnify
           {...{
             smallImage: {
@@ -35,18 +53,18 @@ export default function ProductImageGallery({
             largeImage: {
               src: selectedImage || noImage,
               width: 1600,
-              height: 1600
+              height: 1600,
             },
             enlargedImageContainerDimensions: {
-              width: "120%",
-              height: "100%"
+              width: "150%",
+              height: "100%",
             },
             enlargedImagePosition: "beside",
           }}
         />
 
         {hasDiscount && (
-          <span className="absolute left-4 top-4 z-10 inline-flex items-center rounded-full bg-emerald-500 px-4 py-2 text-sm font-semibold text-white shadow-lg">
+          <span className="absolute left-3 top-3 sm:left-4 sm:top-4 z-10 inline-flex items-center rounded-full bg-emerald-500 px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold text-white shadow-lg">
             {discountType === "Percentage"
               ? `${discount}% OFF`
               : `৳${Number(discount).toLocaleString("en-US")} OFF`}
@@ -54,34 +72,59 @@ export default function ProductImageGallery({
         )}
 
         {!isInStock && (
-          <span className="absolute right-4 top-4 z-10 inline-flex items-center rounded-full bg-red-500 px-4 py-2 text-sm font-semibold text-white shadow-lg">
-            Out of Stock
+          <span className="absolute right-3 top-3 sm:right-4 sm:top-4 z-10 inline-flex items-center rounded-full bg-red-500 px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold text-white shadow-lg">
+             Stock Out
           </span>
         )}
       </div>
 
       {/* Thumbnail Gallery */}
       {images.length > 1 && (
-        <div className="grid grid-cols-4 justify-center items-center">
+        <div className="
+          grid 
+          grid-cols-4 
+          sm:grid-cols-5 
+          md:grid-cols-6 
+          gap-2 sm:gap-3 
+          justify-center 
+          items-center 
+        ">
           {images.map((image, index) => (
             <button
               key={index}
               type="button"
               onClick={() => setSelectedImageIndex(index)}
-              className={`relative aspect-square overflow-hidden rounded-lg w-28 border-2 bg-white transition-all ${
-                selectedImageIndex === index
-                  ? "border-sky-500 ring-2 ring-sky-500/20 dark:border-sky-400 dark:ring-sky-400/20"
-                  : "border-slate-200 hover:border-slate-300 dark:border-zinc-700 dark:hover:border-zinc-600"
-              }`}
+              className={`
+                relative 
+                aspect-square 
+                overflow-hidden 
+                rounded-lg 
+                w-full 
+                border-2 
+                bg-white 
+                transition-all
+                ${
+                  selectedImageIndex === index
+                    ? "border-sky-500 ring-2 ring-sky-500/20 dark:border-sky-400 dark:ring-sky-400/20"
+                    : "border-slate-200 hover:border-slate-300 dark:border-zinc-700 dark:hover:border-zinc-600"
+                }
+              `}
               aria-label={`View ${productName} - Image ${index + 1}`}
             >
               <Image
                 src={image}
                 alt={`${productName} - Image ${index + 1}`}
                 fill
-                className={`object-contain p-2 transition-opacity w-28 ${
-                  selectedImageIndex === index ? "opacity-100" : "opacity-70 hover:opacity-100"
-                }`}
+                className={`
+                  object-contain 
+                  p-1 sm:p-2 
+                  transition-opacity 
+                  ${
+                    selectedImageIndex === index
+                      ? "opacity-100"
+                      : "opacity-70 hover:opacity-100"
+                  }
+                `}
               />
             </button>
           ))}

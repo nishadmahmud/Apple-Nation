@@ -411,7 +411,7 @@ export default function NavBarSearch() {
       {showResults && (
         <div
           ref={resultsRef}
-          className="absolute top-full z-50 mt-2 md:w-full w-3xs max-h-96 overflow-y-auto rounded-lg border border-slate-200 bg-white shadow-xl dark:border-zinc-700 dark:bg-zinc-800"
+          className="absolute -left-16 top-full z-50 mt-2 md:w-full w-80 max-h-96 overflow-y-auto rounded-lg border border-slate-200 bg-white shadow-xl dark:border-zinc-700 dark:bg-zinc-800"
         >
           {loading ? (
             <div className="flex items-center justify-center py-8">
@@ -467,7 +467,7 @@ export default function NavBarSearch() {
                     onClick={handleViewAll}
                     className="flex w-full items-center justify-between text-sm font-semibold text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300"
                   >
-                    <span>View all results for "{query}"</span>
+                    <span>View all results for &ldquo;{query}&#34;</span>
                     <MdKeyboardArrowDown className="h-5 w-5 rotate-[-90deg]" />
                   </button>
                 </div>

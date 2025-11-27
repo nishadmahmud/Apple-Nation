@@ -28,7 +28,7 @@ const footerMenus = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-slate-200 bg-white text-slate-700 dark:border-zinc-700 dark:bg-zinc-900/80 dark:text-zinc-400">
+    <footer className="border-t font-urbanist border-slate-200 bg-white text-slate-700 dark:border-zinc-700 dark:bg-zinc-900/80 dark:text-zinc-400">
       <div className="mx-auto flex w-full md:max-w-10/12 max-w-11/12 flex-col gap-8 pt-5 pb-5 md:pt-10">
         {/* Mobile Layout: Stacked rows */}
         <div className="flex flex-col gap-6 lg:hidden">

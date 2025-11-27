@@ -72,12 +72,12 @@ export default function NavBar() {
                 <button
               type="button"
               onClick={() => setMiniOpen(true)}
-                  className="relative inline-flex items-center justify-center rounded-full border border-slate-300 p-2 text-slate-700 transition-colors hover:border-slate-400 hover:bg-slate-100 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 dark:border-zinc-700 dark:text-zinc-300 dark:hover:border-zinc-500 dark:hover:bg-zinc-800 dark:hover:text-white"
+                  className="relative inline-flex items-center justify-center rounded-full border border-slate-300 p-2 text-slate-700 transition-colors hover:border-slate-400 hover:bg-slate-100 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 dark:border-zinc-700 dark:text-zinc-300 dark:hover:border-zinc-500 dark:hover:bg-zinc-800 dark:hover:text-white"
               aria-label="View cart"
             >
               <MdShoppingCart className="h-5 w-5" />
               {count > 0 && (
-                <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-sky-600 text-[10px] font-bold text-white dark:bg-sky-500">
+                <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-orange-500 text-[10px] font-bold text-white dark:bg-orange-500">
                   {count}
                 </span>
               )}

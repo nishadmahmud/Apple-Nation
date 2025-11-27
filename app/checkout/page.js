@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useCart } from "../../components/CartContext";
 import { MdCheckCircle } from "react-icons/md";
+import { Box, List } from "lucide-react";
 
 const formatCurrency = (value) => {
   const amount = Number(value);
@@ -110,10 +111,12 @@ export default function CheckoutPage() {
 
   return (
     <div className="min-h-screen bg-slate-100 text-slate-900 transition-colors duration-300 dark:bg-zinc-900 dark:text-zinc-100">
-      <div className="mx-auto w-full max-w-6xl px-6 py-8 sm:px-10 lg:px-16">
-        <h1 className="mb-6 text-3xl font-bold">Checkout</h1>
+      <div className="mx-auto w-full max-w-11/12 md:max-w-10/12 py-8">
+        <h1 className="mb-6 text-2xl font-bold font-urbanist flex items-center gap-1">
+          <Box></Box>
+          Checkout</h1>
         <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr]">
-          <section className="space-y-4 rounded-2xl border border-slate-200 bg-white/95 p-6 dark:border-zinc-700 dark:bg-zinc-800/90">
+          {/* <section className="space-y-4 rounded-2xl border border-slate-200 bg-white/95 p-6 dark:border-zinc-700 dark:bg-zinc-800/90">
             <h2 className="text-lg font-semibold">Shipping details</h2>
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="sm:col-span-2">
@@ -223,11 +226,186 @@ export default function CheckoutPage() {
                 </button>
               </div>
             </div>
-          </section>
+          </section> */}
 
-          <aside className="space-y-4 rounded-2xl border border-slate-200 bg-white/95 p-6 dark:border-zinc-700 dark:bg-zinc-800/90">
-            <h2 className="text-lg font-semibold">Order summary</h2>
-            <div className="space-y-3">
+          <div className="space-y-4">
+
+            <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-zinc-700 dark:bg-zinc-800">
+  <h2 className="flex items-center gap-2 text-lg font-semibold text-slate-900 dark:text-white font-urbanists">
+    📍 Delivery Information
+  </h2>
+  <p className="text-sm font-poppins text-slate-500 mb-4">
+    Where should we deliver your order?
+  </p>
+
+  <div className="grid gap-4 sm:grid-cols-2 font-poppins">
+
+    {/* Full Name */}
+    <div >
+      <label className="text-sm font-medium text-slate-700 dark:text-zinc-300">Full Name</label>
+      <input
+        type="text"
+        name="fullName"
+        value={form.fullName}
+        onChange={handleChange}
+        placeholder="Enter your full name"
+        className="mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm dark:border-zinc-600 dark:bg-zinc-900"
+      />
+    </div>
+
+    {/* Phone */}
+    <div>
+      <label className="text-sm font-medium text-slate-700 dark:text-zinc-300">Phone Number</label>
+      <input
+        type="tel"
+        name="phone"
+        value={form.phone}
+        onChange={handleChange}
+        placeholder="+8801XXXXXXXX"
+        className="mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm dark:border-zinc-600 dark:bg-zinc-900"
+      />
+     
+    </div>
+
+    {/* Email */}
+    <div className="hidden">
+      <label className="text-sm font-medium text-slate-700 dark:text-zinc-300">Email (optional)</label>
+      <input
+        type="email"
+        name="email"
+        value={form.email}
+        onChange={handleChange}
+        placeholder="you@example.com"
+        className="mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm dark:border-zinc-600 dark:bg-zinc-900"
+      />
+    </div>
+
+    {/* Address */}
+    <div className="sm:col-span-2">
+      <label className="text-sm font-medium text-slate-700 dark:text-zinc-300">Address</label>
+      <textarea
+        name="address"
+        value={form.address}
+        onChange={handleChange}
+        placeholder="House number and street name"
+        rows={3}
+        className="mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm dark:border-zinc-600 dark:bg-zinc-900"
+      />
+    </div>
+
+    {/* City */}
+    <div className="hidden">
+      <label className="text-sm font-medium text-slate-700 dark:text-zinc-300">City</label>
+      <input
+        type="text"
+        name="city"
+        value={form.city}
+        onChange={handleChange}
+        placeholder="Enter your city"
+        className="mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm dark:border-zinc-600 dark:bg-zinc-900"
+      />
+    </div>
+  </div>
+</section>
+
+
+<section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-zinc-700 dark:bg-zinc-800">
+  <h2 className="flex items-center gap-2 text-lg font-bold text-slate-900 dark:text-white font-urbanist">
+    🚚 Shipping Method
+  </h2>
+  <p className="text-sm font-poppins text-slate-500 mb-4">Choose your preferred delivery option</p>
+
+  <div className="space-y-3 font-poppins">
+
+    {/* Inside Dhaka */}
+    <label className="flex cursor-pointer items-center justify-between rounded-xl border border-slate-200 p-4 hover:bg-slate-50 dark:border-zinc-700 dark:hover:bg-zinc-700/40">
+      <div className="flex items-start gap-3">
+        <input
+          type="radio"
+          name="delivery"
+          value="inside-dhaka"
+          checked={form.delivery === "inside-dhaka"}
+          onChange={handleChange}
+          className="mt-1 h-4 w-4"
+        />
+        <div>
+          <p className="font-medium">Inside Dhaka</p>
+          <p className="text-sm text-slate-500">Delivery within 1–2 business days</p>
+        </div>
+      </div>
+      <span className="font-semibold">৳70</span>
+    </label>
+
+    {/* Outside Dhaka */}
+    <label className="flex cursor-pointer items-center justify-between rounded-xl border border-slate-200 p-4 hover:bg-slate-50 dark:border-zinc-700 dark:hover:bg-zinc-700/40">
+      <div className="flex items-start gap-3">
+        <input
+          type="radio"
+          name="delivery"
+          value="outside-dhaka"
+          checked={form.delivery === "outside-dhaka"}
+          onChange={handleChange}
+          className="mt-1 h-4 w-4"
+        />
+        <div>
+          <p className="font-medium">Outside Dhaka</p>
+          <p className="text-sm text-slate-500">Delivery within 3–5 business days</p>
+        </div>
+      </div>
+      <span className="font-semibold">৳130</span>
+    </label>
+  </div>
+</section>
+
+
+<section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-zinc-700 dark:bg-zinc-800">
+  <h2 className="flex items-center gap-2 text-lg font-semibold text-slate-900 dark:text-white font-urbanist">
+    💳 Payment Method
+  </h2>
+  <p className="text-sm font-poppins text-slate-500 mb-4">All transactions are secure and encrypted</p>
+
+  <div className="space-y-3 font-poppins">
+
+    {/* Cash on Delivery */}
+    <label className="flex cursor-pointer items-center justify-between rounded-xl border border-slate-200 p-4 hover:bg-slate-50 dark:border-zinc-700 dark:hover:bg-zinc-700/40">
+      <div className="flex items-center gap-3">
+        <input
+          type="radio"
+          name="payment"
+          value="cod"
+          checked={form.payment === "cod"}
+          onChange={handleChange}
+          className="h-4 w-4"
+        />
+        <p className="font-medium">Cash on Delivery</p>
+      </div>
+    </label>
+
+    {/* Online Payment */}
+    <label className="flex cursor-pointer items-center justify-between rounded-xl border border-slate-200 p-4 hover:bg-slate-50 dark:border-zinc-700 dark:hover:bg-zinc-700/40">
+      <div className="flex items-center gap-3">
+        <input
+          type="radio"
+          name="payment"
+          value="online"
+          checked={form.payment === "online"}
+          onChange={handleChange}
+          className="h-4 w-4"
+        />
+        <p className="font-medium">Online Payment</p>
+      </div>
+    </label>
+
+  </div>
+</section>
+
+          </div>
+
+          <aside className="sticky top-10 space-y-4 rounded-2xl border border-slate-200 bg-white/95 p-6 dark:border-zinc-700 dark:bg-zinc-800/90">
+            <h2 className="text-xl font-semibold font-urbanist flex items-center gap-1.5">
+              <List size={20}></List>
+              Order summary</h2>
+            <div className="space-y-3 font-poppins">
               {items.map((item) => (
                 <div key={item.key} className="flex items-center justify-between text-sm">
                   <div className="flex items-center gap-3">
@@ -248,7 +426,7 @@ export default function CheckoutPage() {
                 </div>
               ))}
             </div>
-            <div className="border-t border-slate-200 pt-4 text-sm dark:border-zinc-700">
+            <div className="border-t border-slate-200 pt-4 text-sm dark:border-zinc-700 font-poppins">
               <div className="mb-2 flex items-center justify-between">
                 <span>Subtotal</span>
                 <span className="font-semibold">{formatCurrency(subtotal)}</span>

@@ -73,7 +73,7 @@ export default function SearchBar({ initialQuery = "" }) {
   }, []);
 
   return (
-    <form onSubmit={handleSearch} className="w-full sm:w-auto sm:min-w-[300px]">
+    <form onSubmit={handleSearch} className="w-full">
       <div className="relative">
         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
           <MdSearch className="h-5 w-5 text-slate-400 dark:text-zinc-500" />

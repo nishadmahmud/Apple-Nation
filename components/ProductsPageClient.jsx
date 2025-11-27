@@ -6,6 +6,7 @@ import ProductCard from "./ProductCard";
 import ProductFilters from "./ProductFilters";
 import SearchBar from "./SearchBar";
 import Pagination from "./Pagination";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function ProductsPageClient({
   initialProducts,
@@ -22,7 +23,7 @@ export default function ProductsPageClient({
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-zinc-900 dark:text-zinc-100">
-      <div className="mx-auto w-full md:max-w-10/12 max-w-11/12 px-4 py-4 lg:py-8">
+      <div className="mx-auto w-full md:max-w-10/12 max-w-11/12 py-4 lg:py-8">
         {/* Mobile Header with Search */}
         <div className="mb-4 lg:mb-8">
           <div className="flex justify-between gap-3">
@@ -36,7 +37,7 @@ export default function ProductsPageClient({
             </div>
             
             {/* Search Bar */}
-            <div className="w-[30vw]">
+            <div>
               <SearchBar initialQuery={searchQuery} />
             </div>
           </div>
@@ -85,31 +86,45 @@ export default function ProductsPageClient({
 
         {/* Mobile Filters Sheet */}
         {showFilters && (
-          <div className="fixed inset-0 z-9999 lg:hidden" style={{ zIndex: 999999 }}>
-            {/* Backdrop */}
-            <div
-              className="absolute inset-0 bg-black/50"
-              onClick={() => setShowFilters(false)}
-              aria-hidden="true"
-            />
-            
-            {/* Filters Panel */}
-            <div className="absolute inset-x-0 bottom-0 max-h-[80vh] overflow-y-auto rounded-t-3xl bg-white p-6 shadow-2xl dark:bg-zinc-900">
-              <div className="mb-4 flex items-center justify-between">
-                <h2 className="text-lg font-semibold text-slate-900 dark:text-zinc-100">
-                  Filters
-                </h2>
-                <button
-                  onClick={() => setShowFilters(false)}
-                  className="text-sm font-semibold text-orange-600 hover:text-orange-700 dark:text-orange-400"
-                >
-                  Done
-                </button>
-              </div>
-              <ProductFilters />
-            </div>
-          </div>
-        )}
+  <AnimatePresence>
+    <div className="fixed inset-0 z-9999 lg:hidden" style={{ zIndex: 999999 }}>
+      
+      {/* Backdrop */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.5 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.25 }}
+        className="absolute inset-0 bg-black/50"
+        onClick={() => setShowFilters(false)}
+        aria-hidden="true"
+      />
+
+      {/* Filters Panel */}
+      <motion.div
+        initial={{ y: "100%" }}
+        animate={{ y: 0 }}
+        exit={{ y: "100%" }}
+        transition={{ type: "spring", stiffness: 130, damping: 22 }}
+        className="absolute inset-x-0 bottom-0 max-h-[80vh] overflow-y-auto rounded-t-3xl bg-white p-6 shadow-2xl dark:bg-zinc-900"
+      >
+        <div className="mb-4 flex items-center justify-between">
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-zinc-100">
+            Filters
+          </h2>
+          <button
+            onClick={() => setShowFilters(false)}
+            className="text-sm font-semibold text-orange-600 hover:text-orange-700 dark:text-orange-400"
+          >
+            Done
+          </button>
+        </div>
+
+        <ProductFilters />
+      </motion.div>
+    </div>
+  </AnimatePresence>
+)}
 
         <div className="flex flex-col gap-4 lg:flex-row lg:gap-3">
           {/* Desktop Filters Sidebar */}

@@ -205,7 +205,7 @@ export default function ProductInfoSection({ product, onStockStatusChange }) {
               )
                 ? "In Cart - View"
                 : "Add to Cart")
-            : "Out of Stock"}
+            : "Stock Out"}
         </button>
 
         <Link href={`/products/${product.id}`} className="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-full px-6 py-2 text-base font-medium font-poppins bg-white text-orange-500 border border-orange-600 shadow-lg transition-all hover:-translate-y-0.5 hover:bg-orange-100">Buy it now</Link>

@@ -11,7 +11,7 @@ export default function ProductCard({ product, handleAddToCart, inCart, imageSrc
 
   return (
     <article
-      className="group relative flex md:w-60 w-48 shrink-0 snap-start flex-col gap-4 overflow-hidden rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-orange-500 hover:shadow-lg dark:border-zinc-700 dark:bg-zinc-800/90 dark:hover:border-orange-400/60"
+      className="group relative flex md:w-60 w-42 shrink-0 snap-start flex-col gap-4 overflow-hidden rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-orange-500 hover:shadow-lg dark:border-zinc-700 dark:bg-zinc-800/90 dark:hover:border-orange-400/60"
     >
       {/* Product Image */}
       <div className="relative h-44 w-full overflow-hidden rounded-xl bg-slate-100 dark:bg-zinc-700/60">
@@ -76,7 +76,7 @@ export default function ProductCard({ product, handleAddToCart, inCart, imageSrc
         {inCart ? (
           <Link
             href="/cart"
-            className="inline-flex items-center gap-2 rounded-full border border-slate-900 bg-white px-4 py-2.5 text-sm font-semibold text-slate-900 transition-colors hover:bg-slate-50 dark:border-zinc-200 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700 w-full"
+            className="inline-flex items-center gap-2 rounded-full border border-green-300 bg-green-100 px-4 py-1.5 justify-center   text-xs font-semibold text-green-600 transition-colors hover:bg-slate-50 dark:border-zinc-200 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700 w-fit"
           >
             <MdShoppingCart className="h-4 w-4" />
             In Cart
