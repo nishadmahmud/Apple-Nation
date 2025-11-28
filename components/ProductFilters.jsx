@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { getCategories } from "../lib/api";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 
 const PRICE_RANGES = [
@@ -22,51 +21,11 @@ const SORT_OPTIONS = [
   { value: "name-desc", label: "Name: Z to A" },
 ];
 
-export default function ProductFilters() {
+export default function ProductFilters({ categories = [] }) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [categories, setCategories] = useState([]);
   const [isCategoryOpen, setIsCategoryOpen] = useState(true);
   const [isPriceOpen, setIsPriceOpen] = useState(true);
-
-  // Fetch categories from API
-  useEffect(() => {
-    const loadCategories = async () => {
-      try {
-        const url = getCategories();
-        if (!url) {
-          console.warn("Categories API URL is not configured.");
-          return;
-        }
-
-        const response = await fetch(url, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        if (data?.success && Array.isArray(data?.data)) {
-          const formattedCategories = data.data
-            .filter((cat) => cat.product_count > 0) // Only show categories with products
-            .map((cat) => ({
-              id: String(cat.category_id),
-              name: cat.name,
-              product_count: cat.product_count,
-            }));
-          setCategories(formattedCategories);
-        }
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-      }
-    };
-
-    loadCategories();
-  }, []);
 
   const currentCategory = searchParams.get("category") || "all";
   const currentPriceRange = searchParams.get("price") || "all";
@@ -81,7 +40,7 @@ export default function ProductFilters() {
     }
     // Reset to page 1 when filters change
     params.delete("page");
-    const newUrl = params.toString() 
+    const newUrl = params.toString()
       ? `/products?${params.toString()}`
       : "/products";
     router.push(newUrl);
@@ -125,18 +84,16 @@ export default function ProductFilters() {
           )}
         </button>
         <div
-          className={`overflow-hidden transition-all duration-300 ease-in-out ${
-            isCategoryOpen ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
-          }`}
+          className={`overflow-hidden transition-all duration-300 ease-in-out ${isCategoryOpen ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
+            }`}
         >
           <div className="space-y-2">
             <button
               onClick={() => updateFilter("category", "all")}
-              className={`w-full rounded-full cursor-pointer font-urbanist px-4 py-2 text-left text-sm font-medium transition-colors duration-200 ${
-                currentCategory === "all"
+              className={`w-full rounded-full cursor-pointer font-urbanist px-4 py-2 text-left text-sm font-medium transition-colors duration-200 ${currentCategory === "all"
                   ? "bg-orange-500 text-white dark:bg-orange-400"
                   : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-zinc-700/70 dark:text-zinc-200 dark:hover:bg-zinc-600/80"
-              }`}
+                }`}
             >
               All Products
             </button>
@@ -146,11 +103,10 @@ export default function ProductFilters() {
                 <button
                   key={category.id}
                   onClick={() => updateFilter("category", categoryIdStr)}
-                  className={`w-full rounded-full font-urbanist cursor-pointer px-4 py-2 text-left text-sm font-medium transition-colors duration-200 ${
-                    currentCategory === categoryIdStr
+                  className={`w-full rounded-full font-urbanist cursor-pointer px-4 py-2 text-left text-sm font-medium transition-colors duration-200 ${currentCategory === categoryIdStr
                       ? "bg-orange-500 text-white dark:bg-orange-500"
                       : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-zinc-700/70 dark:text-zinc-200 dark:hover:bg-zinc-600/80"
-                  }`}
+                    }`}
                 >
                   {category.name}
                 </button>
@@ -176,9 +132,8 @@ export default function ProductFilters() {
           )}
         </button>
         <div
-          className={`overflow-hidden transition-all duration-300 ease-in-out ${
-            isPriceOpen ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
-          }`}
+          className={`overflow-hidden transition-all duration-300 ease-in-out ${isPriceOpen ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
+            }`}
         >
           <div className="space-y-2">
             {PRICE_RANGES.map((range, index) => {
@@ -187,11 +142,10 @@ export default function ProductFilters() {
                 <button
                   key={index}
                   onClick={() => updateFilter("price", rangeValue)}
-                  className={`w-full rounded-full px-4 py-2 text-left text-sm font-medium transition-colors duration-200 ${
-                    currentPriceRange === rangeValue
+                  className={`w-full rounded-full px-4 py-2 text-left text-sm font-medium transition-colors duration-200 ${currentPriceRange === rangeValue
                       ? "bg-orange-500 text-white dark:bg-orange-500"
                       : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-zinc-700/70 dark:text-zinc-200 dark:hover:bg-zinc-600/80"
-                  }`}
+                    }`}
                 >
                   {range.label}
                 </button>
@@ -201,7 +155,7 @@ export default function ProductFilters() {
         </div>
       </div>
 
-      
+
     </div>
   );
 }

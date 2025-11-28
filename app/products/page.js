@@ -1,11 +1,7 @@
 import { Suspense } from "react";
 import ProductsPageClient from "../../components/ProductsPageClient";
 import LoadingSpinner from "../../components/LoadingSpinner";
-import {
-  fetchAllProducts,
-  fetchCategoryProducts,
-  fetchCategories,
-} from "../../lib/api";
+import { fetchCategories } from "../../lib/api";
 
 export const metadata = {
   title: "All Products | Apple Nation BD",
@@ -31,185 +27,6 @@ export const metadata = {
 
 export const revalidate = 600; // Revalidate every 10 minutes
 
-// Cache for all products - this will persist across requests in the same server instance
-let cachedAllProducts = null;
-let cacheTimestamp = null;
-const CACHE_DURATION = 10 * 60 * 1000; // 10 minutes in milliseconds
-
-// Cached function to fetch all products from all categories
-async function getAllProductsFromCategories() {
-  // Check if we have a valid cache
-  if (cachedAllProducts && cacheTimestamp && Date.now() - cacheTimestamp < CACHE_DURATION) {
-    return cachedAllProducts;
-  }
-
-  // Fetch categories from API
-  const categoriesResult = await fetchCategories();
-  const categories =
-    categoriesResult?.success && Array.isArray(categoriesResult?.data)
-      ? categoriesResult.data.filter((cat) => cat.product_count > 0)
-      : [];
-  
-  let allProducts = [];
-  
-  try {
-    // Fetch all categories in parallel
-    const categoryPromises = categories.map(async (category) => {
-      try {
-        // Fetch first page to get pagination info
-        const firstPageResult = await fetchCategoryProducts(category.category_id, 1, 20);
-        let categoryProducts = [];
-        let totalPages = 1;
-        
-        // Extract products from first page
-        if (Array.isArray(firstPageResult?.data?.data)) {
-          categoryProducts = [...firstPageResult.data.data];
-          totalPages = firstPageResult?.data?.last_page || 
-                      firstPageResult?.data?.total_pages ||
-                      Math.ceil((firstPageResult?.data?.total || 0) / 20) ||
-                      1;
-        } else if (Array.isArray(firstPageResult?.data)) {
-          categoryProducts = [...firstPageResult.data];
-        } else if (Array.isArray(firstPageResult)) {
-          categoryProducts = [...firstPageResult];
-        }
-        
-        // Fetch remaining pages if there are more
-        if (totalPages > 1) {
-          const remainingPages = [];
-          for (let page = 2; page <= totalPages; page++) {
-            remainingPages.push(fetchCategoryProducts(category.category_id, page, 20));
-          }
-          
-          const remainingResults = await Promise.allSettled(remainingPages);
-          remainingResults.forEach((result) => {
-            if (result.status === "fulfilled") {
-              let pageProducts = [];
-              if (Array.isArray(result.value?.data?.data)) {
-                pageProducts = result.value.data.data;
-              } else if (Array.isArray(result.value?.data)) {
-                pageProducts = result.value.data;
-              } else if (Array.isArray(result.value)) {
-                pageProducts = result.value;
-              }
-              if (pageProducts.length > 0) {
-                categoryProducts.push(...pageProducts);
-              }
-            }
-          });
-        }
-        
-        return categoryProducts;
-      } catch (error) {
-        console.error(`Error fetching products for category ${category.name}:`, error);
-        return [];
-      }
-    });
-    
-    // Wait for all categories to be fetched
-    const allCategoryResults = await Promise.allSettled(categoryPromises);
-    
-    // Merge all products from all categories
-    allCategoryResults.forEach((result) => {
-      if (result.status === "fulfilled" && Array.isArray(result.value)) {
-        allProducts.push(...result.value);
-      }
-    });
-    
-    // Remove duplicates based on product ID
-    const uniqueProducts = [];
-    const seenIds = new Set();
-    allProducts.forEach((product) => {
-      if (product.id && !seenIds.has(product.id)) {
-        seenIds.add(product.id);
-        uniqueProducts.push(product);
-      }
-    });
-    
-    // Update cache
-    cachedAllProducts = uniqueProducts;
-    cacheTimestamp = Date.now();
-    
-    return uniqueProducts;
-  } catch (error) {
-    console.error("Error fetching all category products:", error);
-    return [];
-  }
-}
-
-// Helper function to format currency
-const formatCurrency = (value) => {
-  const amount = Number(value);
-  if (Number.isNaN(amount)) return "৳—";
-  return `৳${amount.toLocaleString("en-US", { maximumFractionDigits: 0 })}`;
-};
-
-// Filter products by price range
-const filterByPrice = (products, priceRange) => {
-  if (!priceRange || priceRange === "all") return products;
-
-  const [minStr, maxStr] = priceRange.split("-");
-  const min = Number(minStr);
-  const max = maxStr === "inf" ? null : Number(maxStr);
-
-  if (Number.isNaN(min)) return products;
-
-  return products.filter((product) => {
-    const price = Number(product.discounted_price ?? product.retails_price ?? 0);
-    if (Number.isNaN(price)) return false;
-    
-    if (max === null) {
-      return price >= min;
-    }
-    return price >= min && price <= max;
-  });
-};
-
-// Filter products by search query
-const filterBySearch = (products, searchQuery) => {
-  if (!searchQuery || searchQuery.trim() === "") return products;
-  
-  const query = searchQuery.toLowerCase().trim();
-  return products.filter((product) => {
-    const name = String(product.name || "").toLowerCase();
-    return name.includes(query);
-  });
-};
-
-// Sort products
-const sortProducts = (products, sortOption) => {
-  const sorted = [...products];
-
-  switch (sortOption) {
-    case "price-low":
-      return sorted.sort((a, b) => {
-        const priceA = Number(a.discounted_price ?? a.retails_price ?? 0);
-        const priceB = Number(b.discounted_price ?? b.retails_price ?? 0);
-        return priceA - priceB;
-      });
-    case "price-high":
-      return sorted.sort((a, b) => {
-        const priceA = Number(a.discounted_price ?? a.retails_price ?? 0);
-        const priceB = Number(b.discounted_price ?? b.retails_price ?? 0);
-        return priceB - priceA;
-      });
-    case "name-asc":
-      return sorted.sort((a, b) => {
-        const nameA = String(a.name || "").toLowerCase();
-        const nameB = String(b.name || "").toLowerCase();
-        return nameA.localeCompare(nameB);
-      });
-    case "name-desc":
-      return sorted.sort((a, b) => {
-        const nameA = String(a.name || "").toLowerCase();
-        const nameB = String(b.name || "").toLowerCase();
-        return nameB.localeCompare(nameA);
-      });
-    default:
-      return sorted;
-  }
-};
-
 async function ProductsContent({ searchParams }) {
   // Await searchParams in Next.js 15
   const params = await searchParams;
@@ -225,99 +42,32 @@ async function ProductsContent({ searchParams }) {
   const categories =
     categoriesResult?.success && Array.isArray(categoriesResult?.data)
       ? categoriesResult.data.map((cat) => ({
-          id: String(cat.category_id),
-          name: cat.name,
-          slug: cat.name.toLowerCase().replace(/\s+/g, "-"),
-          product_count: cat.product_count,
-        }))
+        id: String(cat.category_id),
+        name: cat.name,
+        slug: cat.name.toLowerCase().replace(/\s+/g, "-"),
+        product_count: cat.product_count,
+      }))
       : [];
 
-  // Fetch all products from all categories (cached)
-  const allProducts = await getAllProductsFromCategories();
+  // Sort categories: Smartphone, Earbuds, Earphone first
+  const priorityCategories = ["Smartphone", "Earbuds", "Earphone"];
+  categories.sort((a, b) => {
+    const aIndex = priorityCategories.indexOf(a.name);
+    const bIndex = priorityCategories.indexOf(b.name);
 
-  // If a specific category is selected, fetch that category's products
-  // Otherwise use all products
-  let productsData = allProducts;
-  if (categoryId !== "all") {
-    try {
-      const selectedCategory = categories.find(
-        (cat) => String(cat.id) === String(categoryId)
-      );
-      
-      // Get total pages from category metadata, or try to detect from API response
-      let totalPages = selectedCategory?.totalPages || 1;
-      
-      // Fetch first page to check actual total pages from API
-      const firstPageResult = await fetchCategoryProducts(categoryId, 1, 20);
-      let categoryProducts = [];
-      
-      // Extract products from first page
-      if (Array.isArray(firstPageResult?.data?.data)) {
-        categoryProducts = [...firstPageResult.data.data];
-        // Try to get total pages from API response
-        totalPages = firstPageResult?.data?.last_page || 
-                    firstPageResult?.data?.total_pages ||
-                    Math.ceil((firstPageResult?.data?.total || 0) / 20) ||
-                    totalPages;
-      } else if (Array.isArray(firstPageResult?.data)) {
-        categoryProducts = [...firstPageResult.data];
-      } else if (Array.isArray(firstPageResult)) {
-        categoryProducts = [...firstPageResult];
-      }
-      
-      // Fetch remaining pages if there are more
-      if (totalPages > 1) {
-        const remainingPages = [];
-        for (let page = 2; page <= totalPages; page++) {
-          remainingPages.push(fetchCategoryProducts(categoryId, page, 20));
-        }
-        
-        const remainingResults = await Promise.allSettled(remainingPages);
-        
-        remainingResults.forEach((result) => {
-          if (result.status === "fulfilled") {
-            let pageProducts = [];
-            if (Array.isArray(result.value?.data?.data)) {
-              pageProducts = result.value.data.data;
-            } else if (Array.isArray(result.value?.data)) {
-              pageProducts = result.value.data;
-            } else if (Array.isArray(result.value)) {
-              pageProducts = result.value;
-            }
-            if (pageProducts.length > 0) {
-              categoryProducts.push(...pageProducts);
-            }
-          }
-        });
-      }
-      
-      // Use category products if we got them
-      if (categoryProducts.length > 0) {
-        productsData = categoryProducts;
-      }
-    } catch (error) {
-      console.error("Error fetching category products:", error);
-      // If category fetch fails, keep using all products
-    }
-  }
+    // If both are priority categories, sort by their order in priorityCategories
+    if (aIndex !== -1 && bIndex !== -1) return aIndex - bIndex;
 
-  // Apply ALL filters on frontend
-  // 1. Search filter
-  let filteredProducts = filterBySearch(productsData, searchQuery);
-  
-  // 2. Price filter
-  filteredProducts = filterByPrice(filteredProducts, priceRange);
+    // If only a is priority, it comes first
+    if (aIndex !== -1) return -1;
 
-  // 3. Sorting
-  filteredProducts = sortProducts(filteredProducts, sortOption);
-  
-  // 4. Pagination
-  const totalItems = filteredProducts.length;
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const paginatedProducts = filteredProducts.slice(startIndex, endIndex);
-  
+    // If only b is priority, it comes first
+    if (bIndex !== -1) return 1;
+
+    // Otherwise, keep original order (or sort alphabetically if preferred, but API order is usually fine)
+    return 0;
+  });
+
   // Get selected category for display
   const selectedCategory = categories.find(
     (cat) => String(cat.id) === String(categoryId)
@@ -325,14 +75,15 @@ async function ProductsContent({ searchParams }) {
 
   return (
     <ProductsPageClient
-      initialProducts={paginatedProducts}
-      totalPages={totalPages}
-      currentPage={currentPage}
-      totalItems={totalItems}
-      itemsPerPage={itemsPerPage}
-      selectedCategory={selectedCategory}
-      searchQuery={searchQuery}
-      filteredCount={filteredProducts.length}
+      categories={categories}
+      initialCategory={selectedCategory}
+      initialFilters={{
+        category: categoryId,
+        price: priceRange,
+        sort: sortOption,
+        search: searchQuery,
+        page: currentPage,
+      }}
     />
   );
 }
@@ -340,7 +91,7 @@ async function ProductsContent({ searchParams }) {
 export default async function ProductsPage({ searchParams }) {
   // Await searchParams in Next.js 15
   const params = await searchParams;
-  
+
   return (
     <Suspense
       fallback={
