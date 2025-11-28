@@ -15,8 +15,34 @@ export default function CategoryShowcase({ categories = [] }) {
     return null;
   }
 
-  const displayedCategories = showAll ? categories : categories.slice(0, INITIAL_CATEGORIES_COUNT);
-  const hasMoreCategories = categories.length > INITIAL_CATEGORIES_COUNT;
+  // Define priority categories
+  const priorityCategories = ["Smartphone", "Earbuds", "Earphone"];
+
+  // Sort categories
+  const sortedCategories = [...categories].sort((a, b) => {
+    const aName = a.name || "";
+    const bName = b.name || "";
+
+    const aPriorityIndex = priorityCategories.findIndex(p => aName.toLowerCase().includes(p.toLowerCase()));
+    const bPriorityIndex = priorityCategories.findIndex(p => bName.toLowerCase().includes(p.toLowerCase()));
+
+    // If both are priority categories, sort by their order in the priority list
+    if (aPriorityIndex !== -1 && bPriorityIndex !== -1) {
+      return aPriorityIndex - bPriorityIndex;
+    }
+
+    // If only a is priority, it comes first
+    if (aPriorityIndex !== -1) return -1;
+
+    // If only b is priority, it comes first
+    if (bPriorityIndex !== -1) return 1;
+
+    // Otherwise keep original order (or alphabetical if preferred, but keeping original for now)
+    return 0;
+  });
+
+  const displayedCategories = showAll ? sortedCategories : sortedCategories.slice(0, INITIAL_CATEGORIES_COUNT);
+  const hasMoreCategories = sortedCategories.length > INITIAL_CATEGORIES_COUNT;
 
   return (
     <section ref={sectionRef} className="space-y-10 font-urbanist mt-16">
