@@ -5,6 +5,7 @@ import { MdShoppingCart, MdCheckCircle, MdCancel, MdShare, MdStar, MdAdd, MdRemo
 import { useCart } from "./CartContext";
 import { FaWhatsapp } from "react-icons/fa6";
 import Link from "next/link";
+import ProductMobileActionbar from "./ProductMobileActionbar";
 
 const formatCurrency = (value) => {
   const amount = Number(value);
@@ -262,6 +263,36 @@ export default function ProductInfoSection({ product, onStockStatusChange }) {
           Chat on WhatsApp
         </Link>
       </div>
+      {/* Mobile Action Bar */}
+      <ProductMobileActionbar
+        isInStock={isInStock}
+        onAddToCart={() => {
+          if (!isInStock) return;
+          const image = (product.images && product.images[0]) || product.image_path || product.thumbnail || "/globe.svg";
+          addItem({
+            id: product.id,
+            variantId: selectedVariant?.id || null,
+            name: product.name,
+            price: (hasVariants && selectedVariant ? calculateDiscountedPrice(selectedVariant.sale_price || product.retails_price, discount, discountType) : discountedPrice) || 0,
+            image,
+            attributes: selectedVariant ? { color: selectedVariant.color, storage: selectedVariant.storage, region: selectedVariant.region } : null,
+          }, quantity);
+        }}
+        onBuyNow={(e) => {
+          e.preventDefault();
+          if (!isInStock) return;
+          const image = (product.images && product.images[0]) || product.image_path || product.thumbnail || "/globe.svg";
+          addItem({
+            id: product.id,
+            variantId: selectedVariant?.id || null,
+            name: product.name,
+            price: (hasVariants && selectedVariant ? calculateDiscountedPrice(selectedVariant.sale_price || product.retails_price, discount, discountType) : discountedPrice) || 0,
+            image,
+            attributes: selectedVariant ? { color: selectedVariant.color, storage: selectedVariant.storage, region: selectedVariant.region } : null,
+          }, quantity);
+          window.location.href = "/cart";
+        }}
+      />
     </div>
   );
 }

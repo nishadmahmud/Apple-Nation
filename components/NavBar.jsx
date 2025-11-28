@@ -46,38 +46,76 @@ export default function NavBar() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200/50 bg-white/90 backdrop-blur-xl backdrop-saturate-150 dark:border-zinc-700/30 dark:bg-zinc-900/95">
-      <div className="mx-auto flex w-full md:max-w-10/12 max-w-11/12 pl-1 flex-col gap-2 md:py-2 pt-2 lg:flex-row lg:items-center lg:justify-between">
-        <div className="flex items-center justify-between gap-6">
+      <div className="mx-auto flex w-full max-w-[1440px] items-center justify-between px-4 py-2 lg:py-3 lg:px-8">
+        {/* Left: Logo */}
+        <div className="flex items-center gap-4">
           <Link href="/" className="flex items-center gap-3" onClick={() => setMobileMenuOpen(false)}>
-            <div className="relative h-12 w-12 md:w-12 md:h-12 shrink-0 overflow-hidden rounded-full">
+            <div className="relative h-9 w-9 md:h-11 md:w-11 shrink-0 overflow-hidden rounded-full">
               <Image
                 src="https://www.outletexpense.xyz/uploads/260-Biplob-Hossen/1764051566_69254a6e812ce.png"
                 alt="Apple Nation BD"
                 fill
                 className="object-contain"
-                sizes="(max-width: 640px) 32px, 40px"
+                sizes="(max-width: 640px) 32px, 44px"
                 priority
               />
             </div>
-
           </Link>
+        </div>
 
-          {/* Search Bar */}
-          <div className="border-b border-slate-200 dark:border-zinc-700 md:hidden block">
+        {/* Center: Navigation (Desktop) */}
+        <nav className="hidden lg:flex items-center gap-1 bg-slate-100/50 dark:bg-zinc-800/50 p-1.5 rounded-full border border-slate-200/50 dark:border-zinc-700/50 backdrop-blur-md">
+          {navigationLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="px-5 py-2 text-sm font-medium text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-zinc-700 rounded-full transition-all hover:shadow-sm font-urbanist"
+            >
+              {link.label}
+            </Link>
+          ))}
+        </nav>
+
+        {/* Right: Actions */}
+        <div className="flex items-center gap-3">
+          {/* Search (Desktop) */}
+          <div className="hidden lg:block">
             <NavBarSearch />
           </div>
 
+          {/* Theme Toggle */}
+          <div className="hidden sm:block">
+            <ThemeToggle />
+          </div>
 
+          {/* Cart Button (Desktop & Tablet) */}
+          <button
+            type="button"
+            onClick={() => setMiniOpen(true)}
+            className="hidden sm:inline-flex font-urbanist items-center justify-center rounded-full gap-2 bg-slate-900 px-4 py-2.5 text-sm font-semibold cursor-pointer text-white shadow-lg shadow-slate-900/10 transition-transform hover:-translate-y-0.5 hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:ring-offset-2 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100 dark:focus-visible:ring-offset-zinc-900"
+          >
+            <span className="relative">
+              <ShoppingCart size={18} />
+              {count > 0 && (
+                <span className="absolute -top-2 -right-2 flex h-4 w-4 items-center justify-center rounded-full bg-[#fb6913] text-[9px] font-bold text-white ring-2 ring-slate-900 dark:ring-white">
+                  {count}
+                </span>
+              )}
+            </span>
+            <span>Cart</span>
+          </button>
+
+          {/* Mobile Actions */}
           <div className="flex items-center gap-2 lg:hidden">
             <button
               type="button"
               onClick={() => setMiniOpen(true)}
-              className="relative inline-flex items-center justify-center rounded-full border border-slate-300 p-2 text-slate-700 transition-colors hover:border-slate-400 hover:bg-slate-100 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 dark:border-zinc-700 dark:text-zinc-300 dark:hover:border-zinc-500 dark:hover:bg-zinc-800 dark:hover:text-white"
+              className="relative inline-flex sm:hidden items-center justify-center rounded-full border border-slate-200 p-2 text-slate-700 transition-colors hover:bg-slate-100 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800"
               aria-label="View cart"
             >
               <MdShoppingCart className="h-5 w-5" />
               {count > 0 && (
-                <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-orange-500 text-[10px] font-bold text-white dark:bg-orange-500">
+                <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#fb6913] text-[10px] font-bold text-white">
                   {count}
                 </span>
               )}
@@ -85,51 +123,18 @@ export default function NavBar() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(true)}
-              className="inline-flex items-center justify-center rounded-full border border-slate-300 p-2 text-slate-700 transition-colors hover:border-slate-400 hover:bg-slate-100 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 dark:border-zinc-700 dark:text-zinc-300 dark:hover:border-zinc-500 dark:hover:bg-zinc-800 dark:hover:text-white"
+              className="inline-flex items-center justify-center rounded-full border border-slate-200 p-2 text-slate-700 transition-colors hover:bg-slate-100 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800"
               aria-label="Open navigation menu"
             >
               <MdMenu className="h-6 w-6" />
             </button>
           </div>
-
-          <nav className="hidden items-center gap-4 text-xs font-semibold text-slate-700 dark:text-zinc-300 lg:flex">
-            {navigationLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="rounded-full px-2 transition-colors hover:text-orange-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white  dark:hover:text-white dark:focus-visible:ring-offset-zinc-900 font-urbanist text-sm"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
         </div>
+      </div>
 
-        <div className="flex items-center gap-2">
-          <div className="hidden items-center gap-3 lg:flex">
-            <NavBarSearch />
-          </div>
-          <div className="hidden items-center gap-2 lg:flex">
-            <ThemeToggle />
-            <button
-              type="button"
-              onClick={() => setMiniOpen(true)}
-              className="relative inline-flex font-urbanist items-center justify-center rounded-full gap-2 bg-[#fb6913] px-3.5 py-1.5 text-xs font-semibold cursor-pointer text-white shadow-lg shadow-slate-900/10 transition-transform hover:-translate-y-0.5 hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-200 focus-visible:ring-offset-2 hover:text-black focus-visible:ring-offset-white dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-gray-50 dark:hover:text-black dark:focus-visible:ring-offset-zinc-900"
-            >
-              <span className="relative">
-                <ShoppingCart size={20} />
-
-                {/* Badge positioned on top of icon */}
-                <span className="absolute top-0 -right-1 inline-flex h-3 min-w-3 items-center justify-center rounded-full bg-gray-100 text-[8px] font-semibold text-[#fb6913] px-1 dark:bg-gray-900 dark:text-white">
-                  {count}
-                </span>
-              </span>
-
-              Cart
-            </button>
-
-          </div>
-        </div>
+      {/* Mobile Search Bar (Below Header) */}
+      <div className="border-t border-slate-100 dark:border-zinc-800 lg:hidden px-4 py-2 bg-slate-50/50 dark:bg-zinc-900/50 backdrop-blur-sm">
+        <NavBarSearch />
       </div>
 
       <CartDrawer open={miniOpen} onClose={() => setMiniOpen(false)} />

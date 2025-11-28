@@ -21,6 +21,11 @@ export default function MobileBottomNav() {
 
     if (!mounted) return null;
 
+    // Hide on product details pages (e.g., /products/123) but show on /products
+    const isProductDetails = pathname.startsWith('/products/') && pathname.split('/').length > 2;
+
+    if (isProductDetails) return null;
+
     const navItems = [
         {
             label: "Home",
