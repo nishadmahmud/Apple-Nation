@@ -8,7 +8,7 @@ export default function FloatingActionButtons() {
     return (
         <div className="fixed bottom-24 right-4 z-40 flex flex-col items-end gap-3 lg:bottom-8 lg:right-8">
             {/* Compare Button (Placeholder) */}
-            <button
+            <Link href="/compare"
                 className="group flex h-12 items-center rounded-full bg-slate-900 text-white shadow-lg shadow-slate-900/20 transition-all hover:pr-4 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700"
                 aria-label="Compare Products"
             >
@@ -18,7 +18,7 @@ export default function FloatingActionButtons() {
                 <span className="max-w-0 overflow-hidden whitespace-nowrap text-sm font-bold transition-all duration-200 ease-out group-hover:max-w-xs">
                     Compare Products
                 </span>
-            </button>
+            </Link>
 
             {/* WhatsApp Button */}
             <Link
