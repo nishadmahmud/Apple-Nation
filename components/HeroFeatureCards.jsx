@@ -70,7 +70,7 @@ const colorClasses = {
 
 export default function HeroFeatureCards() {
   return (
-    <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3 xl:grid-cols-6 mt-8">
+    <div className="grid grid-cols-2 gap-2 sm:gap-4 lg:grid-cols-3 xl:grid-cols-6 mt-4 sm:mt-8">
       {features.map((feature) => {
         const Icon = feature.icon;
         const colorClass = colorClasses[feature.color];
@@ -79,18 +79,18 @@ export default function HeroFeatureCards() {
           <Link
             key={feature.id}
             href={feature.link}
-            className="group font-urbanist relative overflow-hidden rounded-2xl border border-slate-100 bg-white p-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-slate-200 dark:border-zinc-800 dark:bg-zinc-900/80 dark:hover:border-zinc-700"
+            className="group font-urbanist relative overflow-hidden rounded-xl sm:rounded-2xl border border-slate-100 bg-white p-2 sm:p-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-slate-200 dark:border-zinc-800 dark:bg-zinc-900/80 dark:hover:border-zinc-700"
           >
-            <div className="flex flex-col items-center text-center gap-3">
-              <div className={`inline-flex rounded-full p-3 transition-transform duration-300 group-hover:scale-110 ${colorClass} bg-opacity-10`}>
-                <Icon className="h-6 w-6 sm:h-7 sm:w-7" />
+            <div className="flex flex-row sm:flex-col items-center sm:text-center gap-2 sm:gap-3">
+              <div className={`inline-flex rounded-full p-1.5 sm:p-3 transition-transform duration-300 group-hover:scale-110 ${colorClass} bg-opacity-10 shrink-0`}>
+                <Icon className="h-4 w-4 sm:h-7 sm:w-7" />
               </div>
 
-              <div className="space-y-1">
-                <h3 className="text-sm font-bold text-slate-900 dark:text-zinc-100">
+              <div className="space-y-0.5 sm:space-y-1 min-w-0">
+                <h3 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-zinc-100 truncate sm:whitespace-normal">
                   {feature.title}
                 </h3>
-                <p className="text-xs text-slate-500 font-medium dark:text-zinc-400 hidden sm:block">
+                <p className="text-[10px] sm:text-xs text-slate-500 font-medium dark:text-zinc-400 hidden sm:block">
                   {feature.description}
                 </p>
               </div>

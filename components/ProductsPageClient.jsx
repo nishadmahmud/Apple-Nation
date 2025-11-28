@@ -405,7 +405,7 @@ export default function ProductsPageClient({
                                                 original={original}
                                                 stockOut={stockOut}
                                                 hasDiscount={hasDiscount}
-                                                className={viewMode === "list" ? "flex-row" : ""}
+                                                viewMode={viewMode}
                                             />
                                         );
                                     })}

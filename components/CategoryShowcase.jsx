@@ -19,45 +19,53 @@ export default function CategoryShowcase({ categories = [] }) {
   const hasMoreCategories = categories.length > INITIAL_CATEGORIES_COUNT;
 
   return (
-    <section ref={sectionRef} className="space-y-10 font-urbanist mt-24">
+    <section ref={sectionRef} className="space-y-10 font-urbanist mt-16">
       <div className="flex flex-col gap-4 text-center lg:text-left">
-        <div className="inline-flex items-center justify-center gap-2 self-center rounded-full bg-orange-500/10 border border-orange-500/20 px-5 py-1.5 text-sm font-bold tracking-wide text-orange-600 dark:bg-orange-400/10 dark:text-orange-400 dark:border-orange-400/20 lg:self-start">
+        <div className="inline-flex items-center justify-center gap-2 self-center rounded-full bg-[#fa6915f1] px-5 py-1.5 text-sm  font-semibold tracking-wide text-white dark:bg-orange-400/10 dark:text-orange-300 lg:self-start">
           Shop by Category
         </div>
         <div className="space-y-2">
           <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl dark:text-zinc-100">
-            Explore Essentials
+            Explore Essentials Tailored for Your Ecosystem
           </h2>
-          <p className="mx-auto max-w-3xl text-base text-slate-500 font-poppins dark:text-zinc-400 lg:mx-0">
-            Browse our curated collections. Each section is optimized for quick discovery.
+          <p className="mx-auto max-w-3xl text-sm text-slate-500 poppins dark:text-zinc-400 lg:mx-0">
+            Browse curated collections featuring the most-loved Apple Nation BD categories. Each section is optimized for quick discovery and deeper exploration.
           </p>
         </div>
       </div>
-      <div className="space-y-8">
+      <div className="space-y-6">
         <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-8">
           {displayedCategories.map((category) => (
             <Link
               key={category.id}
               href={`/products?category=${category.id}`}
-              className="group flex flex-col items-center gap-4 p-4 rounded-2xl transition-all duration-300 hover:bg-white hover:shadow-xl hover:shadow-slate-200/50 dark:hover:bg-zinc-800 dark:hover:shadow-black/50"
+              className="group relative flex flex-col items-center justify-center gap-3 overflow-hidden rounded-xl border border-slate-200 bg-white/85 p-6 shadow-lg shadow-slate-900/5 transition-transform duration-300 hover:-translate-y-1 hover:border-orange-500 hover:shadow-xl dark:border-zinc-800 dark:bg-zinc-900/60 dark:hover:border-orange-500/60"
             >
-              <div className="relative flex h-24 w-24 items-center justify-center rounded-full bg-slate-50 dark:bg-zinc-800/50 transition-all duration-300 group-hover:scale-110 group-hover:bg-orange-50 dark:group-hover:bg-orange-500/10">
-                {category.image_url ? (
+              {category.image_url ? (
+                <div className="relative overflow-hidden">
                   <Image
                     src={category.image_url}
                     alt={category.name}
-                    width={64}
-                    height={64}
-                    className="object-contain transition-transform duration-300 group-hover:scale-110"
+                    width={300}
+                    height={300}
+                    className="object-cover transition-transform duration-300 group-hover:scale-110 md:w-16 w-10"
+                    sizes="56px"
                     unoptimized
                   />
-                ) : (
-                  <MdMemory className="h-8 w-8 text-slate-400 transition-colors duration-300 group-hover:text-orange-500" />
-                )}
-              </div>
-              <h3 className="text-center text-sm font-bold text-slate-700 transition-colors duration-300 group-hover:text-orange-600 dark:text-zinc-300 dark:group-hover:text-orange-400">
+                </div>
+              ) : (
+                <span className="flex h-14 w-14 items-center justify-center rounded-lg bg-orange-500/15 text-orange-600 transition-transform duration-300 group-hover:scale-110 dark:bg-orange-400/10 dark:text-orange-200">
+                  <MdMemory className="h-7 w-7" aria-hidden />
+                </span>
+              )}
+              <h3 className="text-center text-sm font-semibold text-slate-900 dark:text-zinc-100">
                 {category.name}
               </h3>
+              {/* {category.product_count > 0 && (
+                <span className="text-xs text-slate-500 dark:text-zinc-400">
+                  {category.product_count} {category.product_count === 1 ? "item" : "items"}
+                </span>
+              )} */}
             </Link>
           ))}
         </div>
@@ -66,23 +74,24 @@ export default function CategoryShowcase({ categories = [] }) {
             {!showAll ? (
               <button
                 onClick={() => setShowAll(true)}
-                className="group inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-8 py-3 text-sm font-semibold text-slate-700 transition-all duration-300 hover:border-orange-500 hover:text-orange-600 hover:shadow-lg dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:border-orange-500 dark:hover:text-orange-400"
+                className="inline-flex items-center gap-2 rounded-full border border-orange-600 bg-white px-6 py-2 text-sm font-semibold text-orange-600 transition-colors hover:bg-orange-50 dark:border-orange-400 cursor-pointer dark:bg-zinc-800 dark:text-orange-400 dark:hover:bg-zinc-700"
               >
                 View All Categories
-                <MdKeyboardArrowDown className="h-5 w-5 transition-transform duration-300 group-hover:translate-y-1" />
+                <MdKeyboardArrowDown className="h-5 w-5" />
               </button>
             ) : (
               <button
                 onClick={() => {
                   setShowAll(false);
+                  // Smooth scroll to top of categories section
                   setTimeout(() => {
                     sectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                   }, 100);
                 }}
-                className="group inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-8 py-3 text-sm font-semibold text-slate-700 transition-all duration-300 hover:border-orange-500 hover:text-orange-600 hover:shadow-lg dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:border-orange-500 dark:hover:text-orange-400"
+                className="inline-flex items-center gap-2 rounded-full border-2 border-orange-600 bg-white px-6 py-3 text-sm font-semibold text-orange-600 transition-colors hover:bg-orange-50 dark:border-orange-400 dark:bg-zinc-800 dark:text-orange-400 dark:hover:bg-zinc-700"
               >
                 Show Less
-                <MdKeyboardArrowUp className="h-5 w-5 transition-transform duration-300 group-hover:-translate-y-1" />
+                <MdKeyboardArrowUp className="h-5 w-5" />
               </button>
             )}
           </div>

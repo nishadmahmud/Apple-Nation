@@ -74,6 +74,8 @@ const metadata = {
 export const noImage = 'https://www.outletexpense.xyz/uploads/260-Biplob-Hossen/1764148676_6926c5c4d0fa2.jpg'
 
 
+import MobileBottomNav from "../components/MobileBottomNav";
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
@@ -102,6 +104,7 @@ export default function RootLayout({ children }) {
             <NavBar />
             <main className="flex-1">{children}</main>
             <Footer />
+            <MobileBottomNav />
           </div>
         </CartProvider>
       </body>

@@ -136,7 +136,7 @@ export default function CategoryBanner() {
   return (
     <div className="grid grid-cols-1 gap-4 lg:grid-cols-[2.4fr_1fr] mt-4">
       {/* Large Phone Section - Premium Slider */}
-      <div className="group relative col-span-1 overflow-hidden rounded-2xl shadow-2xl shadow-slate-200/50 dark:shadow-black/50 lg:min-h-[520px] h-[400px] lg:h-auto">
+      <div className="group relative col-span-1 overflow-hidden rounded-md shadow-2xl shadow-slate-200/50 dark:shadow-black/50 lg:min-h-[520px] h-[250px] lg:h-auto">
         <Link
           href={officialPhoneId ? `/products?category=${officialPhoneId}` : "/products"}
           className="block h-full w-full"
@@ -200,11 +200,11 @@ export default function CategoryBanner() {
       </div>
 
       {/* Right Column - Two Premium Cards */}
-      <div className="flex flex-col gap-4 h-full">
+      <div className="flex flex-row lg:flex-col gap-4 h-full">
         {/* Smart Watches Section */}
         <Link
           href={smartWatchesId ? `/products?category=${smartWatchesId}` : "/products"}
-          className="group relative flex-1 overflow-hidden rounded-2xl shadow-lg transition-all duration-300 hover:shadow-xl min-h-[200px]"
+          className="group relative flex-1 overflow-hidden rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl min-h-[150px] lg:min-h-[200px]"
         >
           {smartwatchImage && (
             <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-110">
@@ -219,10 +219,10 @@ export default function CategoryBanner() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
             </div>
           )}
-          <div className="absolute bottom-0 left-0 p-6 z-10 w-full">
+          <div className="absolute bottom-0 left-0 p-4 lg:p-6 z-10 w-full">
             <div className="transform transition-transform duration-300 group-hover:-translate-y-1">
-              <h3 className="text-2xl font-bold text-white font-urbanist mb-1">Smart Watches</h3>
-              <div className="flex items-center gap-2 text-sm font-medium text-slate-200 opacity-0 transform translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
+              <h3 className="text-lg lg:text-2xl font-bold text-white font-urbanist mb-1">Smart Watches</h3>
+              <div className="flex items-center gap-2 text-sm font-medium text-slate-200 opacity-0 transform translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 hidden lg:flex">
                 Explore Collection <MdArrowForward />
               </div>
             </div>
@@ -232,7 +232,7 @@ export default function CategoryBanner() {
         {/* Earbuds Section */}
         <Link
           href={earbudsId ? `/products?category=${earbudsId}` : "/products"}
-          className="group relative flex-1 overflow-hidden rounded-2xl shadow-lg transition-all duration-300 hover:shadow-xl min-h-[200px]"
+          className="group relative flex-1 overflow-hidden rounded-md shadow-lg transition-all duration-300 hover:shadow-xl min-h-[150px] lg:min-h-[200px]"
         >
           {earbudsImage && (
             <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-110">
@@ -247,10 +247,10 @@ export default function CategoryBanner() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
             </div>
           )}
-          <div className="absolute bottom-0 left-0 p-6 z-10 w-full">
+          <div className="absolute bottom-0 left-0 p-4 lg:p-6 z-10 w-full">
             <div className="transform transition-transform duration-300 group-hover:-translate-y-1">
-              <h3 className="text-2xl font-bold text-white font-urbanist mb-1">Earbuds</h3>
-              <div className="flex items-center gap-2 text-sm font-medium text-slate-200 opacity-0 transform translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
+              <h3 className="text-lg lg:text-2xl font-bold text-white font-urbanist mb-1">Earbuds</h3>
+              <div className="flex items-center gap-2 text-sm font-medium text-slate-200 opacity-0 transform translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 hidden lg:flex">
                 Shop Audio <MdArrowForward />
               </div>
             </div>
