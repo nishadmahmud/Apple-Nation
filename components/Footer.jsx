@@ -58,7 +58,7 @@ export default function Footer() {
               Bangladesh&apos;s trusted destination for premium Apple devices, accessories, and expert service.
             </p>
           </div>
-          
+
           {/* Row 2: Shop and Support side by side */}
           <div className="grid grid-cols-2 gap-6">
             {footerMenus.map((menu) => (
@@ -81,7 +81,7 @@ export default function Footer() {
               </div>
             ))}
           </div>
-          
+
           {/* Row 3: Contact */}
           <div className="flex flex-col gap-4">
             <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-900 dark:text-zinc-200">
@@ -124,7 +124,7 @@ export default function Footer() {
             </ul>
           </div>
         </div>
-        
+
         {/* Desktop Layout: All in one row */}
         <div className="hidden grid-cols-[1.2fr_1fr_1fr_1fr] items-start gap-8 lg:grid">
           <div className="flex flex-col gap-4">

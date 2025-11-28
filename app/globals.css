@@ -60,12 +60,12 @@ html {
 
 /* fonts */
 
-.urbanist{
+.urbanist {
   font-family: var(--font-urbanist)
 }
 
 
-.poppins{
+.poppins {
   font-family: var(--font-poppins)
 }
 
@@ -83,6 +83,7 @@ html {
   from {
     transform: translateX(-100%);
   }
+
   to {
     transform: translateX(0);
   }
@@ -92,6 +93,7 @@ html {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }

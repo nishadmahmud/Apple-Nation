@@ -8,6 +8,7 @@ import SearchBar from "./SearchBar";
 import Pagination from "./Pagination";
 import { motion, AnimatePresence } from "framer-motion";
 import { fetchCategoryProducts } from "../lib/api";
+import { useCart } from "./CartContext";
 
 import LoadingSpinner from "./LoadingSpinner";
 
@@ -24,9 +25,39 @@ export default function ProductsPageClient({
     const [loadingProgress, setLoadingProgress] = useState(0);
     const [showFilters, setShowFilters] = useState(false);
     const [viewMode, setViewMode] = useState("grid"); // 'grid' or 'list'
+    const { addItem, items } = useCart();
 
     // Ref to track if we are currently fetching to prevent race conditions
     const fetchingRef = useRef(false);
+
+    // Helper functions for ProductCard
+    const calculatePrice = (product) => {
+        const retailPrice = product?.retails_price || 0;
+        if (product?.discount && product.discount_type === "Percentage") {
+            return retailPrice - (retailPrice * product?.discount) / 100;
+        } else if (product.discount && product.discount_type !== "Percentage") {
+            return retailPrice - product.discount;
+        }
+        return retailPrice;
+    };
+
+    const handleAddToCart = (product) => {
+        const price = calculatePrice(product);
+        addItem({
+            id: product.id,
+            name: product.name,
+            price: price || 0,
+            image: product.image_path || product.image_url || "/globe.svg",
+        });
+    };
+
+    const isInCart = (productId) => {
+        return items.some((it) => String(it.id) === String(productId));
+    };
+
+    const isOutOfStock = (product) => {
+        return product.current_stock === 0 || product.current_stock === null;
+    };
 
     // Fetch products progressively with caching
     useEffect(() => {
@@ -352,13 +383,32 @@ export default function ProductsPageClient({
                                 <div
                                     className={
                                         viewMode === "grid"
-                                            ? "grid gap-x-6 gap-y-2 grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+                                            ? "grid gap-x-6 gap-y-6 grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
                                             : "flex flex-col gap-4"
                                     }
                                 >
-                                    {paginatedProducts.map((product) => (
-                                        <ProductCard key={product.id} product={product} viewMode={viewMode} />
-                                    ))}
+                                    {paginatedProducts.map((product) => {
+                                        const price = calculatePrice(product);
+                                        const original = product.retails_price || 0;
+                                        const hasDiscount = price !== original && original && product.discount;
+                                        const stockOut = isOutOfStock(product);
+                                        const inCart = isInCart(product.id);
+
+                                        return (
+                                            <ProductCard
+                                                key={product.id}
+                                                product={product}
+                                                handleAddToCart={handleAddToCart}
+                                                inCart={inCart}
+                                                imageSrc={product.image_path || product.image_url || "/globe.svg"}
+                                                price={price}
+                                                original={original}
+                                                stockOut={stockOut}
+                                                hasDiscount={hasDiscount}
+                                                className={viewMode === "list" ? "flex-row" : ""}
+                                            />
+                                        );
+                                    })}
                                 </div>
                                 {loading && (
                                     <div className="mt-8 flex justify-center">

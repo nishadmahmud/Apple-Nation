@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { 
-  MdLocalShipping, 
-  MdSecurity, 
-  MdSupportAgent, 
+import {
+  MdLocalShipping,
+  MdSecurity,
+  MdSupportAgent,
   MdVerified,
   MdPayment,
   MdRefresh
@@ -70,29 +70,34 @@ const colorClasses = {
 
 export default function HeroFeatureCards() {
   return (
-    <div className="grid grid-cols-3 gap-3 sm:gap-4 lg:grid-cols-3 xl:grid-cols-6">
+    <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3 xl:grid-cols-6 mt-8">
       {features.map((feature) => {
         const Icon = feature.icon;
         const colorClass = colorClasses[feature.color];
-        
+
         return (
           <Link
             key={feature.id}
             href={feature.link}
-            className="group font-urbanist relative overflow-hidden rounded-lg border hover:border-[#fb6913] bg-white/95 p-3 shadow-sm transition duration-500 ease-in-out hover:-translate-y-1 border-slate-300 hover:shadow-lg sm:p-6 dark:border-zinc-800 dark:bg-zinc-900/60 dark:hover:border-zinc-700"
+            className="group font-urbanist relative overflow-hidden rounded-2xl border border-slate-100 bg-white p-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-slate-200 dark:border-zinc-800 dark:bg-zinc-900/80 dark:hover:border-zinc-700"
           >
-            <div className={`mb-2 inline-flex rounded-xl border p-2 sm:mb-4 sm:p-3 ${colorClass}`}>
-              <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
+            <div className="flex flex-col items-center text-center gap-3">
+              <div className={`inline-flex rounded-full p-3 transition-transform duration-300 group-hover:scale-110 ${colorClass} bg-opacity-10`}>
+                <Icon className="h-6 w-6 sm:h-7 sm:w-7" />
+              </div>
+
+              <div className="space-y-1">
+                <h3 className="text-sm font-bold text-slate-900 dark:text-zinc-100">
+                  {feature.title}
+                </h3>
+                <p className="text-xs text-slate-500 font-medium dark:text-zinc-400 hidden sm:block">
+                  {feature.description}
+                </p>
+              </div>
             </div>
-            <h3 className="text-xs font-semibold text-slate-900 sm:mb-1 sm:text-base dark:text-zinc-100">
-              {feature.title}
-            </h3>
-            <p className="hidden text-sm leading-relaxed text-slate-700 sm:block dark:text-zinc-400">
-              {feature.description}
-            </p>
-            
+
             {/* Hover Effect Gradient */}
-            <div className={`absolute inset-0 -z-10 bg-linear-to-br ${colorClass.split(' ')[0]} opacity-0 transition-opacity duration-300 group-hover:opacity-5`} />
+            <div className={`absolute inset-0 -z-10 bg-gradient-to-br ${colorClass.split(' ')[0]} opacity-0 transition-opacity duration-300 group-hover:opacity-5`} />
           </Link>
         );
       })}

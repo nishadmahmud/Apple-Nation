@@ -92,25 +92,27 @@ export default function BrandWiseProducts() {
   };
 
   return (
-    <section className="space-y-6 md:mt-16 mt-10">
+    <section className="space-y-8 md:mt-24 mt-16">
       {/* Header */}
       <div className="flex flex-col gap-3 text-center lg:text-left">
-        <h2 className="text-2xl font-bold tracking-tight text-slate-900 font-urbanist sm:text-3xl dark:text-zinc-100">
-          Top Brand Products
+        <div className="inline-flex items-center justify-center gap-2 self-center rounded-full bg-slate-900/5 border border-slate-900/10 px-5 py-1.5 text-sm font-bold tracking-wide text-slate-700 dark:bg-zinc-100/10 dark:text-zinc-300 dark:border-zinc-100/20 lg:self-start">
+          Top Brands
+        </div>
+        <h2 className="text-3xl font-bold tracking-tight text-slate-900 font-urbanist sm:text-4xl dark:text-zinc-100">
+          Explore by Brand
         </h2>
       </div>
 
       {/* Brand Tabs */}
-      <div className="flex flex-wrap items-center justify-center gap-3 border-b border-slate-200 md:pb-4 dark:border-zinc-700 lg:justify-start">
+      <div className="flex flex-wrap items-center justify-center gap-3 border-b border-slate-100 md:pb-6 dark:border-zinc-800 lg:justify-start">
         {BRAND_TABS.map((brand) => (
           <button
             key={brand.id}
             onClick={() => setSelectedBrand(brand.id)}
-            className={`rounded-full md:px-5 px-3 py-2 text-sm font-semibold font-urbanist transition-colors duration-200 ${
-              selectedBrand === brand.id
-                ? "bg-[#fb6913] text-white dark:bg-[#fb6913] dark:text-zinc-100"
-                : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-zinc-800 dark:text-zinc-300 cursor-pointer dark:hover:bg-zinc-700"
-            }`}
+            className={`rounded-full md:px-6 px-4 py-2.5 text-sm font-bold font-urbanist transition-all duration-300 ${selectedBrand === brand.id
+              ? "bg-slate-900 text-white shadow-lg shadow-slate-900/20 dark:bg-white dark:text-black dark:shadow-white/10"
+              : "bg-white border border-slate-200 text-slate-600 hover:border-slate-400 hover:text-slate-900 dark:bg-zinc-900 dark:border-zinc-700 dark:text-zinc-400 dark:hover:border-zinc-500 dark:hover:text-zinc-200"
+              }`}
           >
             {brand.name}
           </button>
@@ -119,16 +121,16 @@ export default function BrandWiseProducts() {
 
       {/* Products Grid */}
       {loading ? (
-        <div className="flex items-center justify-center py-12">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-slate-200 border-t-slate-900 dark:border-zinc-700 dark:border-t-zinc-100" />
+        <div className="flex items-center justify-center py-20">
+          <div className="h-10 w-10 animate-spin rounded-full border-4 border-slate-200 border-t-slate-900 dark:border-zinc-700 dark:border-t-zinc-100" />
         </div>
       ) : products.length === 0 ? (
-        <div className="py-12 text-center text-slate-600 dark:text-zinc-400">
-          No products found for this brand.
+        <div className="py-20 text-center">
+          <p className="text-lg font-medium text-slate-500 dark:text-zinc-400">No products found for this brand.</p>
         </div>
       ) : (
-        <div className="-mx-6 overflow-x-auto px-6 scrollbar-hide">
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 pb-4">
+        <div className="-mx-6 overflow-x-auto px-6 scrollbar-hide pb-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
             {products.map((product) => {
               const imageSrc =
                 product.image_path || product.image_url || "/globe.svg";
@@ -139,21 +141,17 @@ export default function BrandWiseProducts() {
               const inCart = isInCart(product.id);
 
               return (
-               
-  <ProductCard
-    key={product.id}
-    product={product}
-    hasDiscount={hasDiscount}
-    imageSrc={imageSrc}
-    price={price}
-    stockOut={stockOut}
-    inCart={inCart}
-    original={original}
-    handleAddToCart={handleAddToCart}
-  />
-
-
-
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  hasDiscount={hasDiscount}
+                  imageSrc={imageSrc}
+                  price={price}
+                  stockOut={stockOut}
+                  inCart={inCart}
+                  original={original}
+                  handleAddToCart={handleAddToCart}
+                />
               );
             })}
           </div>
