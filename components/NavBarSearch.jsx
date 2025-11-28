@@ -37,14 +37,14 @@ const getCachedResults = (query) => {
 // Set cached search results
 const setCachedResults = (query, results) => {
   const normalizedQuery = query.toLowerCase().trim();
-  
+
   // Limit cache size
   if (searchCache.size >= MAX_CACHE_SIZE) {
     // Remove oldest entry
     const firstKey = searchCache.keys().next().value;
     searchCache.delete(firstKey);
   }
-  
+
   searchCache.set(normalizedQuery, {
     results,
     timestamp: Date.now(),
@@ -54,9 +54,9 @@ const setCachedResults = (query, results) => {
 // Client-side product search
 const searchProducts = (products, query, limit = 8) => {
   if (!query || query.trim().length < 2) return [];
-  
+
   const normalizedQuery = query.toLowerCase().trim();
-  
+
   return products
     .filter((product) => {
       const name = String(product.name || "").toLowerCase();
@@ -74,7 +74,7 @@ export default function NavBarSearch() {
   const [showResults, setShowResults] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const [isExpanded, setIsExpanded] = useState(false);
-  
+
   const inputRef = useRef(null);
   const resultsRef = useRef(null);
   const debounceTimer = useRef(null);
@@ -104,10 +104,10 @@ export default function NavBarSearch() {
       try {
         console.log("⚡ Loading products for search...");
         const startTime = Date.now();
-        
+
         // Fetch categories first
         const categoriesResult = await fetchCategories();
-        
+
         if (!categoriesResult?.success || !Array.isArray(categoriesResult?.data)) {
           console.error("❌ Failed to fetch categories");
           isLoadingProducts = false;
@@ -119,7 +119,7 @@ export default function NavBarSearch() {
           .filter((cat) => cat.product_count > 0)
           .sort((a, b) => b.product_count - a.product_count)
           .slice(0, 10); // Only top 10!
-        
+
         console.log("📦 Fetching from top", topCategories.length, "categories");
 
         // Fetch all in parallel with timeout
@@ -128,10 +128,10 @@ export default function NavBarSearch() {
           try {
             const controller = new AbortController();
             const timeoutId = setTimeout(() => controller.abort(), TIMEOUT);
-            
+
             const result = await fetchCategoryProducts(category.category_id, 1, 30);
             clearTimeout(timeoutId);
-            
+
             let categoryProducts = [];
             if (Array.isArray(result?.data?.data)) {
               categoryProducts = result.data.data;
@@ -140,7 +140,7 @@ export default function NavBarSearch() {
             } else if (Array.isArray(result)) {
               categoryProducts = result;
             }
-            
+
             return categoryProducts;
           } catch (error) {
             console.warn(`⚠️ Skipped category ${category.name}`);
@@ -149,11 +149,11 @@ export default function NavBarSearch() {
         });
 
         const results = await Promise.allSettled(categoryPromises);
-        
+
         // Merge and deduplicate
         const seenIds = new Set();
         const allProducts = [];
-        
+
         results.forEach((result) => {
           if (result.status === "fulfilled" && Array.isArray(result.value)) {
             result.value.forEach((product) => {
@@ -167,7 +167,7 @@ export default function NavBarSearch() {
 
         const loadTime = Date.now() - startTime;
         console.log(`✓ Loaded ${allProducts.length} products in ${loadTime}ms`);
-        
+
         if (allProducts.length > 0) {
           allProductsCache = allProducts;
           allProductsCacheTime = Date.now();
@@ -203,11 +203,11 @@ export default function NavBarSearch() {
 
     // Use cached products if available
     let productsToSearch = allProductsCache;
-    
+
     if (!productsToSearch || productsToSearch.length === 0) {
       // Products not loaded yet, show loading
       setLoading(true);
-      
+
       // Retry up to 5 times (5 seconds total)
       let retries = 0;
       const maxRetries = 10;
@@ -230,10 +230,10 @@ export default function NavBarSearch() {
 
     // Perform client-side search - very fast!
     const searchResults = searchProducts(productsToSearch, searchQuery, 8);
-    
+
     // Cache results for instant future searches
     setCachedResults(searchQuery, searchResults);
-    
+
     setResults(searchResults);
   }, []);
 
@@ -411,7 +411,7 @@ export default function NavBarSearch() {
       {showResults && (
         <div
           ref={resultsRef}
-          className="absolute -left-16 top-full z-50 mt-2 md:w-full w-80 max-h-96 overflow-y-auto rounded-lg border border-slate-200 bg-white shadow-xl dark:border-zinc-700 dark:bg-zinc-800"
+          className="absolute left-0 top-full z-50 mt-2 w-full max-h-96 overflow-y-auto rounded-lg border border-slate-200 bg-white shadow-xl dark:border-zinc-700 dark:bg-zinc-800"
         >
           {loading ? (
             <div className="flex items-center justify-center py-8">
@@ -434,9 +434,8 @@ export default function NavBarSearch() {
                       key={product.id}
                       href={`/products/${product.id}`}
                       onClick={() => handleProductClick(product.id)}
-                      className={`flex items-center gap-3 border-b border-slate-100 px-4 py-3 transition-colors hover:bg-slate-50 dark:border-zinc-700 dark:hover:bg-zinc-700/50 ${
-                        isSelected ? "bg-slate-50 dark:bg-zinc-700/50" : ""
-                      }`}
+                      className={`flex items-center gap-3 border-b border-slate-100 px-4 py-3 transition-colors hover:bg-slate-50 dark:border-zinc-700 dark:hover:bg-zinc-700/50 ${isSelected ? "bg-slate-50 dark:bg-zinc-700/50" : ""
+                        }`}
                     >
                       <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-lg bg-slate-100 dark:bg-zinc-700">
                         <Image
