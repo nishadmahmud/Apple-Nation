@@ -67,6 +67,7 @@ export default function ProductImageGallery({
             fill
             className="object-contain"
             priority
+            unoptimized
           />
         </div>
 
@@ -142,6 +143,7 @@ export default function ProductImageGallery({
                     : "opacity-70 hover:opacity-100"
                   }
                 `}
+                unoptimized
               />
             </button>
           ))}
