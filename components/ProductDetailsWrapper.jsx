@@ -14,18 +14,21 @@ export default function ProductDetailsWrapper({ product, images, hasDiscount, di
   return (
     <div className="flex md:flex-row flex-col gap-5 md:gap-10">
       {/* Image Gallery */}
-      <ProductImageGallery
-        images={images}
-        productName={product.name}
-        hasDiscount={hasDiscount}
-        discount={discount}
-        discountType={discountType}
-        isInStock={isInStock}
-      />
+      {/* Image Gallery */}
+      <div className="w-full md:w-1/2">
+        <ProductImageGallery
+          images={images}
+          productName={product.name}
+          hasDiscount={hasDiscount}
+          discount={discount}
+          discountType={discountType}
+          isInStock={isInStock}
+        />
+      </div>
 
       {/* Product Info */}
-      <ProductInfoSection 
-        product={product} 
+      <ProductInfoSection
+        product={product}
         onStockStatusChange={handleStockStatusChange}
       />
     </div>

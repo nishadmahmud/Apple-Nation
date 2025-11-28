@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
-import ReactImageMagnify from "react-image-magnify";
 import { noImage } from "@/app/layout";
 
 export default function ProductImageGallery({
@@ -14,6 +13,9 @@ export default function ProductImageGallery({
   isInStock
 }) {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [isHovering, setIsHovering] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const imageContainerRef = useRef(null);
 
   if (!images || images.length === 0) {
     images = ["/globe.svg"];
@@ -21,50 +23,67 @@ export default function ProductImageGallery({
 
   const selectedImage = images[selectedImageIndex] || images[0];
 
+  const handleMouseMove = (e) => {
+    if (!imageContainerRef.current) return;
+    const { left, top, width, height } = imageContainerRef.current.getBoundingClientRect();
+    const x = ((e.clientX - left) / width) * 100;
+    const y = ((e.clientY - top) / height) * 100;
+    setMousePosition({ x, y });
+  };
+
   return (
     <div className="space-y-4">
       {/* Main Zoom Image */}
-      <div className="
-        relative 
-        aspect-square 
-        w-full 
-        max-w-full
-        sm:max-w-sm 
-        md:max-w-md 
-        lg:max-w-lg 
-        xl:max-w-3xl 
-        mx-auto
-        z-10 
-        md:overflow-visible 
-        rounded-xl 
-        border border-slate-200 
-        bg-white 
-        dark:border-zinc-700 
-        dark:bg-zinc-800/90 
-        p-2 sm:p-3 md:p-4
-      ">
-        <ReactImageMagnify
-          {...{
-            smallImage: {
-              alt: productName,
-              isFluidWidth: true,
-              src: selectedImage || noImage,
-            },
-            largeImage: {
-              src: selectedImage || noImage,
-              width: 1600,
-              height: 1600,
-            },
-            enlargedImageContainerDimensions: {
-              width: "150%",
-              height: "100%",
-            },
-            enlargedImagePosition: "beside",
-          }}
-        />
+      <div
+        className="
+          relative 
+          aspect-square 
+          w-full 
+          max-w-full
+          sm:max-w-sm 
+          md:max-w-md 
+          lg:max-w-lg 
+          xl:max-w-3xl 
+          mx-auto
+          z-10 
+          rounded-xl 
+          border border-slate-200 
+          bg-white 
+          dark:border-zinc-700 
+          dark:bg-zinc-800/90 
+          cursor-crosshair
+        "
+        ref={imageContainerRef}
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
+        onMouseMove={handleMouseMove}
+      >
+        {/* Base Image */}
+        <div className="relative h-full w-full">
+          <Image
+            src={selectedImage || noImage}
+            alt={productName}
+            fill
+            className="object-contain"
+            priority
+          />
+        </div>
+
+        {/* Zoomed Image Flyout (Separate Modal/Pane) */}
+        {isHovering && (
+          <div
+            className="absolute left-[105%] top-0 z-50 h-[400px] w-[400px] overflow-hidden rounded-xl border border-slate-200 bg-white shadow-2xl dark:border-zinc-700 dark:bg-zinc-800 hidden lg:block"
+            style={{
+              backgroundImage: `url(${selectedImage || noImage})`,
+              backgroundPosition: `${mousePosition.x}% ${mousePosition.y}%`,
+              backgroundSize: "200%", // 2x zoom
+              backgroundRepeat: "no-repeat"
+            }}
+          />
+        )}
 
         {hasDiscount && (
-          <span className="absolute left-3 top-3 sm:left-4 sm:top-4 z-10 inline-flex items-center rounded-full bg-emerald-500 px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold text-white shadow-lg">
+          <span className="absolute left-3 top-3 sm:left-4 sm:top-4 z-20 inline-flex items-center rounded-full bg-emerald-500 px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold text-white shadow-lg">
             {discountType === "Percentage"
               ? `${discount}% OFF`
               : `৳${Number(discount).toLocaleString("en-US")} OFF`}
@@ -72,8 +91,8 @@ export default function ProductImageGallery({
         )}
 
         {!isInStock && (
-          <span className="absolute right-3 top-3 sm:right-4 sm:top-4 z-10 inline-flex items-center rounded-full bg-red-500 px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold text-white shadow-lg">
-             Stock Out
+          <span className="absolute right-3 top-3 sm:right-4 sm:top-4 z-20 inline-flex items-center rounded-full bg-red-500 px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold text-white shadow-lg">
+            Stock Out
           </span>
         )}
       </div>
@@ -102,10 +121,9 @@ export default function ProductImageGallery({
                 border-2 
                 bg-white 
                 transition-all
-                ${
-                  selectedImageIndex === index
-                    ? "border-orange-500 ring-2 ring-orange-500/20 dark:border-orange-400 dark:ring-orange-400/20"
-                    : "border-slate-200 hover:border-slate-300 dark:border-zinc-700 dark:hover:border-zinc-600"
+                ${selectedImageIndex === index
+                  ? "border-orange-500 ring-2 ring-orange-500/20 dark:border-orange-400 dark:ring-orange-400/20"
+                  : "border-slate-200 hover:border-slate-300 dark:border-zinc-700 dark:hover:border-zinc-600"
                 }
               `}
               aria-label={`View ${productName} - Image ${index + 1}`}
@@ -118,10 +136,9 @@ export default function ProductImageGallery({
                   object-contain 
                   p-1 sm:p-2 
                   transition-opacity 
-                  ${
-                    selectedImageIndex === index
-                      ? "opacity-100"
-                      : "opacity-70 hover:opacity-100"
+                  ${selectedImageIndex === index
+                    ? "opacity-100"
+                    : "opacity-70 hover:opacity-100"
                   }
                 `}
               />
