@@ -2,6 +2,12 @@
 
 import { useState, useEffect, useMemo } from "react";
 
+const formatCurrency = (value) => {
+  const amount = Number(value);
+  if (Number.isNaN(amount)) return "৳—";
+  return `৳${amount.toLocaleString("en-US", { maximumFractionDigits: 0 })}`;
+};
+
 export default function ProductVariantSelector({
   variants,
   colors,
@@ -176,15 +182,72 @@ export default function ProductVariantSelector({
 
 
   return (
-    <div className="space-y-4 font-poppins grid grid-cols-1 gap-y-4">
+    <div className="space-y-6 font-poppins">
+      {/* Storage Selector */}
+      {availableOptions.storages.length > 0 && (
+        <div className="space-y-3">
+          <label className="text-sm font-bold text-slate-900 dark:text-zinc-100">
+            Storage
+          </label>
+          <div className="flex flex-wrap gap-3">
+            {getFilteredOptions('storage').map((storage) => {
+              const isSelected = selectedStorage === storage;
+              const storageVariants = variants.filter((v) => {
+                if (v.storage !== storage) return false;
+                if (selectedColor && v.color !== selectedColor) return false;
+                if (selectedRegion && v.region !== selectedRegion) return false;
+                return true;
+              });
+
+              const isInStock = storageVariants.some((v) => v.in_stock === 1);
+
+              return (
+                <button
+                  key={storage}
+                  type="button"
+                  onClick={() => {
+                    setSelectedStorage(storage);
+                    const storageVariants = variants.filter((v) => v.storage === storage);
+                    const availableColors = new Set(storageVariants.map((v) => v.color).filter(Boolean));
+                    const availableRegions = new Set(storageVariants.map((v) => v.region).filter(Boolean));
+
+                    if (selectedColor && !availableColors.has(selectedColor)) {
+                      const sorted = Array.from(availableColors).sort();
+                      setSelectedColor(sorted[0] || null);
+                    }
+
+                    if (selectedRegion && !availableRegions.has(selectedRegion)) {
+                      const sorted = Array.from(availableRegions).sort();
+                      setSelectedRegion(sorted[0] || null);
+                    }
+                  }}
+                  disabled={!isInStock}
+                  className={`
+                    flex flex-col items-center justify-center rounded-lg px-4 py-2 min-w-[80px] border transition-all
+                    ${isSelected
+                      ? "bg-slate-900 border-slate-900 text-white shadow-md dark:bg-zinc-100 dark:border-zinc-100 dark:text-zinc-900"
+                      : isInStock
+                        ? "bg-white border-slate-200 text-slate-700 hover:border-slate-300 dark:bg-zinc-800 dark:border-zinc-700 dark:text-zinc-300"
+                        : "bg-slate-50 border-slate-100 text-slate-400 cursor-not-allowed opacity-60 dark:bg-zinc-900 dark:border-zinc-800"
+                    }
+                  `}
+                >
+                  <span className="text-sm font-bold">{storage}GB</span>
+                  {isSelected && <span className="text-[10px] opacity-80 font-medium">{formatCurrency(basePrice)}</span>}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
       {/* Color Selector */}
       {availableOptions.colors.length > 0 && (
-        <div className="space-y-2">
-          <label className="block text-sm font-semibold text-slate-900 dark:text-zinc-100">
-            Color: <span className="font-normal text-slate-600 dark:text-zinc-400">{selectedColor || 'Select'}</span>
+        <div className="space-y-3">
+          <label className="text-sm font-bold text-slate-900 dark:text-zinc-100">
+            Color
           </label>
-
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-3">
             {getFilteredOptions('color').map((color) => {
               const isSelected = selectedColor === color;
               const colorVariants = variants.filter((v) => v.color === color);
@@ -213,22 +276,23 @@ export default function ProductVariantSelector({
                     }
                   }}
                   disabled={!isInStock}
-                  className={`group relative flex items-center gap-2 rounded-full px-1 pr-3 py-1 text-sm font-medium transition-all border
+                  className={`
+                    flex items-center gap-2 rounded-lg px-4 py-2.5 border transition-all
                     ${isSelected
-                      ? "border-orange-500 bg-orange-50 text-orange-700 ring-1 ring-orange-500/20"
+                      ? "border-slate-900 ring-1 ring-slate-900 bg-white text-slate-900 dark:border-zinc-100 dark:ring-zinc-100 dark:bg-zinc-800 dark:text-white"
                       : isInStock
-                        ? "border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50"
-                        : "border-slate-100 bg-slate-50 text-slate-400 cursor-not-allowed opacity-60"
-                    }`}
+                        ? "border-slate-200 bg-white text-slate-700 hover:border-slate-300 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300"
+                        : "border-slate-100 bg-slate-50 text-slate-400 cursor-not-allowed opacity-60 dark:border-zinc-800 dark:bg-zinc-900"
+                    }
+                  `}
                 >
                   <span
-                    className={`h-6 w-6 rounded-full border shadow-sm transition-transform ${isSelected ? 'scale-105 border-orange-200' : 'border-slate-200'}`}
+                    className="h-5 w-5 rounded-full border border-slate-200 shadow-sm"
                     style={{
-                      backgroundColor:
-                        variants.find((v) => v.color === color)?.color_code || "#ddd",
+                      backgroundColor: variants.find((v) => v.color === color)?.color_code || "#ddd",
                     }}
                   />
-                  {color}
+                  <span className="text-sm font-semibold">{color}</span>
                 </button>
               );
             })}
@@ -236,123 +300,63 @@ export default function ProductVariantSelector({
         </div>
       )}
 
+      {/* Region Selector */}
+      {availableOptions.regions.length > 0 && (
+        <div className="space-y-3">
+          <label className="text-sm font-bold text-slate-900 dark:text-zinc-100">
+            Region
+          </label>
+          <div className="flex flex-wrap gap-3">
+            {getFilteredOptions('region').map((region) => {
+              const isSelected = selectedRegion === region;
+              const regionVariants = variants.filter((v) => {
+                if (v.region !== region) return false;
+                if (selectedColor && v.color !== selectedColor) return false;
+                if (selectedStorage && v.storage !== selectedStorage) return false;
+                return true;
+              });
 
-      {/* Storage & Region Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {/* Storage Selector */}
-        {availableOptions.storages.length > 0 && (
-          <div className="space-y-2">
-            <label className="block text-sm font-semibold text-slate-900 dark:text-zinc-100">
-              Storage: <span className="font-normal text-slate-600 dark:text-zinc-400">{selectedStorage || 'Select'}</span>
-            </label>
+              const isInStock = regionVariants.some((v) => v.in_stock === 1);
 
-            <div className="flex flex-wrap gap-2">
-              {getFilteredOptions('storage').map((storage) => {
-                const isSelected = selectedStorage === storage;
-                const storageVariants = variants.filter((v) => {
-                  if (v.storage !== storage) return false;
-                  if (selectedColor && v.color !== selectedColor) return false;
-                  if (selectedRegion && v.region !== selectedRegion) return false;
-                  return true;
-                });
+              return (
+                <button
+                  key={region}
+                  type="button"
+                  onClick={() => {
+                    setSelectedRegion(region);
+                    const regionVariants = variants.filter((v) => v.region === region);
+                    const availableColors = new Set(regionVariants.map((v) => v.color).filter(Boolean));
+                    const availableStorages = new Set(regionVariants.map((v) => v.storage).filter(Boolean));
 
-                const isInStock = storageVariants.some((v) => v.in_stock === 1);
+                    if (selectedColor && !availableColors.has(selectedColor)) {
+                      const sorted = Array.from(availableColors).sort();
+                      setSelectedColor(sorted[0] || null);
+                    }
 
-                return (
-                  <button
-                    key={storage}
-                    type="button"
-                    onClick={() => {
-                      setSelectedStorage(storage);
-                      const storageVariants = variants.filter((v) => v.storage === storage);
-                      const availableColors = new Set(storageVariants.map((v) => v.color).filter(Boolean));
-                      const availableRegions = new Set(storageVariants.map((v) => v.region).filter(Boolean));
-
-                      if (selectedColor && !availableColors.has(selectedColor)) {
-                        const sorted = Array.from(availableColors).sort();
-                        setSelectedColor(sorted[0] || null);
-                      }
-
-                      if (selectedRegion && !availableRegions.has(selectedRegion)) {
-                        const sorted = Array.from(availableRegions).sort();
-                        setSelectedRegion(sorted[0] || null);
-                      }
-                    }}
-                    disabled={!isInStock}
-                    className={`rounded-lg px-4 py-2 text-sm font-medium transition-all border
-                      ${isSelected
-                        ? "border-orange-500 bg-orange-50 text-orange-700 shadow-sm"
-                        : isInStock
-                          ? "border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50"
-                          : "border-slate-100 bg-slate-50 text-slate-400 cursor-not-allowed opacity-60"
-                      }`}
-                  >
-                    {storage}
-                    <span className="ml-1 text-xs opacity-70">GB</span>
-                  </button>
-                );
-              })}
-            </div>
+                    if (selectedStorage && !availableStorages.has(selectedStorage)) {
+                      const sorted = Array.from(availableStorages).sort();
+                      setSelectedStorage(sorted[0] || null);
+                    }
+                  }}
+                  disabled={!isInStock}
+                  className={`
+                    flex flex-col items-center justify-center rounded-lg px-4 py-2 min-w-[100px] border transition-all text-center
+                    ${isSelected
+                      ? "border-slate-900 bg-white ring-1 ring-slate-900 text-slate-900 dark:border-zinc-100 dark:ring-zinc-100 dark:bg-zinc-800 dark:text-white"
+                      : isInStock
+                        ? "border-slate-200 bg-white text-slate-700 hover:border-slate-300 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300"
+                        : "border-slate-100 bg-slate-50 text-slate-400 cursor-not-allowed opacity-60 dark:border-zinc-800 dark:bg-zinc-900"
+                    }
+                  `}
+                >
+                  <span className="text-sm font-bold">{region}</span>
+                  <span className="text-[10px] text-slate-500 dark:text-zinc-500">Standard Version</span>
+                </button>
+              );
+            })}
           </div>
-        )}
-
-
-        {/* Region Selector */}
-        {availableOptions.regions.length > 0 && (
-          <div className="space-y-2">
-            <label className="block text-sm font-semibold text-slate-900 dark:text-zinc-100">
-              Region: <span className="font-normal text-slate-600 dark:text-zinc-400">{selectedRegion || 'Select'}</span>
-            </label>
-
-            <div className="flex flex-wrap gap-2">
-              {getFilteredOptions('region').map((region) => {
-                const isSelected = selectedRegion === region;
-                const regionVariants = variants.filter((v) => {
-                  if (v.region !== region) return false;
-                  if (selectedColor && v.color !== selectedColor) return false;
-                  if (selectedStorage && v.storage !== selectedStorage) return false;
-                  return true;
-                });
-
-                const isInStock = regionVariants.some((v) => v.in_stock === 1);
-
-                return (
-                  <button
-                    key={region}
-                    type="button"
-                    onClick={() => {
-                      setSelectedRegion(region);
-                      const regionVariants = variants.filter((v) => v.region === region);
-                      const availableColors = new Set(regionVariants.map((v) => v.color).filter(Boolean));
-                      const availableStorages = new Set(regionVariants.map((v) => v.storage).filter(Boolean));
-
-                      if (selectedColor && !availableColors.has(selectedColor)) {
-                        const sorted = Array.from(availableColors).sort();
-                        setSelectedColor(sorted[0] || null);
-                      }
-
-                      if (selectedStorage && !availableStorages.has(selectedStorage)) {
-                        const sorted = Array.from(availableStorages).sort();
-                        setSelectedStorage(sorted[0] || null);
-                      }
-                    }}
-                    disabled={!isInStock}
-                    className={`rounded-lg px-4 py-2 text-sm font-medium transition-all border
-                      ${isSelected
-                        ? "border-orange-500 bg-orange-50 text-orange-700 shadow-sm"
-                        : isInStock
-                          ? "border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50"
-                          : "border-slate-100 bg-slate-50 text-slate-400 cursor-not-allowed opacity-60"
-                      }`}
-                  >
-                    {region}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
 
   );

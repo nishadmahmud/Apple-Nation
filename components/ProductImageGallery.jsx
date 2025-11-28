@@ -46,11 +46,12 @@ export default function ProductImageGallery({
           xl:max-w-3xl 
           mx-auto
           z-10 
-          rounded-xl 
-          border border-slate-200 
+          rounded-2xl 
+          border border-slate-100 
           bg-white 
-          dark:border-zinc-700 
-          dark:bg-zinc-800/90 
+          shadow-sm
+          dark:border-zinc-800 
+          dark:bg-zinc-900 
           cursor-crosshair
         "
         ref={imageContainerRef}
@@ -122,8 +123,8 @@ export default function ProductImageGallery({
                 bg-white 
                 transition-all
                 ${selectedImageIndex === index
-                  ? "border-orange-500 ring-2 ring-orange-500/20 dark:border-orange-400 dark:ring-orange-400/20"
-                  : "border-slate-200 hover:border-slate-300 dark:border-zinc-700 dark:hover:border-zinc-600"
+                  ? "border-slate-900 ring-1 ring-slate-900 dark:border-zinc-100 dark:ring-zinc-100"
+                  : "border-slate-100 hover:border-slate-300 dark:border-zinc-800 dark:hover:border-zinc-700"
                 }
               `}
               aria-label={`View ${productName} - Image ${index + 1}`}

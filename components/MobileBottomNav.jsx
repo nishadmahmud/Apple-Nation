@@ -59,7 +59,7 @@ export default function MobileBottomNav() {
                                 <button
                                     key={index}
                                     onClick={item.action}
-                                    className="group relative flex flex-col items-center justify-center gap-1 p-2 text-slate-500 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-500"
+                                    className="group relative flex flex-col items-center justify-center gap-1 p-2 text-slate-900 transition-colors hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-500"
                                 >
                                     <div className="relative">
                                         <Icon className={`h-6 w-6 transition-transform duration-300 group-hover:scale-110 ${cartOpen ? "text-orange-600 dark:text-orange-500" : ""}`} />
@@ -69,7 +69,7 @@ export default function MobileBottomNav() {
                                             </span>
                                         )}
                                     </div>
-                                    <span className={`text-[10px] font-medium ${cartOpen ? "text-orange-600 dark:text-orange-500" : ""}`}>
+                                    <span className={`text-[10px] font-black ${cartOpen ? "text-orange-600 dark:text-orange-500" : ""}`}>
                                         {item.label}
                                     </span>
                                 </button>
@@ -81,12 +81,12 @@ export default function MobileBottomNav() {
                                 key={index}
                                 href={item.href}
                                 className={`group flex flex-col items-center justify-center gap-1 p-2 transition-colors ${isActive
-                                        ? "text-orange-600 dark:text-orange-500"
-                                        : "text-slate-500 hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-500"
+                                    ? "text-orange-600 dark:text-orange-500"
+                                    : "text-slate-900 hover:text-orange-600 dark:text-zinc-400 dark:hover:text-orange-500"
                                     }`}
                             >
                                 <Icon className={`h-6 w-6 transition-transform duration-300 group-hover:scale-110 ${isActive ? "scale-110" : ""}`} />
-                                <span className="text-[10px] font-medium">{item.label}</span>
+                                <span className="text-[10px] font-black">{item.label}</span>
                             </Link>
                         );
                     })}

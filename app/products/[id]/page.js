@@ -78,7 +78,7 @@ const formatCurrency = (value) => {
 // Helper function to calculate discounted price
 const calculateDiscountedPrice = (price, discount, discountType) => {
   if (!discount || discount === 0) return price;
-  
+
   if (discountType === "Percentage") {
     return price - (price * discount / 100);
   } else {
@@ -92,7 +92,7 @@ async function ProductDetailsContent({ productId }) {
   try {
     // Fetch product detail with optimized caching
     const response = await fetchProductDetail(productId);
-    
+
     if (!response?.success || !response?.data) {
       return (
         <div className="flex min-h-screen items-center justify-center bg-slate-100 text-slate-900 dark:bg-zinc-900 dark:text-zinc-100">
@@ -119,15 +119,15 @@ async function ProductDetailsContent({ productId }) {
     const images = product.images && Array.isArray(product.images) && product.images.length > 0
       ? product.images
       : product.image_paths && Array.isArray(product.image_paths) && product.image_paths.length > 0
-      ? product.image_paths
-      : ["/globe.svg"];
-    
+        ? product.image_paths
+        : ["/globe.svg"];
+
     const discount = product.discount || 0;
     const discountType = product.discount_type;
     const hasDiscount = discount > 0;
-   
+
     return (
-      <div className="min-h-screen pt-5 bg-slate-100 text-slate-900 transition-colors duration-300 dark:bg-zinc-900 dark:text-zinc-100">
+      <div className="min-h-screen pt-5 bg-white text-slate-900 transition-colors duration-300 dark:bg-zinc-900 dark:text-zinc-100">
         <div className="mx-auto w-full md:max-w-10/12 max-w-11/12">
           {/* Back Button */}
           <Link
@@ -145,19 +145,19 @@ async function ProductDetailsContent({ productId }) {
             discount={discount}
             discountType={discountType}
           />
-          
+
           <ProductDetailsTab product={product}></ProductDetailsTab>
 
 
 
-          
+
         </div>
       </div>
     );
   } catch (error) {
     console.error("Error fetching product details:", error);
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-100 text-slate-900 dark:bg-zinc-900 dark:text-zinc-100">
+      <div className="flex min-h-screen items-center justify-center bg-white text-slate-900 dark:bg-zinc-900 dark:text-zinc-100">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-slate-900 dark:text-zinc-100">
             Error Loading Product
@@ -180,11 +180,11 @@ async function ProductDetailsContent({ productId }) {
 
 export default async function ProductDetailPage({ params }) {
   const { id } = await params;
-  
+
   return (
     <Suspense
       fallback={
-        <div className="flex min-h-screen items-center justify-center bg-slate-100 text-slate-900 dark:bg-zinc-900 dark:text-zinc-100">
+        <div className="flex min-h-screen items-center justify-center bg-white text-slate-900 dark:bg-zinc-900 dark:text-zinc-100">
           <div className="flex flex-col items-center gap-4">
             <LoadingSpinner size="lg" />
             <p className="text-lg font-semibold text-slate-700 dark:text-zinc-300">

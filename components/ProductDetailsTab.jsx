@@ -18,7 +18,7 @@ const ProductDetailsTab = ({ product }) => {
   const description = sanitizeHTML(product.description || "");
 
   return (
-    <div className="py-5">
+    <div id="product-details-tabs" className="py-5">
 
       {/* ---------- Tabs ---------- */}
       {description && product?.specifications ? (
@@ -27,8 +27,8 @@ const ProductDetailsTab = ({ product }) => {
             <button
               onClick={() => setActiveTab("desc")}
               className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${activeTab === "desc"
-                  ? "bg-white text-slate-900 shadow-sm dark:bg-zinc-700 dark:text-zinc-100"
-                  : "text-slate-500 hover:text-slate-700 dark:text-zinc-400 dark:hover:text-zinc-300"
+                ? "bg-white text-slate-900 shadow-sm dark:bg-zinc-700 dark:text-zinc-100"
+                : "text-slate-500 hover:text-slate-700 dark:text-zinc-400 dark:hover:text-zinc-300"
                 }`}
             >
               Description
@@ -37,8 +37,8 @@ const ProductDetailsTab = ({ product }) => {
             <button
               onClick={() => setActiveTab("specs")}
               className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${activeTab === "specs"
-                  ? "bg-white text-slate-900 shadow-sm dark:bg-zinc-700 dark:text-zinc-100"
-                  : "text-slate-500 hover:text-slate-700 dark:text-zinc-400 dark:hover:text-zinc-300"
+                ? "bg-white text-slate-900 shadow-sm dark:bg-zinc-700 dark:text-zinc-100"
+                : "text-slate-500 hover:text-slate-700 dark:text-zinc-400 dark:hover:text-zinc-300"
                 }`}
             >
               Specifications
