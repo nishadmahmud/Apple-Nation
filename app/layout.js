@@ -75,6 +75,7 @@ export const noImage = 'https://www.outletexpense.xyz/uploads/260-Biplob-Hossen/
 
 
 import MobileBottomNav from "../components/MobileBottomNav";
+import FloatingActionButtons from "../components/FloatingActionButtons";
 
 export default function RootLayout({ children }) {
   return (
@@ -104,6 +105,7 @@ export default function RootLayout({ children }) {
             <NavBar />
             <main className="flex-1">{children}</main>
             <Footer />
+            <FloatingActionButtons />
             <MobileBottomNav />
           </div>
         </CartProvider>

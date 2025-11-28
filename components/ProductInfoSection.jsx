@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import ProductVariantSelector from "./ProductVariantSelector";
-import { MdShoppingCart, MdCheckCircle, MdCancel, MdShare, MdStar, MdAdd, MdRemove } from "react-icons/md";
+import { MdShoppingCart, MdCheckCircle, MdCancel, MdShare, MdStar, MdAdd, MdRemove, MdLocalShipping } from "react-icons/md";
 import { useCart } from "./CartContext";
 import { FaWhatsapp } from "react-icons/fa6";
 import Link from "next/link";
@@ -181,7 +181,7 @@ export default function ProductInfoSection({ product, onStockStatusChange }) {
 
       {/* Actions */}
       <div className="flex flex-col gap-4 mt-4">
-        <div className="flex flex-col sm:flex-row gap-4">
+        <div className="hidden lg:flex flex-col sm:flex-row gap-4">
           {/* Quantity */}
           <div className="inline-flex items-center justify-between border border-slate-200 rounded-full px-4 py-3 min-w-[120px] dark:border-zinc-700">
             <button
@@ -257,11 +257,19 @@ export default function ProductInfoSection({ product, onStockStatusChange }) {
         <Link
           href='https://wa.me/+8801675323706'
           target="_blank"
-          className="w-full inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-bold text-[#25D366] border border-[#25D366] hover:bg-[#25D366] hover:text-white transition-all"
+          className="w-full inline-flex items-center gap-3 rounded-xl bg-[#e8f5e9] px-4 py-3 text-sm font-bold text-[#1b5e20] transition-colors hover:bg-[#c8e6c9] dark:bg-green-900/20 dark:text-green-400 dark:hover:bg-green-900/30"
         >
           <FaWhatsapp className="h-5 w-5" />
-          Chat on WhatsApp
+          Whatsapp
         </Link>
+
+        {/* Delivery Timescale */}
+        <div className="flex items-center gap-3 rounded-xl border border-slate-200 px-4 py-3 dark:border-zinc-700">
+          <MdLocalShipping className="h-5 w-5 text-slate-900 dark:text-zinc-100" />
+          <span className="text-sm font-medium text-slate-700 dark:text-zinc-300">
+            Delivery Timescale: <span className="font-bold text-slate-900 dark:text-zinc-100">3-5 Days</span>
+          </span>
+        </div>
       </div>
       {/* Mobile Action Bar */}
       <ProductMobileActionbar
