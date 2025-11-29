@@ -104,12 +104,12 @@ export default function BrandWiseProducts() {
       </div>
 
       {/* Brand Tabs */}
-      <div className="flex flex-wrap items-center justify-center gap-3 border-b border-slate-100 md:pb-6 dark:border-zinc-800 lg:justify-start">
+      <div className="flex flex-nowrap md:flex-wrap items-center justify-start gap-3 overflow-x-auto scrollbar-hide pb-4 md:pb-6 border-b border-slate-100 dark:border-zinc-800 lg:justify-start">
         {BRAND_TABS.map((brand) => (
           <button
             key={brand.id}
             onClick={() => setSelectedBrand(brand.id)}
-            className={`rounded-full md:px-6 px-4 py-2.5 text-sm font-bold font-urbanist transition-all duration-300 ${selectedBrand === brand.id
+            className={`shrink-0 whitespace-nowrap rounded-full md:px-6 px-5 py-2.5 text-sm font-bold font-urbanist transition-all duration-300 ${selectedBrand === brand.id
               ? "bg-slate-900 text-white shadow-lg shadow-slate-900/20 dark:bg-white dark:text-black dark:shadow-white/10"
               : "bg-white border border-slate-200 text-slate-600 hover:border-slate-400 hover:text-slate-900 dark:bg-zinc-900 dark:border-zinc-700 dark:text-zinc-400 dark:hover:border-zinc-500 dark:hover:text-zinc-200"
               }`}

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { FaWhatsapp } from "react-icons/fa6";
+import { FaFacebookMessenger } from "react-icons/fa6";
 import { MdCompare } from "react-icons/md";
 
 export default function FloatingActionButtons() {
@@ -20,15 +20,15 @@ export default function FloatingActionButtons() {
                 </span>
             </Link>
 
-            {/* WhatsApp Button */}
+            {/* Messenger Button */}
             <Link
-                href="https://wa.me/8801859013606"
+                href="http://m.me/iAppleNationBD"
                 target="_blank"
-                className="group flex h-12 items-center rounded-full bg-[#25D366] text-white shadow-lg shadow-green-500/30 transition-all hover:pr-4 hover:bg-[#20bd5a]"
-                aria-label="Chat on WhatsApp"
+                className="group flex h-12 items-center rounded-full bg-[#0084FF] text-white shadow-lg shadow-blue-500/30 transition-all hover:pr-4 hover:bg-[#0078e7]"
+                aria-label="Chat on Messenger"
             >
                 <div className="flex h-12 w-12 items-center justify-center rounded-full">
-                    <FaWhatsapp className="h-6 w-6" />
+                    <FaFacebookMessenger className="h-6 w-6" />
                 </div>
                 <span className="max-w-0 overflow-hidden whitespace-nowrap text-sm font-bold transition-all duration-200 ease-out group-hover:max-w-xs">
                     Talk to us
